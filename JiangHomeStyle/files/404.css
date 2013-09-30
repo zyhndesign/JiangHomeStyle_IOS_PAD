@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background:#333;
+	font-family:"微软雅黑";
+	}
+.zy_info404{
+	background:url(theme_image_large.png) no-repeat right;
+	height:500px;
+	position:relative;
+	color:#ccc;
+	padding:100px 0 0 100px;
+	}
+.zy_info404 h1{
+	font-size:48px;
+	}
+.zy_info404 p{
+	font-size:24px;
+	}

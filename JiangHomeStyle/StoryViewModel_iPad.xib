@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="390"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" tag="502" contentMode="scaleAspectFill" image="thumb_default.png" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                    <rect key="frame" x="8" y="36" width="320" height="320"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="320" id="64"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" tag="505" contentMode="scaleAspectFill" image="thumb_default.png" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                    <rect key="frame" x="347" y="35" width="320" height="320"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="320" id="569"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" tag="508" contentMode="scaleAspectFill" image="thumb_default.png" translatesAutoresizingMaskIntoConstraints="NO" id="113">
+                    <rect key="frame" x="686" y="35" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="155" id="450"/>
+                        <constraint firstAttribute="width" constant="155" id="451"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" tag="514" contentMode="scaleAspectFill" image="thumb_default.png" translatesAutoresizingMaskIntoConstraints="NO" id="173">
+                    <rect key="frame" x="687" y="201" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" tag="517" contentMode="scaleAspectFill" image="thumb_default.png" translatesAutoresizingMaskIntoConstraints="NO" id="202">
+                    <rect key="frame" x="854" y="201" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" tag="511" contentMode="scaleAspectFill" image="thumb_default.png" translatesAutoresizingMaskIntoConstraints="NO" id="119">
+                    <rect key="frame" x="854" y="35" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="155" id="274"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="504" contentMode="center" image="wuyu_item_blackout.png" translatesAutoresizingMaskIntoConstraints="NO" id="310">
+                    <rect key="frame" x="8" y="54" width="320" height="300"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="375"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="507" contentMode="center" image="wuyu_item_blackout.png" translatesAutoresizingMaskIntoConstraints="NO" id="337">
+                    <rect key="frame" x="347" y="55" width="320" height="300"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="417"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="510" contentMode="center" image="wuyu_item_blackout.png" translatesAutoresizingMaskIntoConstraints="NO" id="420">
+                    <rect key="frame" x="687" y="35" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="155" id="423"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="513" contentMode="center" image="wuyu_item_blackout.png" translatesAutoresizingMaskIntoConstraints="NO" id="482">
+                    <rect key="frame" x="853" y="35" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="155" id="790"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="519" contentMode="center" image="wuyu_item_blackout.png" translatesAutoresizingMaskIntoConstraints="NO" id="510">
+                    <rect key="frame" x="854" y="199" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="155" id="514"/>
+                    </constraints>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="516" contentMode="center" image="wuyu_item_blackout.png" translatesAutoresizingMaskIntoConstraints="NO" id="538">
+                    <rect key="frame" x="687" y="201" width="155" height="155"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="155" id="563"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="503" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="582">
+                    <rect key="frame" x="8" y="284" width="320" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="585"/>
+                        <constraint firstAttribute="height" constant="21" id="640"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="506" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="649">
+                    <rect key="frame" x="347" y="284" width="320" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="650"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="509" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="698">
+                    <rect key="frame" x="689" y="144" width="150" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="701"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="512" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="735">
+                    <rect key="frame" x="856" y="144" width="150" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="736"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="518" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="770">
+                    <rect key="frame" x="856" y="305" width="150" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="515" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="801">
+                    <rect key="frame" x="692" y="305" width="150" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="802"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="16" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="386"/>
+                <constraint firstItem="3" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="388"/>
+                <constraint firstItem="337" firstAttribute="bottom" secondItem="16" secondAttribute="bottom" id="419"/>
+                <constraint firstItem="420" firstAttribute="top" secondItem="113" secondAttribute="top" id="426"/>
+                <constraint firstItem="420" firstAttribute="bottom" secondItem="113" secondAttribute="bottom" id="428"/>
+                <constraint firstItem="113" firstAttribute="top" secondItem="16" secondAttribute="top" id="457"/>
+                <constraint firstItem="482" firstAttribute="top" secondItem="420" secondAttribute="top" id="505"/>
+                <constraint firstItem="482" firstAttribute="top" secondItem="119" secondAttribute="top" id="506"/>
+                <constraint firstItem="482" firstAttribute="bottom" secondItem="420" secondAttribute="bottom" id="507"/>
+                <constraint firstItem="510" firstAttribute="bottom" secondItem="310" secondAttribute="bottom" id="536"/>
+                <constraint firstItem="119" firstAttribute="bottom" secondItem="482" secondAttribute="bottom" id="537"/>
+                <constraint firstItem="538" firstAttribute="leading" secondItem="173" secondAttribute="leading" id="555"/>
+                <constraint firstItem="538" firstAttribute="top" secondItem="173" secondAttribute="top" id="572"/>
+                <constraint firstItem="538" firstAttribute="bottom" secondItem="173" secondAttribute="bottom" id="573"/>
+                <constraint firstItem="16" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="347" id="591"/>
+                <constraint firstItem="3" firstAttribute="top" secondItem="2" secondAttribute="top" constant="36" id="609"/>
+                <constraint firstItem="310" firstAttribute="top" secondItem="2" secondAttribute="top" constant="54" id="612"/>
+                <constraint firstItem="582" firstAttribute="leading" secondItem="310" secondAttribute="leading" id="624"/>
+                <constraint firstItem="582" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="625"/>
+                <constraint firstAttribute="bottom" secondItem="582" secondAttribute="bottom" constant="85" id="648"/>
+                <constraint firstItem="310" firstAttribute="trailing" secondItem="582" secondAttribute="trailing" id="657"/>
+                <constraint firstItem="310" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="659"/>
+                <constraint firstItem="649" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" id="680"/>
+                <constraint firstItem="649" firstAttribute="trailing" secondItem="337" secondAttribute="trailing" id="681"/>
+                <constraint firstItem="649" firstAttribute="leading" secondItem="337" secondAttribute="leading" id="682"/>
+                <constraint firstItem="649" firstAttribute="leading" secondItem="16" secondAttribute="leading" id="683"/>
+                <constraint firstItem="649" firstAttribute="top" secondItem="582" secondAttribute="top" id="696"/>
+                <constraint firstItem="649" firstAttribute="baseline" secondItem="582" secondAttribute="baseline" id="697"/>
+                <constraint firstItem="698" firstAttribute="top" secondItem="2" secondAttribute="top" constant="144" id="700"/>
+                <constraint firstItem="420" firstAttribute="leading" secondItem="538" secondAttribute="leading" id="729"/>
+                <constraint firstItem="698" firstAttribute="centerX" secondItem="420" secondAttribute="centerX" id="734"/>
+                <constraint firstItem="173" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" id="749"/>
+                <constraint firstAttribute="trailing" secondItem="113" secondAttribute="trailing" constant="183" id="750"/>
+                <constraint firstAttribute="trailing" secondItem="420" secondAttribute="trailing" constant="182" id="753"/>
+                <constraint firstItem="119" firstAttribute="leading" secondItem="510" secondAttribute="leading" id="762"/>
+                <constraint firstItem="735" firstAttribute="centerX" secondItem="119" secondAttribute="centerX" id="763"/>
+                <constraint firstItem="735" firstAttribute="baseline" secondItem="698" secondAttribute="baseline" id="769"/>
+                <constraint firstItem="510" firstAttribute="trailing" secondItem="202" secondAttribute="trailing" id="785"/>
+                <constraint firstItem="119" firstAttribute="trailing" secondItem="510" secondAttribute="trailing" id="788"/>
+                <constraint firstAttribute="trailing" secondItem="119" secondAttribute="trailing" constant="15" id="796"/>
+                <constraint firstItem="770" firstAttribute="centerX" secondItem="482" secondAttribute="centerX" id="798"/>
+                <constraint firstItem="770" firstAttribute="trailing" secondItem="735" secondAttribute="trailing" id="799"/>
+                <constraint firstItem="770" firstAttribute="leading" secondItem="735" secondAttribute="leading" id="800"/>
+                <constraint firstItem="202" firstAttribute="top" secondItem="538" secondAttribute="top" id="808"/>
+                <constraint firstItem="510" firstAttribute="leading" secondItem="202" secondAttribute="leading" id="809"/>
+                <constraint firstItem="202" firstAttribute="bottom" secondItem="173" secondAttribute="bottom" id="810"/>
+                <constraint firstItem="801" firstAttribute="trailing" secondItem="420" secondAttribute="trailing" id="813"/>
+                <constraint firstItem="801" firstAttribute="trailing" secondItem="538" secondAttribute="trailing" id="814"/>
+                <constraint firstItem="801" firstAttribute="trailing" secondItem="173" secondAttribute="trailing" id="816"/>
+                <constraint firstAttribute="bottom" secondItem="801" secondAttribute="bottom" constant="64" id="833"/>
+                <constraint firstItem="801" firstAttribute="baseline" secondItem="770" secondAttribute="baseline" id="834"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="thumb_default.png" width="250" height="250"/>
+        <image name="wuyu_item_blackout.png" width="360" height="360"/>
+    </resources>
+</document>

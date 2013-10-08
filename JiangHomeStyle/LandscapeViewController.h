@@ -15,9 +15,12 @@
     NSMutableDictionary *muDistionary;
     int currentPage;
     int countPage;
+    BOOL pageControlBeingUsed;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *landscapeBtmBgView;
 @property (strong, nonatomic) IBOutlet UIScrollView *landscapeScrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *landscapePageControl;
+- (IBAction)changePage:(id)sender;
 
 @end

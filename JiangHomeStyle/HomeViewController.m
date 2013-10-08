@@ -69,7 +69,8 @@ extern PopupDetailViewController* detailViewController;
     {
         NSMutableDictionary *muDict = [muArray objectAtIndex:1];
         [self loadingImage:muDict andImageView:firstPanelImg];
-        [firstPanelTitleLabel setText:[self addLineFeedForString:[muDict objectForKey:@"title"]]];
+        [firstPanelTitleLabel setText:[muDict objectForKey:@"title"]];
+        [firstPanelTitleLabel sizeToFit];
         [firstPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         firstPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -85,7 +86,8 @@ extern PopupDetailViewController* detailViewController;
     {
         NSMutableDictionary *muDict = [muArray objectAtIndex:2];
         [self loadingImage:muDict andImageView:secondPanelImg];
-        [secondPanelTitleLabel setText:[self addLineFeedForString:[muDict objectForKey:@"title"]]];
+        [secondPanelTitleLabel setText:[muDict objectForKey:@"title"]];
+        [secondPanelTitleLabel sizeToFit];
         [secondPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         secondPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -101,7 +103,8 @@ extern PopupDetailViewController* detailViewController;
     {
         NSMutableDictionary *muDict = [muArray objectAtIndex:3];
         [self loadingImage:muDict andImageView:threePanelImg];
-        [thirdPanelTitleLabel setText:[self addLineFeedForString:[muDict objectForKey:@"title"]]];
+        [thirdPanelTitleLabel setText:[muDict objectForKey:@"title"]];
+        [thirdPanelTitleLabel sizeToFit];
         [thirdPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         thirdPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -164,9 +167,4 @@ extern PopupDetailViewController* detailViewController;
     }
 }
 
--(NSString*) addLineFeedForString:(NSString *) str
-{
-    NSString *muStr = [[NSMutableString alloc] initWithString:[str stringByAppendingString:@"\n \n "]];
-    return muStr;
-}
 @end

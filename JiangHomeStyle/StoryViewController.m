@@ -45,6 +45,9 @@ extern PopupDetailViewController* detailViewController;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    pageControlBeingUsed = NO;
+    
 	// Do any additional setup after loading the view.
     self.screenName = @"物语界面";
     
@@ -76,28 +79,37 @@ extern PopupDetailViewController* detailViewController;
     
     self.storyScrollView.delegate = self;
 
+    self.storyPageControl.currentPage = 0;
+    self.storyPageControl.numberOfPages = countPage;
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    
     NSLog(@"beigin...");
-    
-    CGFloat pageWidth = self.storyScrollView.frame.size.width;
-    currentPage = floor((self.storyScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    NSLog(@"%i",currentPage);
-    
+
+    if (!pageControlBeingUsed)
+    {
+        CGFloat pageWidth = self.storyScrollView.frame.size.width;
+        currentPage = floor((self.storyScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        NSLog(@"%i",currentPage);
+        
+        self.storyPageControl.currentPage = currentPage;
+    }
 }
 
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     NSLog(@"beigin. Drag..");
     [self addNewModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSLog(@"beigin.. Uesd.");
     [self removeOldModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
 }
 
 -(void) addNewModelInScrollView:(int) pageNum
@@ -370,4 +382,7 @@ extern PopupDetailViewController* detailViewController;
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)pageChanged:(id)sender {
+    pageControlBeingUsed = YES;
+}
 @end

@@ -15,6 +15,9 @@
     UIScrollView *humanityScrollView;
     int currentPage;
     int countPage;
+    BOOL pageControlBeingUsed;
 }
+@property (weak, nonatomic) IBOutlet UIPageControl *humanityPageContral;
 @property (strong, nonatomic) IBOutlet UIScrollView *humanityScrollView;
+- (IBAction)pageChanged:(id)sender;
 @end

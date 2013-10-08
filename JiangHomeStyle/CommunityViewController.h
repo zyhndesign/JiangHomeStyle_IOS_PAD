@@ -15,7 +15,10 @@
     NSMutableDictionary *muDistionary;
     int currentPage;
     int countPage;
+    BOOL pageControlBeingUsed;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *communityScrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *communityPageControl;
+- (IBAction)pageChanged:(id)sender;
 
 @end

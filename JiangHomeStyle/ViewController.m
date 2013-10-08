@@ -454,14 +454,15 @@
 
 -(void) setBtnPause
 {
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_pause_normal"] forState:UIControlStateNormal];
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_pause_pressed"] forState:UIControlStateHighlighted];
+    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_play_normal"] forState:UIControlStateNormal];
+    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_play_pressed"] forState:UIControlStateHighlighted];
+    
 }
 
 -(void) setBtnPlay
 {
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_play_normal"] forState:UIControlStateNormal];
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_play_pressed"] forState:UIControlStateHighlighted];
+    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_pause_normal"] forState:UIControlStateNormal];
+    [playBtn setBackgroundImage:[UIImage imageNamed:@"music_btn_pause_pressed"] forState:UIControlStateHighlighted];
 }
 
 -(void)viewWillAppear:(BOOL)animated

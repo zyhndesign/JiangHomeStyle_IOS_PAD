@@ -15,6 +15,10 @@
     UIScrollView *storyScrollView;
     int currentPage;
     int countPage;
+    BOOL pageControlBeingUsed;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *storyScrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *storyPageControl;
+- (IBAction)pageChanged:(id)sender;
+
 @end

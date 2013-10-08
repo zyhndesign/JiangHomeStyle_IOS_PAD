@@ -27,7 +27,7 @@
 @implementation LandscapeViewController
 
 
-@synthesize landscapeBtmBgView, landscapeScrollView;
+@synthesize landscapeBtmBgView, landscapeScrollView,landscapePageControl;
 
 extern DBUtils *db;
 extern FileUtils *fileUtils;
@@ -82,25 +82,36 @@ extern PopupDetailViewController* detailViewController;
     
     self.landscapeScrollView.delegate = self;
     
+    self.landscapePageControl.currentPage = 0;
+    self.landscapePageControl.numberOfPages = countPage;
+    
+    pageControlBeingUsed = NO;
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSLog(@"beigin...");
     
-    CGFloat pageWidth = self.landscapeScrollView.frame.size.width;
-    currentPage = floor((self.landscapeScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    //NSLog(@"%i",currentPage);
+    if (!pageControlBeingUsed)
+    {
+        CGFloat pageWidth = self.landscapeScrollView.frame.size.width;
+        currentPage = floor((self.landscapeScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        //NSLog(@"%i",currentPage);
+        
+        //NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(addNewModelInScrollView:) object:[NSNumber numberWithInt:currentPage]];
+        //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        //[queue addOperation:operation];
+        
+        self.landscapePageControl.currentPage = currentPage;
+    }
     
-    //NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(addNewModelInScrollView:) object:[NSNumber numberWithInt:currentPage]];
-    //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    //[queue addOperation:operation];
 }
 
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     NSLog(@"beigin. Drag..");
     [self addNewModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -108,6 +119,7 @@ extern PopupDetailViewController* detailViewController;
     NSLog(@"end.. Uesd.");
     //[self performSelectorInBackground:@selector(removeOldModelInScrollView:) withObject:[NSNumber numberWithInt:currentPage]];
     [self removeOldModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
     
 }
 
@@ -330,10 +342,15 @@ extern PopupDetailViewController* detailViewController;
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)changePage:(id)sender
+{
+    pageControlBeingUsed = YES;
+}
 @end

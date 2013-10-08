@@ -27,7 +27,7 @@
 
 @implementation HumanityViewController
 
-@synthesize humanityScrollView;
+@synthesize humanityScrollView,humanityPageContral;
 
 extern DBUtils *db;
 extern FileUtils *fileUtils;
@@ -45,6 +45,9 @@ extern PopupDetailViewController* detailViewController;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    pageControlBeingUsed = NO;
+    
 	// Do any additional setup after loading the view.
     self.screenName = @"人文界面";
     
@@ -75,15 +78,23 @@ extern PopupDetailViewController* detailViewController;
     self.humanityScrollView.contentSize = CGSizeMake(self.humanityScrollView.frame.size.width * countPage, self.humanityScrollView.frame.size.height);
     
     self.humanityScrollView.delegate = self;
+    
+    self.humanityPageContral.currentPage = 0;
+    self.humanityPageContral.numberOfPages = countPage;
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"beigin...");
-    
-    CGFloat pageWidth = self.humanityScrollView.frame.size.width;
-    currentPage = floor((self.humanityScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    NSLog(@"%i",currentPage);
+    if (!pageControlBeingUsed)
+    {
+        NSLog(@"beigin...");
+        
+        CGFloat pageWidth = self.humanityScrollView.frame.size.width;
+        currentPage = floor((self.humanityScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        NSLog(@"%i",currentPage);
+        
+        self.humanityPageContral.currentPage = currentPage;
+    }
     
 }
 
@@ -91,12 +102,14 @@ extern PopupDetailViewController* detailViewController;
 {
     NSLog(@"beigin. Drag..");
     [self addNewModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSLog(@"beigin.. Uesd.");
     [self removeOldModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
 }
 
 -(void) addNewModelInScrollView:(int) pageNum
@@ -185,8 +198,8 @@ extern PopupDetailViewController* detailViewController;
             [firstLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             UILabel* firstLabelDesc = (UILabel*)[subview viewWithTag:405];
             
-            [firstLabelDesc setText:[self addLineFeedForString:[muDict objectForKey:@"description"]]];
-             
+            [firstLabelDesc setText:[muDict objectForKey:@"description"]];
+            [firstLabelDesc sizeToFit];
             //[homeTopTitle setValue:[muDict objectForKey:@"serverID"] forUndefinedKey:@"serverID"];
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [firstPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -212,8 +225,8 @@ extern PopupDetailViewController* detailViewController;
             [secondLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             
             UILabel* secondLabelDesc = (UILabel*)[subview viewWithTag:409];
-            [secondLabelDesc setText:[self addLineFeedForString:[muDict objectForKey:@"description"]]];
-            
+            [secondLabelDesc setText:[muDict objectForKey:@"description"]];
+            [secondLabelDesc sizeToFit];
             secondPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [secondPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -236,7 +249,8 @@ extern PopupDetailViewController* detailViewController;
             UILabel* thirdLabelTime = (UILabel*)[subview viewWithTag:412];
             [thirdLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             UILabel* thirdLabelDesc = (UILabel*)[subview viewWithTag:413];
-            [thirdLabelDesc setText:[self addLineFeedForString:[muDict objectForKey:@"description"]]];
+            [thirdLabelDesc setText:[muDict objectForKey:@"description"]];
+            [thirdLabelDesc sizeToFit];
             thirdPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [thirdPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -297,17 +311,20 @@ extern PopupDetailViewController* detailViewController;
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
     detailViewController = nil;
 }
-
+/*
 -(NSString*) addLineFeedForString:(NSString *) str
 {
     NSString *muStr = [[NSMutableString alloc] initWithString:[str stringByAppendingString:@"\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"]];
     return muStr;
 }
-
+*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)pageChanged:(id)sender {
+    pageControlBeingUsed = YES;
+}
 @end

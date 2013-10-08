@@ -28,7 +28,7 @@
 
 @implementation CommunityViewController
 
-@synthesize communityScrollView;
+@synthesize communityScrollView,communityPageControl;
 
 extern DBUtils *db;
 extern FileUtils *fileUtils;
@@ -46,6 +46,7 @@ extern PopupDetailViewController* detailViewController;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    pageControlBeingUsed = NO;
 	// Do any additional setup after loading the view.
     self.screenName = @"社区界面";
     
@@ -76,23 +77,32 @@ extern PopupDetailViewController* detailViewController;
     self.communityScrollView.contentSize = CGSizeMake(self.communityScrollView.frame.size.width * countPage, self.communityScrollView.frame.size.height);
     
     self.communityScrollView.delegate = self;
+    
+    self.communityPageControl.currentPage = 0;
+    self.communityPageControl.numberOfPages = countPage;
 }
 
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
-{   
-    CGFloat pageWidth = self.communityScrollView.frame.size.width;
-    currentPage = floor((self.communityScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;   
+{
+    if (!pageControlBeingUsed)
+    {
+        CGFloat pageWidth = self.communityScrollView.frame.size.width;
+        currentPage = floor((self.communityScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        self.communityPageControl.currentPage = currentPage;
+    }
 }
 
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self addNewModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self removeOldModelInScrollView:currentPage];
+    pageControlBeingUsed = NO;
 }
 
 -(void) addNewModelInScrollView:(int) pageNum
@@ -176,9 +186,10 @@ extern PopupDetailViewController* detailViewController;
             //异步加载图片
             [self loadingImage:muDict andImageView:firstImg];
                         
-            [firstLabelTitle setText:[self addLineFeedForString:[muDict objectForKey:@"title"]]];           
-            [firstLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];            
-            [firstLabelDesc setText:[self addLineFeedForString:[muDict objectForKey:@"description"]]];
+            [firstLabelTitle setText:[muDict objectForKey:@"title"]];
+            [firstLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
+            [firstLabelDesc setText:[muDict objectForKey:@"description"]];
+            [firstLabelDesc sizeToFit];
             //[homeTopTitle setValue:[muDict objectForKey:@"serverID"] forUndefinedKey:@"serverID"];
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [firstPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -204,11 +215,11 @@ extern PopupDetailViewController* detailViewController;
             //异步加载图片
             [self loadingImage:muDict andImageView:secondImg];            
             
-            [secondLabelTitle setText:[self addLineFeedForString:[muDict objectForKey:@"title"]]];            
+            [secondLabelTitle setText:[muDict objectForKey:@"title"]];
             
             [secondLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];            
             
-            [secondLabelDesc setText:[self addLineFeedForString:[muDict objectForKey:@"description"]]];
+            [secondLabelDesc setText:[muDict objectForKey:@"description"]];
             secondPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [secondPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
                
@@ -234,12 +245,12 @@ extern PopupDetailViewController* detailViewController;
             //异步加载图片
             [self loadingImage:muDict andImageView:thirdImg];
                         
-            [thirdLabelTitle setText:[self addLineFeedForString:[muDict objectForKey:@"title"]]];
+            [thirdLabelTitle setText:[muDict objectForKey:@"title"]];
             
             
             [thirdLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             
-            [thirdLabelDesc setText:[self addLineFeedForString:[muDict objectForKey:@"description"]]];
+            [thirdLabelDesc setText:[muDict objectForKey:@"description"]];
             thirdPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [thirdPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -304,17 +315,20 @@ extern PopupDetailViewController* detailViewController;
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
     
 }
-
+/*
 -(NSString*) addLineFeedForString:(NSString *) str
 {
     NSString *muStr = [[NSMutableString alloc] initWithString:[str stringByAppendingString:@"\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"]];
     return muStr;
 }
-
+*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)pageChanged:(id)sender {
+    pageControlBeingUsed = YES;
+}
 @end

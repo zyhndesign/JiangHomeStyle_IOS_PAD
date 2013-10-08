@@ -310,7 +310,7 @@ extern PopupDetailViewController* detailViewController;
     {
         NSMutableString *muString = [muDict objectForKey:@"profile_path"];
         
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-400x400.jpg"]]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.jpg"]]];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];

@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="501" contentMode="center" image="bg2.png" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="501" contentMode="center" image="bg5.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                     <rect key="frame" x="-180" y="-15" width="1280" height="620"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <constraints>
@@ -52,7 +52,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bg2.png" width="1280" height="720"/>
+        <image name="bg5.jpg" width="1280" height="720"/>
         <image name="section_title_wuyu.png" width="290" height="230"/>
     </resources>
 </document>

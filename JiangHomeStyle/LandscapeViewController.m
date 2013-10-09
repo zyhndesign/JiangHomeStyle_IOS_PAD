@@ -17,6 +17,7 @@
 #import "MJPopup/UIViewController+MJPopupViewController.h"
 #import "PopupDetailViewController.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
+#import "UILabel+VerticalAlign.h"
 
 @interface LandscapeViewController ()<MJPopupDelegate>
 {
@@ -208,7 +209,11 @@ extern PopupDetailViewController* detailViewController;
             UILabel* firstLabelTime = (UILabel*)[subview viewWithTag:304];
             [firstLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             UILabel* firstLabelDesc = (UILabel*)[subview viewWithTag:305];
+            
             [firstLabelDesc setText:[muDict objectForKey:@"description"]];
+            [firstLabelDesc alignTop];
+            
+            firstLabelDesc.lineBreakMode = NSLineBreakByTruncatingTail;
             
             //[homeTopTitle setValue:[muDict objectForKey:@"serverID"] forUndefinedKey:@"serverID"];
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
@@ -234,6 +239,8 @@ extern PopupDetailViewController* detailViewController;
             
             UILabel* secondLabelDesc = (UILabel*)[subview viewWithTag:309];
             [secondLabelDesc setText:[muDict objectForKey:@"description"]];
+            [secondLabelDesc alignTop];
+            secondLabelDesc.lineBreakMode = NSLineBreakByTruncatingTail;
             
             secondPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [secondPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -258,6 +265,9 @@ extern PopupDetailViewController* detailViewController;
             [thirdLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             UILabel* thirdLabelDesc = (UILabel*)[subview viewWithTag:312];
             [thirdLabelDesc setText:[muDict objectForKey:@"description"]];
+            [thirdLabelDesc alignTop];
+            thirdLabelDesc.lineBreakMode = NSLineBreakByTruncatingTail;
+            
             thirdPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [thirdPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -280,6 +290,9 @@ extern PopupDetailViewController* detailViewController;
             [fourLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             UILabel* fourLabelDesc = (UILabel*)[subview viewWithTag:317];
             [fourLabelDesc setText:[muDict objectForKey:@"description"]];
+            [fourLabelDesc alignTop];
+            fourLabelDesc.lineBreakMode = NSLineBreakByTruncatingTail;
+            
             fourPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [fourPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
         }

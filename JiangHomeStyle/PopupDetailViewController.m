@@ -53,8 +53,8 @@ extern DBUtils *db;
     webView = (UIWebView *)[self.view viewWithTag:751];
     backBtn = (UIButton *)[self.view viewWithTag:752];
 	// Do any additional setup after loading the view.
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"btn_back_normal"] forState:UIControlStateNormal];
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"btn_back_pressed"] forState:UIControlStateHighlighted];
+    [backBtn setBackgroundImage:[UIImage imageNamed:@"btn_back_pressed"] forState:UIControlStateNormal];
+    [backBtn setBackgroundImage:[UIImage imageNamed:@"btn_back_normal"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(BtnCloseClick) forControlEvents:UIControlEventTouchUpInside];
     backBtn.alpha = 1;
     //[NSURL fileURLWithPath:]
@@ -64,16 +64,13 @@ extern DBUtils *db;
     {        
 
         NSString *filePath = [[[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:self.serverID] stringByAppendingPathComponent:@"doc"] stringByAppendingPathComponent:@"main.html"];
-        for (id subview in webView.subviews)
-        {
-            if ([[subview class] isSubclassOfClass:[UIScrollView class]])
-            {
-                ((UIScrollView *)subview).bounces = NO;
-            }
-        }
+        
+        [webView.scrollView setAlwaysBounceHorizontal:YES];
+        [webView.scrollView setAlwaysBounceVertical:NO];
         
         [webView.scrollView setShowsVerticalScrollIndicator:NO];
         webView.delegate = self;
+        
         if ([fileUtils fileISExist:filePath])
         {
             NSLog(@"loading local file...");

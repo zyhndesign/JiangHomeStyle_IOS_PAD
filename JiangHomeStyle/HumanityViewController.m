@@ -203,6 +203,7 @@ extern PopupDetailViewController* detailViewController;
             
             [firstLabelDesc setText:[muDict objectForKey:@"description"]];
             [firstLabelDesc alignTop];
+            
             //[homeTopTitle setValue:[muDict objectForKey:@"serverID"] forUndefinedKey:@"serverID"];
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [firstPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];

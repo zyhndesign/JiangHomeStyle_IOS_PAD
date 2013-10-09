@@ -72,6 +72,7 @@ extern PopupDetailViewController* detailViewController;
         [self loadingImage:muDict andImageView:firstPanelImg];
         [firstPanelTitleLabel setText:[muDict objectForKey:@"title"]];
         [firstPanelTitleLabel alignTop];
+        firstPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
         [firstPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         firstPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -89,6 +90,7 @@ extern PopupDetailViewController* detailViewController;
         [self loadingImage:muDict andImageView:secondPanelImg];
         [secondPanelTitleLabel setText:[muDict objectForKey:@"title"]];
         [secondPanelTitleLabel alignTop];
+        secondPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
         [secondPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         secondPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }

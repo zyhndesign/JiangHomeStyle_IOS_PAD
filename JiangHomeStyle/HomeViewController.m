@@ -88,7 +88,7 @@ extern PopupDetailViewController* detailViewController;
         NSMutableDictionary *muDict = [muArray objectAtIndex:2];
         [self loadingImage:muDict andImageView:secondPanelImg];
         [secondPanelTitleLabel setText:[muDict objectForKey:@"title"]];
-        [firstPanelTitleLabel alignTop];
+        [secondPanelTitleLabel alignTop];
         [secondPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         secondPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -105,7 +105,7 @@ extern PopupDetailViewController* detailViewController;
         NSMutableDictionary *muDict = [muArray objectAtIndex:3];
         [self loadingImage:muDict andImageView:threePanelImg];
         [thirdPanelTitleLabel setText:[muDict objectForKey:@"title"]];
-        [firstPanelTitleLabel alignTop];
+        [thirdPanelTitleLabel alignTop];
         thirdPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
         [thirdPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         thirdPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];

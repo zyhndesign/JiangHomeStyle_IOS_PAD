@@ -17,6 +17,7 @@
 #import "MJPopup/UIViewController+MJPopupViewController.h"
 #import "PopupDetailViewController.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
+#import "UILabel+VerticalAlign.h"
 
 @interface HumanityViewController ()<MJPopupDelegate>
 {
@@ -193,13 +194,15 @@ extern PopupDetailViewController* detailViewController;
             
             UILabel* firstLabelTitle = (UILabel*)[subview viewWithTag:403];
             [firstLabelTitle setText:[muDict objectForKey:@"title"]];
+            [firstLabelTitle alignTop];
+            
             UILabel* firstLabelTime = (UILabel*)[subview viewWithTag:404];
                
             [firstLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             UILabel* firstLabelDesc = (UILabel*)[subview viewWithTag:405];
             
             [firstLabelDesc setText:[muDict objectForKey:@"description"]];
-            [firstLabelDesc sizeToFit];
+            [firstLabelDesc alignTop];
             //[homeTopTitle setValue:[muDict objectForKey:@"serverID"] forUndefinedKey:@"serverID"];
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [firstPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -220,13 +223,15 @@ extern PopupDetailViewController* detailViewController;
             
             UILabel* secondLabelTitle = (UILabel*)[subview viewWithTag:407];
             [secondLabelTitle setText:[muDict objectForKey:@"title"]];
+            [secondLabelTitle alignTop];
             
             UILabel* secondLabelTime = (UILabel*)[subview viewWithTag:408];
             [secondLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             
             UILabel* secondLabelDesc = (UILabel*)[subview viewWithTag:409];
             [secondLabelDesc setText:[muDict objectForKey:@"description"]];
-            [secondLabelDesc sizeToFit];
+            [secondLabelDesc alignTop];
+            
             secondPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [secondPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -245,12 +250,14 @@ extern PopupDetailViewController* detailViewController;
             
             UILabel* thirdLabelTitle = (UILabel*)[subview viewWithTag:411];
             [thirdLabelTitle setText:[muDict objectForKey:@"title"]];
+            [thirdLabelTitle alignTop];
             
             UILabel* thirdLabelTime = (UILabel*)[subview viewWithTag:412];
             [thirdLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             UILabel* thirdLabelDesc = (UILabel*)[subview viewWithTag:413];
             [thirdLabelDesc setText:[muDict objectForKey:@"description"]];
-            [thirdLabelDesc sizeToFit];
+            [thirdLabelDesc alignTop];
+            
             thirdPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [thirdPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
         }

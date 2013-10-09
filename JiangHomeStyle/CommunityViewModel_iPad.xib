@@ -43,11 +43,11 @@
                                 <constraint firstAttribute="width" constant="121" id="671"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="604" contentMode="center" text="" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="121" translatesAutoresizingMaskIntoConstraints="NO" id="83">
-                            <rect key="frame" x="16" y="168" width="121" height="82"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="604" contentMode="center" text="" lineBreakMode="clip" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="121" translatesAutoresizingMaskIntoConstraints="NO" id="83">
+                            <rect key="frame" x="16" y="168" width="121" height="129"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="82" id="854"/>
+                                <constraint firstAttribute="height" constant="129" id="854"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -63,11 +63,11 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="605" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="145" translatesAutoresizingMaskIntoConstraints="NO" id="NpC-1q-naB">
-                            <rect key="frame" x="146" y="-5" width="145" height="150"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="605" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="145" translatesAutoresizingMaskIntoConstraints="NO" id="NpC-1q-naB">
+                            <rect key="frame" x="146" y="-5" width="145" height="312"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="150" id="wfs-GF-4FL"/>
+                                <constraint firstAttribute="height" constant="312" id="wfs-GF-4FL"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="highlightedColor"/>
@@ -100,11 +100,11 @@
                                 <constraint firstAttribute="width" constant="121" id="673"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="609" contentMode="left" text="" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="121" translatesAutoresizingMaskIntoConstraints="NO" id="106">
-                            <rect key="frame" x="16" y="168" width="121" height="79"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="609" contentMode="left" text="" lineBreakMode="clip" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="121" translatesAutoresizingMaskIntoConstraints="NO" id="106">
+                            <rect key="frame" x="16" y="168" width="121" height="129"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="79" id="668"/>
+                                <constraint firstAttribute="height" constant="129" id="668"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -120,11 +120,11 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="610" contentMode="top" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="144" translatesAutoresizingMaskIntoConstraints="NO" id="144">
-                            <rect key="frame" x="146" y="-5" width="144" height="150"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="610" contentMode="top" text="" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="144" translatesAutoresizingMaskIntoConstraints="NO" id="144">
+                            <rect key="frame" x="146" y="-5" width="144" height="312"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="150" id="423"/>
+                                <constraint firstAttribute="height" constant="312" id="423"/>
                                 <constraint firstAttribute="width" constant="144" id="742"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -158,11 +158,11 @@
                                 <constraint firstAttribute="height" constant="121" id="675"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="614" contentMode="left" text="" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="121" translatesAutoresizingMaskIntoConstraints="NO" id="120">
-                            <rect key="frame" x="16" y="168" width="121" height="70"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="614" contentMode="left" text="" lineBreakMode="clip" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="121" translatesAutoresizingMaskIntoConstraints="NO" id="120">
+                            <rect key="frame" x="16" y="168" width="121" height="129"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="70" id="666"/>
+                                <constraint firstAttribute="height" constant="129" id="666"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -178,11 +178,11 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="615" contentMode="top" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="145" translatesAutoresizingMaskIntoConstraints="NO" id="158">
-                            <rect key="frame" x="146" y="-5" width="145" height="150"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="615" contentMode="top" text="" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="145" translatesAutoresizingMaskIntoConstraints="NO" id="158">
+                            <rect key="frame" x="146" y="-5" width="145" height="312"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="150" id="160"/>
+                                <constraint firstAttribute="height" constant="312" id="160"/>
                                 <constraint firstAttribute="width" constant="145" id="787"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>

@@ -17,6 +17,7 @@
 #import "MJPopup/UIViewController+MJPopupViewController.h"
 #import "PopupDetailViewController.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
+#import "UILabel+VerticalAlign.h"
 
 @interface CommunityViewController ()<MJPopupDelegate>
 {
@@ -187,9 +188,12 @@ extern PopupDetailViewController* detailViewController;
             [self loadingImage:muDict andImageView:firstImg];
                         
             [firstLabelTitle setText:[muDict objectForKey:@"title"]];
+            [firstLabelTitle alignTop];
+            
             [firstLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             [firstLabelDesc setText:[muDict objectForKey:@"description"]];
-            [firstLabelDesc sizeToFit];
+            [firstLabelDesc alignTop];
+            
             //[homeTopTitle setValue:[muDict objectForKey:@"serverID"] forUndefinedKey:@"serverID"];
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [firstPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -216,10 +220,13 @@ extern PopupDetailViewController* detailViewController;
             [self loadingImage:muDict andImageView:secondImg];            
             
             [secondLabelTitle setText:[muDict objectForKey:@"title"]];
+            [secondLabelTitle alignTop];
             
             [secondLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];            
             
             [secondLabelDesc setText:[muDict objectForKey:@"description"]];
+            [secondLabelDesc alignTop];
+            
             secondPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [secondPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
                
@@ -246,11 +253,13 @@ extern PopupDetailViewController* detailViewController;
             [self loadingImage:muDict andImageView:thirdImg];
                         
             [thirdLabelTitle setText:[muDict objectForKey:@"title"]];
-            
+            [thirdLabelTitle alignTop];
             
             [thirdLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             
             [thirdLabelDesc setText:[muDict objectForKey:@"description"]];
+            [thirdLabelDesc alignTop];
+            
             thirdPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [thirdPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
             

@@ -148,7 +148,7 @@
 						</object>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 					</object>
-					<object class="IBUIImageView" id="861134707">
+					<object class="IBUIImageView" id="512590240">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{3, 453}, {194, 123}}</string>
@@ -321,7 +321,7 @@
 								<bool key="placeholder">NO</bool>
 							</object>
 							<object class="IBNSLayoutConstraint" id="901419850">
-								<reference key="firstItem" ref="861134707"/>
+								<reference key="firstItem" ref="512590240"/>
 								<int key="firstAttribute">4</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="736503218"/>
@@ -337,8 +337,8 @@
 								<int key="contentType">2</int>
 								<bool key="placeholder">NO</bool>
 							</object>
-							<object class="IBNSLayoutConstraint" id="59612392">
-								<reference key="firstItem" ref="861134707"/>
+							<object class="IBNSLayoutConstraint" id="224016945">
+								<reference key="firstItem" ref="512590240"/>
 								<int key="firstAttribute">5</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="191373211"/>
@@ -354,8 +354,8 @@
 								<int key="contentType">3</int>
 								<bool key="placeholder">NO</bool>
 							</object>
-							<object class="IBNSLayoutConstraint" id="404602638">
-								<reference key="firstItem" ref="861134707"/>
+							<object class="IBNSLayoutConstraint" id="1013439304">
+								<reference key="firstItem" ref="512590240"/>
 								<int key="firstAttribute">4</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="1002254697"/>
@@ -443,7 +443,7 @@
 							<reference ref="1020291346"/>
 							<reference ref="31861886"/>
 							<reference ref="319289409"/>
-							<reference ref="861134707"/>
+							<reference ref="512590240"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -653,17 +653,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">113</int>
-						<reference key="object" ref="861134707"/>
+						<reference key="object" ref="512590240"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">114</int>
-						<reference key="object" ref="404602638"/>
+						<reference key="object" ref="1013439304"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">115</int>
-						<reference key="object" ref="59612392"/>
+						<reference key="object" ref="224016945"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -685,8 +685,8 @@
 					<reference ref="189882442"/>
 					<reference ref="118893145"/>
 					<reference ref="91495532"/>
-					<reference ref="404602638"/>
-					<reference ref="59612392"/>
+					<reference ref="1013439304"/>
+					<reference ref="224016945"/>
 					<reference ref="901419850"/>
 					<reference ref="252680953"/>
 					<reference ref="57078962"/>

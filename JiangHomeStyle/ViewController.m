@@ -152,10 +152,11 @@
     [pregressSilder setThumbImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"slider" ofType:@"png"]]
                          forState:UIControlStateNormal];
     
-    [pregressSilder setMinimumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"music_progressbar" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]
-                                forState:UIControlStateNormal];
-    [pregressSilder setMaximumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"music_progressbar_bg" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]
-                                forState:UIControlStateNormal];
+    [pregressSilder setMinimumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"music_progressbar" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]forState:UIControlStateNormal];
+    
+    [pregressSilder setMaximumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"music_progressbar_bg" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]forState:UIControlStateNormal];
+    
+    pregressSilder.continuous = NO;
     //滑块拖动时的事件
     [pregressSilder addTarget:self action:@selector(sliderValueChanged:)forControlEvents:UIControlEventValueChanged];
     //滑动拖动后的事件
@@ -413,21 +414,25 @@
 
 - (void)updateProgress
 {
-    if ((int)streamer.progress < (int)streamer.duration )
+    if (streamer.progress != 0.0)
     {
-        [pregressSilder setValue:streamer.progress/streamer.duration];
-    }
-    else
-    {
-        [pregressSilder setValue:0.0f];
-        if ([streamer isFinishing])
+        if ((int)streamer.progress < (int)streamer.duration)
         {
-            if([timer isValid])
+            [pregressSilder setValue:streamer.progress/streamer.duration];
+        }
+        else
+        {
+            [pregressSilder setValue:0.0f];
+            if ([streamer isFinishing])
             {
-                [timer invalidate];
+                if([timer isValid])
+                {
+                    [timer invalidate];
+                }
             }
         }
     }
+    
 }
 
 //滑块拖动前的事件

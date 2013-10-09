@@ -240,7 +240,5 @@
     </objects>
     <resources>
         <image name="thumb_default.png" width="250" height="250"/>
-        <image name="thumb_default.png" width="250" height="250"/>
-        <image name="thumb_default.png" width="250" height="250"/>
     </resources>
 </document>

@@ -35,8 +35,9 @@
                     </state>
                 </button>
                 <activityIndicatorView opaque="NO" tag="911" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="enf-Xy-TkW">
-                    <rect key="frame" x="494" y="6" width="37" height="37"/>
+                    <rect key="frame" x="494" y="383" width="37" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="color" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.41932397960000001" green="0.41932397960000001" blue="0.41932397960000001" alpha="1" colorSpace="calibratedRGB"/>

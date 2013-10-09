@@ -69,6 +69,7 @@ extern DBUtils *db;
         [webView.scrollView setAlwaysBounceVertical:NO];
         
         [webView.scrollView setShowsVerticalScrollIndicator:NO];
+        //[webView.scrollView setShowsHorizontalScrollIndicator:YES];
         webView.delegate = self;
         
         if ([fileUtils fileISExist:filePath])

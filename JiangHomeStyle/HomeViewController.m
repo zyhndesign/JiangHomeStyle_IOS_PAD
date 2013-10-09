@@ -14,6 +14,7 @@
 #import "FileUtils.h"
 #import "TimeUtil.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
+#import "UILabel+VerticalAlign.h"
 
 @interface HomeViewController ()<MJPopupDelegate>
 {
@@ -70,7 +71,7 @@ extern PopupDetailViewController* detailViewController;
         NSMutableDictionary *muDict = [muArray objectAtIndex:1];
         [self loadingImage:muDict andImageView:firstPanelImg];
         [firstPanelTitleLabel setText:[muDict objectForKey:@"title"]];
-        [firstPanelTitleLabel sizeToFit];
+        [firstPanelTitleLabel alignTop];
         [firstPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         firstPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -87,7 +88,7 @@ extern PopupDetailViewController* detailViewController;
         NSMutableDictionary *muDict = [muArray objectAtIndex:2];
         [self loadingImage:muDict andImageView:secondPanelImg];
         [secondPanelTitleLabel setText:[muDict objectForKey:@"title"]];
-        [secondPanelTitleLabel sizeToFit];
+        [firstPanelTitleLabel alignTop];
         [secondPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         secondPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -104,7 +105,8 @@ extern PopupDetailViewController* detailViewController;
         NSMutableDictionary *muDict = [muArray objectAtIndex:3];
         [self loadingImage:muDict andImageView:threePanelImg];
         [thirdPanelTitleLabel setText:[muDict objectForKey:@"title"]];
-        [thirdPanelTitleLabel sizeToFit];
+        [firstPanelTitleLabel alignTop];
+        thirdPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
         [thirdPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         thirdPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
     }
@@ -141,7 +143,6 @@ extern PopupDetailViewController* detailViewController;
 -(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
 {
     NSString *path = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]] stringByAppendingString:@".jpg"];
-    
     if ([fileUtils fileISExist:path])
     {
         //加载本地文件
@@ -150,14 +151,15 @@ extern PopupDetailViewController* detailViewController;
     }
     else //加载网络文件，并下载到本地
     {
+        
         NSMutableString *muString = [muDict objectForKey:@"profile_path"];
         
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.jpg"]]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.jpg"]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"loading image is success");
+            //NSLog(@"loading image is success");
             //[uiImg setImage:[UIImage imageWithContentsOfFile:path]];
             [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

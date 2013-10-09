@@ -40,6 +40,7 @@
 		D5111BAE17D4276200D95E3E /* CommunityViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BAD17D4276200D95E3E /* CommunityViewModel_iPad.xib */; };
 		D5111BAF17D4366600D95E3E /* JSONKit.h in Sources */ = {isa = PBXBuildFile; fileRef = D5111BA417D4177A00D95E3E /* JSONKit.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D5111BB017D4366600D95E3E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5111BA517D4177A00D95E3E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D51733051804F045003D1C32 /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = D51733041804F045003D1C32 /* UILabel+VerticalAlign.m */; };
 		D5355CBD17D4385F007DFD8C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5355CBC17D4385E007DFD8C /* libsqlite3.0.dylib */; };
 		D54334E417D975F600D23D8B /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D54334E317D975F600D23D8B /* FileUtils.m */; };
 		D54334E717D97FF400D23D8B /* HomeTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D54334E617D97FF400D23D8B /* HomeTopViewController.m */; };
@@ -233,6 +234,8 @@
 		D5111BA917D4270000D95E3E /* HumanityViewModel_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HumanityViewModel_iPad.xib; sourceTree = "<group>"; };
 		D5111BAB17D4272200D95E3E /* StoryViewModel_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryViewModel_iPad.xib; sourceTree = "<group>"; };
 		D5111BAD17D4276200D95E3E /* CommunityViewModel_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityViewModel_iPad.xib; sourceTree = "<group>"; };
+		D51733031804F045003D1C32 /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
+		D51733041804F045003D1C32 /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
 		D5355CBC17D4385E007DFD8C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D54334E217D975F600D23D8B /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		D54334E317D975F600D23D8B /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
@@ -775,6 +778,8 @@
 				D54334E317D975F600D23D8B /* FileUtils.m */,
 				D54334E817D9B9F500D23D8B /* TimeUtil.h */,
 				D54334E917D9B9F500D23D8B /* TimeUtil.m */,
+				D51733031804F045003D1C32 /* UILabel+VerticalAlign.h */,
+				D51733041804F045003D1C32 /* UILabel+VerticalAlign.m */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -1129,6 +1134,7 @@
 				D5D6268F17D70F2E0077DA42 /* mztools.c in Sources */,
 				D5D6269017D70F2E0077DA42 /* unzip.c in Sources */,
 				D5D6269117D70F2E0077DA42 /* zip.c in Sources */,
+				D51733051804F045003D1C32 /* UILabel+VerticalAlign.m in Sources */,
 				D5F25E1317D80BAD008957CB /* Reachability.m in Sources */,
 				D5F25E1917D8109D008957CB /* DBUtils.m in Sources */,
 				D5F25E1D17D8587A008957CB /* Constants.m in Sources */,

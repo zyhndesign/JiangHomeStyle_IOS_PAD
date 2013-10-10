@@ -146,28 +146,24 @@ extern DBUtils *db;
 
 -(void)webViewDidStartLoad:(UIWebView *)_webView
 {
-    animationView = (UIView *)[self.view viewWithTag:911];
-    animationView.hidden = NO;
   
     aniLayer1 = (UIImageView *)[self.view viewWithTag:912];
+    aniLayer1.hidden = NO;
     [aniLayer1 addRotationClockWise:1 andAngle:3.0 andRepeat:100];
     aniLayer2 = (UIImageView *)[self.view viewWithTag:913];
+    aniLayer2.hidden = NO;
     [aniLayer2 addRotationAntiClockWise:1 andAngle:2.0 andRepeat:100];
 }
 
 
 -(void)webViewDidFinishLoad:(UIWebView *)_webView
 {
-    if (animationView == nil)
-    {
-        animationView = (UIView *)[self.view viewWithTag:911];
-    }
-        
     if (aniLayer1 == nil)
     {
         aniLayer1 = (UIImageView *)[self.view viewWithTag:912];
     }
     [aniLayer1.layer removeAnimationForKey:@"transform.rotation.z"];
+    aniLayer1.hidden = YES;
     
     if(aniLayer2 == nil)
     {
@@ -175,7 +171,7 @@ extern DBUtils *db;
     }
     [aniLayer2.layer removeAnimationForKey:@"transform.rotation.z"];
     
-    animationView.hidden = YES;
+    aniLayer2.hidden = YES;
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

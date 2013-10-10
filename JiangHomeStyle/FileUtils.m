@@ -68,11 +68,7 @@
 }
 
 -(void) downloadZipFile:(NSString *) downUrl andArticleId:(NSString *) articleId andTipsAnim:(UIWebView *) webView
-{
-    UIView *animationView = (UIView *)[[webView superview] viewWithTag:911];
-    //[activityIndictor setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    animationView.hidden = NO;
-    
+{    
     UIImageView *aniLayer1 = (UIImageView *)[[webView superview] viewWithTag:912];
     [aniLayer1 addRotationClockWise:2 andAngle:2.0 andRepeat:100];
     UIImageView *aniLayer2 = (UIImageView *)[[webView superview] viewWithTag:913];
@@ -90,7 +86,9 @@
         
         [aniLayer1.layer removeAnimationForKey:@"transform.rotation.z"];
         [aniLayer2.layer removeAnimationForKey:@"transform.rotation.z"];
-        animationView.hidden = YES;
+        aniLayer1.hidden = YES;
+        aniLayer2.hidden = YES;
+        
         //解压文件
         BOOL result = FALSE;
         ZipArchive *zip = [ZipArchive new];

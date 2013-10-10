@@ -83,6 +83,8 @@
 		D5D6269117D70F2E0077DA42 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = D5D6268C17D70F2E0077DA42 /* zip.c */; };
 		D5D6269317D710CA0077DA42 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D6269217D710CA0077DA42 /* libz.1.2.5.dylib */; };
 		D5D6269517D7111E0077DA42 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D6269417D7111E0077DA42 /* Security.framework */; };
+		D5DECBCC18063A8800F1E337 /* MCProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DECBCB18063A8800F1E337 /* MCProgressBarView.m */; };
+		D5DECBCE18063DF100F1E337 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5DECBCD18063DF100F1E337 /* QuartzCore.framework */; };
 		D5E024D317CF350E006C7F74 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024D217CF350E006C7F74 /* HomeViewController.m */; };
 		D5E024D617CF3728006C7F74 /* LandscapeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024D517CF3728006C7F74 /* LandscapeViewController.m */; };
 		D5E024D917CF4966006C7F74 /* HumanityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024D817CF4966006C7F74 /* HumanityViewController.m */; };
@@ -314,6 +316,9 @@
 		D5D6268D17D70F2E0077DA42 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		D5D6269217D710CA0077DA42 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		D5D6269417D7111E0077DA42 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D5DECBCA18063A8800F1E337 /* MCProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCProgressBarView.h; sourceTree = "<group>"; };
+		D5DECBCB18063A8800F1E337 /* MCProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCProgressBarView.m; sourceTree = "<group>"; };
+		D5DECBCD18063DF100F1E337 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D5E024D117CF350E006C7F74 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		D5E024D217CF350E006C7F74 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		D5E024D417CF3728006C7F74 /* LandscapeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandscapeViewController.h; sourceTree = "<group>"; };
@@ -428,6 +433,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5DECBCE18063DF100F1E337 /* QuartzCore.framework in Frameworks */,
 				D5C2CB1717E84313000BD7F9 /* CoreData.framework in Frameworks */,
 				D5E64A2317E702F10048AB53 /* MediaPlayer.framework in Frameworks */,
 				D5E520E017E5B45E00156874 /* CFNetwork.framework in Frameworks */,
@@ -490,6 +496,7 @@
 		D50E55A817C6ED17002B60D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5DECBCD18063DF100F1E337 /* QuartzCore.framework */,
 				D50E55A917C6ED17002B60D7 /* UIKit.framework */,
 				D50E55AB17C6ED17002B60D7 /* Foundation.framework */,
 				D50E55AD17C6ED17002B60D7 /* CoreGraphics.framework */,
@@ -772,6 +779,8 @@
 		D5F25E1617D81063008957CB /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				D5DECBCA18063A8800F1E337 /* MCProgressBarView.h */,
+				D5DECBCB18063A8800F1E337 /* MCProgressBarView.m */,
 				D5F25E1717D8109D008957CB /* DBUtils.h */,
 				D5F25E1817D8109D008957CB /* DBUtils.m */,
 				D54334E217D975F600D23D8B /* FileUtils.h */,
@@ -1126,6 +1135,7 @@
 				D5D6267117D6BFA30077DA42 /* AFURLConnectionOperation.m in Sources */,
 				D5D6267217D6BFA30077DA42 /* AFXMLRequestOperation.m in Sources */,
 				D5D6267317D6BFA30077DA42 /* UIImageView+AFNetworking.m in Sources */,
+				D5DECBCC18063A8800F1E337 /* MCProgressBarView.m in Sources */,
 				D5D6267717D6C6590077DA42 /* ZipArchive.m in Sources */,
 				D5D6267D17D701EF0077DA42 /* MJPopupBackgroundView.m in Sources */,
 				D5D6267E17D701EF0077DA42 /* UIViewController+MJPopupViewController.m in Sources */,

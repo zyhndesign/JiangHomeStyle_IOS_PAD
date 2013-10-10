@@ -24,6 +24,7 @@
 #import "JSONKit.h"
 #import "Reachability/Reachability.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
+#import "MCProgressBarView.h"
 
 @interface ViewController ()
 
@@ -33,7 +34,7 @@
 
 @synthesize scrollView;
 @synthesize topView;
-@synthesize pregressSilder, musicAuthor, musicName, playBtn, nextBtn;
+@synthesize musicAuthor, musicName, playBtn, nextBtn;
 @synthesize landscapeBtn, humanityBtn, storyboard, communityBtn;
 
 - (void)viewDidLoad
@@ -148,19 +149,7 @@
     scrollView.bounces = NO;
     scrollView.delegate = self;
     
-    pregressSilder = (UISlider *)[self.view viewWithTag:151];
-    [pregressSilder setThumbImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"slider" ofType:@"png"]]
-                         forState:UIControlStateNormal];
-    
-    [pregressSilder setMinimumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"music_progressbar" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]forState:UIControlStateNormal];
-    
-    [pregressSilder setMaximumTrackImage:[[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"music_progressbar_bg" ofType:@"png"]] stretchableImageWithLeftCapWidth:5 topCapHeight:3]forState:UIControlStateNormal];
-    
-    pregressSilder.continuous = NO;
-    //滑块拖动时的事件
-    [pregressSilder addTarget:self action:@selector(sliderValueChanged:)forControlEvents:UIControlEventValueChanged];
-    //滑动拖动后的事件
-    [pregressSilder addTarget:self action:@selector(sliderDragUp:)forControlEvents:UIControlEventTouchUpInside];
+    [self addProgressBarAtRect:CGRectMake(781, 63, 175, 5) taperOff:YES progress:-0.1];
     
     playBtn = (UIButton *)[self.view viewWithTag:152];
     [playBtn setBackgroundColor:[UIColor clearColor]];
@@ -200,8 +189,6 @@
     
     [playBtn addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
     [nextBtn addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
-    
-    [pregressSilder setValue:0];
     
     UIImageView *logoImgView = (UIImageView *)[self.view viewWithTag:160];
     logoImgView.userInteractionEnabled = YES;
@@ -418,11 +405,11 @@
     {
         if ((int)streamer.progress < (int)streamer.duration)
         {
-            [pregressSilder setValue:streamer.progress/streamer.duration];
+            progressBarView.progress = streamer.progress/streamer.duration;
         }
         else
         {
-            [pregressSilder setValue:0.0f];
+            progressBarView.progress = -0.1;
             if ([streamer isFinishing])
             {
                 if([timer isValid])
@@ -433,28 +420,6 @@
         }
     }
     
-}
-
-//滑块拖动前的事件
- -(void)sliderValueChanged:(id)sender
-{
-    //[streamer pause];
-}
-
-//滑块拖动后的事件
--(void)sliderDragUp:(id)sender
-{
-    UISlider* control = (UISlider*)sender;
-    if(control == pregressSilder){
-        float value = control.value;
-        /* 添加自己的处理代码 */
-        pregressSilder.value = value;
-        NSLog(@"===: %f",value);
-        //[streamer seekToTime:((value * 100)/streamer.duration)];
-        
-    }
-    
-    //[streamer seekToTime:(streamer.progress/streamer.duration)];
 }
 
 -(void) setBtnPause
@@ -503,6 +468,23 @@
         default:
             break;
     }    
+}
+
+- (void)addProgressBarAtRect:(CGRect)rect taperOff:(BOOL)taperOff progress:(double)progress
+{
+    UIImage * backgroundImage = [[UIImage imageNamed:@"music_progressbar_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+    UIImage * foregroundImage = [[UIImage imageNamed:@"music_progressbar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+    
+    progressBarView = [[MCProgressBarView alloc] initWithFrame:rect
+                                               backgroundImage:backgroundImage
+                                               foregroundImage:foregroundImage];
+    
+    if (taperOff) {
+        progressBarView.offsetForZero = 10.0;
+    }
+    progressBarView.progress = progress;
+    
+    [self.view addSubview:progressBarView];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView

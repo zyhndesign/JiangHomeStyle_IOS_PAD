@@ -20,10 +20,11 @@
 @class HumanityTopViewController;
 @class StoryTopViewController;
 @class CommunityTopViewController;
+@class MCProgressBarView;
 
 @interface ViewController : GAITrackedViewController<UIScrollViewDelegate>
 {
-    UISlider *pregressSilder;
+    //UISlider *pregressSilder;
     UIButton *playBtn;
     UIButton *nextBtn;
     UILabel *musicAuthor;
@@ -57,6 +58,8 @@
     CommunityViewController* communityBottomViewController;
     
     UIScrollView *scrollView;
+    
+    MCProgressBarView *progressBarView;
 }
 
 @property (nonatomic, retain) AudioStreamer *streamer;

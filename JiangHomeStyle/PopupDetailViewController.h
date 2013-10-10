@@ -16,6 +16,9 @@
     NSString *serverID;
     UIButton *backBtn;
     UIWebView *webView;
+    UIView *animationView;
+    UIImageView *aniLayer1;
+    UIImageView *aniLayer2;
 }
 @property (strong, nonatomic) UIWebView *webView;
 @property (weak, nonatomic) id<MJPopupDelegate> delegate;

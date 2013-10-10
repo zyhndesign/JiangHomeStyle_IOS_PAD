@@ -354,6 +354,7 @@
             if (streamer)
             {
                 [streamer stop];
+                progressBarView.progress = -0.1;
             }
             [self playNextMusic:currentMusicNum];
         }
@@ -366,6 +367,7 @@
             if (nil != musicArray)
             {
                 currentMusicNum = 0;
+                progressBarView.progress = -0.1;
                 [self playNextMusic:currentMusicNum];
             }        
         }

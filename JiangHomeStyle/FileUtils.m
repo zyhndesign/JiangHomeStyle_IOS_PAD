@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking/AFNetworking.h"
 #import "ZipArchive/ZipArchive.h"
+#import "UIImageView+RotationAnimation.h"
 
 @implementation FileUtils
 
@@ -68,10 +69,14 @@
 
 -(void) downloadZipFile:(NSString *) downUrl andArticleId:(NSString *) articleId andTipsAnim:(UIWebView *) webView
 {
-    UIActivityIndicatorView *activityIndictor = (UIActivityIndicatorView *)[[webView superview] viewWithTag:911];
+    UIView *animationView = (UIView *)[[webView superview] viewWithTag:911];
     //[activityIndictor setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    activityIndictor.hidden = NO;
-    [activityIndictor startAnimating];
+    animationView.hidden = NO;
+    
+    UIImageView *aniLayer1 = (UIImageView *)[[webView superview] viewWithTag:912];
+    [aniLayer1 addRotationClockWise:2 andAngle:2.0 andRepeat:100];
+    UIImageView *aniLayer2 = (UIImageView *)[[webView superview] viewWithTag:913];
+    [aniLayer2 addRotationAntiClockWise:2 andAngle:1.0 andRepeat:100];
     
     //下载zip文件包
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:downUrl]];
@@ -82,12 +87,10 @@
     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"loading zip is success");
-        if ([activityIndictor isAnimating])
-        {
-            [activityIndictor stopAnimating];
-        }
-        activityIndictor.hidden = YES;
         
+        [aniLayer1.layer removeAnimationForKey:@"transform.rotation.z"];
+        [aniLayer2.layer removeAnimationForKey:@"transform.rotation.z"];
+        animationView.hidden = YES;
         //解压文件
         BOOL result = FALSE;
         ZipArchive *zip = [ZipArchive new];

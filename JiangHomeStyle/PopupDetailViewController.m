@@ -13,6 +13,7 @@
 #import "DBUtils.h"
 #import "googleAnalytics/GAI.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
+#import "UIImageView+RotationAnimation.h"
 
 @interface PopupDetailViewController ()<UIWebViewDelegate,UIAlertViewDelegate>
 
@@ -145,20 +146,36 @@ extern DBUtils *db;
 
 -(void)webViewDidStartLoad:(UIWebView *)_webView
 {
-    UIActivityIndicatorView *activityIndictor = (UIActivityIndicatorView *)[[_webView superview] viewWithTag:911];
-    //[activityIndictor setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    activityIndictor.hidden = NO;
-    [activityIndictor startAnimating];
+    animationView = (UIView *)[self.view viewWithTag:911];
+    animationView.hidden = NO;
+  
+    aniLayer1 = (UIImageView *)[self.view viewWithTag:912];
+    [aniLayer1 addRotationClockWise:1 andAngle:3.0 andRepeat:100];
+    aniLayer2 = (UIImageView *)[self.view viewWithTag:913];
+    [aniLayer2 addRotationAntiClockWise:1 andAngle:2.0 andRepeat:100];
 }
+
 
 -(void)webViewDidFinishLoad:(UIWebView *)_webView
 {
-    UIActivityIndicatorView *activityIndictor = (UIActivityIndicatorView *)[[_webView superview] viewWithTag:911];
-    if ([activityIndictor isAnimating])
+    if (animationView == nil)
     {
-        [activityIndictor stopAnimating];
+        animationView = (UIView *)[self.view viewWithTag:911];
     }
-    activityIndictor.hidden = YES;
+        
+    if (aniLayer1 == nil)
+    {
+        aniLayer1 = (UIImageView *)[self.view viewWithTag:912];
+    }
+    [aniLayer1.layer removeAnimationForKey:@"transform.rotation.z"];
+    
+    if(aniLayer2 == nil)
+    {
+        aniLayer2 = (UIImageView *)[self.view viewWithTag:913];
+    }
+    [aniLayer2.layer removeAnimationForKey:@"transform.rotation.z"];
+    
+    animationView.hidden = YES;
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

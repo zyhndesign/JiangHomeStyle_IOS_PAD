@@ -34,11 +34,21 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <activityIndicatorView opaque="NO" tag="911" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="enf-Xy-TkW">
-                    <rect key="frame" x="494" y="383" width="37" height="37"/>
+                <view alpha="0.34999999999999998" tag="911" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gxq-tW-wsm">
+                    <rect key="frame" x="482" y="379" width="60" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="color" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
-                </activityIndicatorView>
+                    <subviews>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="912" contentMode="center" fixedFrame="YES" image="loading_spinner_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="ja4-1w-mlM">
+                            <rect key="frame" x="13" y="10" width="37" height="37"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </imageView>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="913" contentMode="center" fixedFrame="YES" image="loading_spinner_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="qoW-dr-lEU">
+                            <rect key="frame" x="13" y="10" width="37" height="37"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.41932397960000001" green="0.41932397960000001" blue="0.41932397960000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -53,5 +63,7 @@
     </objects>
     <resources>
         <image name="btn_back_normal.png" width="50" height="50"/>
+        <image name="loading_spinner_bg.png" width="37" height="37"/>
+        <image name="loading_spinner_outline.png" width="37" height="37"/>
     </resources>
 </document>

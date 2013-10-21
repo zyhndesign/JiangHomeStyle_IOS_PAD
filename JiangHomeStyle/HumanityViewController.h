@@ -20,4 +20,10 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *humanityPageContral;
 @property (strong, nonatomic) IBOutlet UIScrollView *humanityScrollView;
 - (IBAction)pageChanged:(id)sender;
+
+//加载视频标识
+-(void) addVideoImage:(UIView *)view;
+
+//异步加载图片
+-(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg;
 @end

@@ -161,6 +161,15 @@ NSUserDefaults *baseInfo = nil;
                     [muDict setObject:[NSNumber numberWithInt:0] forKey:@"isHeadline"];
                 }
                 
+                if ([[info objectForKey:@"hasVideo"] isEqual:@"true"])
+                {
+                    [muDict setObject:[NSNumber numberWithInt:1] forKey:@"hasVideo"];
+                }
+                else
+                {
+                    [muDict setObject:[NSNumber numberWithInt:0] forKey:@"hasVideo"];
+                }
+                
                 [muDict setObject:currTime forKey:@"insertDate"];
                 [muDict setObject:@" " forKey:@"main_file_path"];
                 [db updateDataByServerId:[article objectForKey:@"id"] withDict:muDict];

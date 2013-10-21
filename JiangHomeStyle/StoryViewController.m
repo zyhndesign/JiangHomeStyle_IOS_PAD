@@ -191,6 +191,12 @@ extern PopupDetailViewController* detailViewController;
             firstImg.userInteractionEnabled = YES;
              UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [firstImg addGestureRecognizer:sigTab];
+            
+            NSLog(@"===================firstImg:%i",[[muDict objectForKey:@"hasVideo"] intValue]);
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:firstImg];
+            }
         }
         else
         {
@@ -216,6 +222,11 @@ extern PopupDetailViewController* detailViewController;
             secondImg.userInteractionEnabled = YES;
              UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [secondImg addGestureRecognizer:sigTab];
+            
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:secondImg];
+            }
         }
         else
         {
@@ -242,6 +253,11 @@ extern PopupDetailViewController* detailViewController;
             thirdImg.userInteractionEnabled = YES;
              UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [thirdImg addGestureRecognizer:sigTab];
+            
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:thirdImg];
+            }
         }
         else
         {
@@ -267,6 +283,11 @@ extern PopupDetailViewController* detailViewController;
             fourImg.userInteractionEnabled = YES;
              UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [fourImg addGestureRecognizer:sigTab];
+            
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:fourImg];
+            }
         }
         else
         {
@@ -292,6 +313,11 @@ extern PopupDetailViewController* detailViewController;
             fiveImg.userInteractionEnabled = YES;
              UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [fiveImg addGestureRecognizer:sigTab];
+            
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:fiveImg];
+            }
         }
         else
         {
@@ -316,6 +342,11 @@ extern PopupDetailViewController* detailViewController;
             sixImg.userInteractionEnabled = YES;
              UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [sixImg addGestureRecognizer:sigTab];
+            
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:sixImg];
+            }
         }
         else
         {
@@ -384,5 +415,14 @@ extern PopupDetailViewController* detailViewController;
 
 - (IBAction)pageChanged:(id)sender {
     pageControlBeingUsed = YES;
+}
+
+-(void) addVideoImage:(UIView *)view
+{
+    UIImage *videoImage = [UIImage imageNamed:@"hasvideo"];
+    UIImageView *videoImgView = [[UIImageView alloc] initWithImage:videoImage];
+    videoImgView.contentMode = UIViewContentModeScaleAspectFit;
+    videoImgView.frame = CGRectMake(0, 0, 80, 80);
+    [view addSubview:videoImgView];
 }
 @end

@@ -23,4 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *landscapePageControl;
 - (IBAction)changePage:(id)sender;
 
+//加载视频标识
+-(void) addVideoImage:(UIView *)view;
+
+//异步加载图片
+-(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg;
 @end

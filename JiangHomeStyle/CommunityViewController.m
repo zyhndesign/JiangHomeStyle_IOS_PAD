@@ -198,6 +198,10 @@ extern PopupDetailViewController* detailViewController;
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [firstPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
             
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:firstImg];
+            }
         }
         else
         {
@@ -229,7 +233,11 @@ extern PopupDetailViewController* detailViewController;
             
             secondPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [secondPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
-               
+            
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:secondImg];
+            }
         }
         else
         {
@@ -263,6 +271,10 @@ extern PopupDetailViewController* detailViewController;
             thirdPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [thirdPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
             
+            if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+            {
+                [self addVideoImage:thirdImg];
+            }
         }
         else
         {
@@ -339,5 +351,14 @@ extern PopupDetailViewController* detailViewController;
 
 - (IBAction)pageChanged:(id)sender {
     pageControlBeingUsed = YES;
+}
+
+-(void) addVideoImage:(UIView *)view
+{
+    UIImage *videoImage = [UIImage imageNamed:@"hasvideo"];
+    UIImageView *videoImgView = [[UIImageView alloc] initWithImage:videoImage];
+    videoImgView.contentMode = UIViewContentModeScaleAspectFit;
+    videoImgView.frame = CGRectMake(10, 10, 80, 80);
+    [view addSubview:videoImgView];
 }
 @end

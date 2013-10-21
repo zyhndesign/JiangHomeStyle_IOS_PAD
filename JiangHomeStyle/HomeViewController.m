@@ -75,6 +75,11 @@ extern PopupDetailViewController* detailViewController;
         firstPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
         [firstPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         firstPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
+        
+        if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+        {
+            [self addVideoImage:firstPanelView];
+        }
     }
     else
     {
@@ -93,6 +98,10 @@ extern PopupDetailViewController* detailViewController;
         secondPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
         [secondPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         secondPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
+        if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+        {
+            [self addVideoImage:secondPanelView];
+        }
     }
     else
     {
@@ -111,6 +120,10 @@ extern PopupDetailViewController* detailViewController;
         thirdPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
         [thirdPanelTimeLabel setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
         thirdPanelView.accessibilityLabel = [muDict objectForKey:@"serverID"];
+        if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
+        {
+            [self addVideoImage:thirdPanelView];
+        }
     }
     else
     {
@@ -169,6 +182,15 @@ extern PopupDetailViewController* detailViewController;
         }];
         [operation start];
     }
+}
+
+-(void) addVideoImage:(UIView *)view
+{
+    UIImage *videoImage = [UIImage imageNamed:@"hasvideo"];
+    UIImageView *videoImgView = [[UIImageView alloc] initWithImage:videoImage];
+    videoImgView.contentMode = UIViewContentModeScaleAspectFit;
+    videoImgView.frame = CGRectMake(10, 10, 80, 80);
+    [view addSubview:videoImgView];
 }
 
 @end

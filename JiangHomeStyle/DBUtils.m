@@ -41,7 +41,7 @@ NSString* path = nil;
         FMDatabase *db = [FMDatabase databaseWithPath:path];
         if ([db open])
         {
-            NSString* sql = @"CREATE TABLE IF NOT EXISTS 'contentlist' ('serverID' VARCHAR(40) PRIMARY KEY NOT NULL,'size' INTEGER,'url' text,'timestamp' VARCHAR(20),'md5' VARCHAR(40),'insertDate' VARCHAR(25),'title' TEXT,'profile_path' TEXT,'post_date' VARCHAR(15),'author' VARCHAR(30),'description' TEXT,'category' INTEGER,'main_file_path' TEXT,'max_bg_img' TEXT,'isHeadline' INTEGER,'operation' VARCHAR(1))";
+            NSString* sql = @"CREATE TABLE IF NOT EXISTS 'contentlist' ('serverID' VARCHAR(40) PRIMARY KEY NOT NULL,'size' INTEGER,'url' text,'timestamp' VARCHAR(20),'md5' VARCHAR(40),'insertDate' VARCHAR(25),'title' TEXT,'profile_path' TEXT,'post_date' VARCHAR(15),'author' VARCHAR(30),'description' TEXT,'category' INTEGER,'main_file_path' TEXT,'max_bg_img' TEXT,'isHeadline' INTEGER,'operation' VARCHAR(1),'hasVideo' INTEGER)";
             
             BOOL res = [db executeUpdate:sql];
             if (!res)
@@ -70,7 +70,7 @@ NSString* path = nil;
     
     if ([db open])
     {
-        NSString *sql = @"insert into contentlist (serverID,size,url,timestamp,md5,insertDate,title,profile_path,post_date,author,description,category,main_file_path,max_bg_img,isHeadline,operation) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        NSString *sql = @"insert into contentlist (serverID,size,url,timestamp,md5,insertDate,title,profile_path,post_date,author,description,category,main_file_path,max_bg_img,isHeadline,operation,hasVideo) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         BOOL res = [db executeUpdate:sql,
                     [nsDict objectForKey:@"serverID"],
                     [nsDict objectForKey:@"size"],
@@ -87,7 +87,9 @@ NSString* path = nil;
                     [nsDict objectForKey:@"main_file_path"],
                     [nsDict objectForKey:@"max_bg_img"],
                     [nsDict objectForKey:@"isHeadline"],
-                    [nsDict objectForKey:@"operation"]];
+                    [nsDict objectForKey:@"operation"],
+                    [nsDict objectForKey:@"hasVideo"]];
+        
         
         if (res)
         {
@@ -131,6 +133,7 @@ NSString* path = nil;
             [nsDict setValue:[rs stringForColumn:@"max_bg_img"] forKey:@"max_bg_img"];
             [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"isHeadline"]] forKey:@"isHeadline"];
             [nsDict setValue:[rs stringForColumn:@"operation"] forKey:@"operation"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
         }
         [db close];
         return nsDict;        
@@ -179,6 +182,7 @@ NSString* path = nil;
             [nsDict setValue:[rs stringForColumn:@"description"] forKey:@"description"];
             [nsDict setValue:[rs stringForColumn:@"main_file_path"] forKey:@"main_file_path"];
             [nsDict setValue:[rs stringForColumn:@"max_bg_img"] forKey:@"max_bg_img"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
             [array addObject:nsDict];
         }
         [db close];
@@ -209,6 +213,7 @@ NSString* path = nil;
             [nsDict setValue:[rs stringForColumn:@"description"] forKey:@"description"];
             [nsDict setValue:[rs stringForColumn:@"main_file_path"] forKey:@"main_file_path"];
             [nsDict setValue:[rs stringForColumn:@"max_bg_img"] forKey:@"max_bg_img"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
             [array addObject:nsDict];
         }
         [db close];
@@ -272,7 +277,7 @@ NSString* path = nil;
         FMDatabase* db = [FMDatabase databaseWithPath:path];
         if ([db open])
         {
-            NSString* sql = [[@"update contentlist set size=?,url=?,timestamp=?,md5=?,insertDate=?,title=?,profile_path=?,post_date=?,author=?,description=?,category=?,main_file_path=?,max_bg_img=?,isHeadline=?,operation=? where serverID ='" stringByAppendingString:serverId] stringByAppendingString:@"'"];
+            NSString* sql = [[@"update contentlist set size=?,url=?,timestamp=?,md5=?,insertDate=?,title=?,profile_path=?,post_date=?,author=?,description=?,category=?,main_file_path=?,max_bg_img=?,isHeadline=?,operation=?,hasVideo=? where serverID ='" stringByAppendingString:serverId] stringByAppendingString:@"'"];
             BOOL res = [db executeUpdate:sql, [muDict objectForKey:@"size"],
                         [muDict objectForKey:@"url"],
                         [muDict objectForKey:@"timestamp"],
@@ -287,7 +292,8 @@ NSString* path = nil;
                         [muDict objectForKey:@"main_file_path"],
                         [muDict objectForKey:@"max_bg_img"],
                         [muDict objectForKey:@"isHeadline"],
-                        [muDict objectForKey:@"operation"]];
+                        [muDict objectForKey:@"operation"],
+                        [muDict objectForKey:@"hasVideo"]];
             if (res)
             {
                 [db close];
@@ -317,7 +323,7 @@ NSString* path = nil;
 -(NSMutableArray *) getLandscapeDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * LANDSCAPE_PAGE_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path from contentlist where category = " stringByAppendingFormat:@"%d", LANDSCAPE_CATEGORY] stringByAppendingString:@"  limit " ] stringByAppendingFormat:@"%d", LANDSCAPE_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", LANDSCAPE_CATEGORY] stringByAppendingString:@"  limit " ] stringByAppendingFormat:@"%d", LANDSCAPE_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
         
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
@@ -333,6 +339,7 @@ NSString* path = nil;
             [muDict setValue:[rs stringForColumn:@"timestamp"] forKey:@"timestamp"];
             [muDict setValue:[rs stringForColumn:@"title"] forKey:@"title"];
             [muDict setValue:[rs stringForColumn:@"profile_path"] forKey:@"profile_path"];
+            [muDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
             [muArray addObject:muDict];
         }
         [db close];
@@ -345,7 +352,7 @@ NSString* path = nil;
 -(NSMutableArray *) getHumanityDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * HUMANITY_PAGE_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path from contentlist where category = " stringByAppendingFormat:@"%d", HUMANITY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", HUMANITY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", HUMANITY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", HUMANITY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
     if ([db open])
@@ -360,6 +367,7 @@ NSString* path = nil;
             [muDict setValue:[rs stringForColumn:@"timestamp"] forKey:@"timestamp"];
             [muDict setValue:[rs stringForColumn:@"title"] forKey:@"title"];
             [muDict setValue:[rs stringForColumn:@"profile_path"] forKey:@"profile_path"];
+            [muDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
             [muArray addObject:muDict];
         }
         [db close];
@@ -373,7 +381,7 @@ NSString* path = nil;
 -(NSMutableArray *) getStoryDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * STORY_PAGE_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,profile_path from contentlist where category = " stringByAppendingFormat:@"%d", STORY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", STORY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", STORY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", STORY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
     if ([db open])
@@ -386,6 +394,7 @@ NSString* path = nil;
             [muDict setValue:[rs stringForColumn:@"serverID"] forKey:@"serverID"];
             [muDict setValue:[rs stringForColumn:@"title"] forKey:@"title"];
             [muDict setValue:[rs stringForColumn:@"profile_path"] forKey:@"profile_path"];
+            [muDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
             [muArray addObject:muDict];
         }
         [db close];
@@ -399,7 +408,7 @@ NSString* path = nil;
 -(NSMutableArray *) getCommunityDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * COMMUNITY_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path from contentlist where category = " stringByAppendingFormat:@"%d", COMMUNITY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", COMMUNITY_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", COMMUNITY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", COMMUNITY_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
     if ([db open])
@@ -414,6 +423,7 @@ NSString* path = nil;
             [muDict setValue:[rs stringForColumn:@"timestamp"] forKey:@"timestamp"];
             [muDict setValue:[rs stringForColumn:@"title"] forKey:@"title"];
             [muDict setValue:[rs stringForColumn:@"profile_path"] forKey:@"profile_path"];
+            [muDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
             [muArray addObject:muDict];
         }
         [db close];

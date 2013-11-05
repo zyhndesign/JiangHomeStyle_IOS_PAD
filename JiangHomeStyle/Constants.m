@@ -8,7 +8,7 @@
 
 #import "Constants.h"
 
-NSString* const INTERNET_VISIT_PREFIX = @"http://lotusprize.com";
+NSString* const INTERNET_VISIT_PREFIX = @"http://comdesignlab.com";
 const int LANDSCAPE_CATEGORY = 0;
 const int HUMANITY_CATEGORY = 1;
 const int STORY_CATEGORY = 2;

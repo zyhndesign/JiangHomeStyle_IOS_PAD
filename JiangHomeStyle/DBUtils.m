@@ -323,7 +323,7 @@ NSString* path = nil;
 -(NSMutableArray *) getLandscapeDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * LANDSCAPE_PAGE_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", LANDSCAPE_CATEGORY] stringByAppendingString:@"  limit " ] stringByAppendingFormat:@"%d", LANDSCAPE_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", LANDSCAPE_CATEGORY] stringByAppendingString:@" order by post_date desc limit " ] stringByAppendingFormat:@"%d", LANDSCAPE_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
         
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
@@ -352,7 +352,7 @@ NSString* path = nil;
 -(NSMutableArray *) getHumanityDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * HUMANITY_PAGE_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", HUMANITY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", HUMANITY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", HUMANITY_CATEGORY] stringByAppendingString:@" order by post_date desc limit " ] stringByAppendingFormat:@"%d", HUMANITY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
     if ([db open])
@@ -381,7 +381,7 @@ NSString* path = nil;
 -(NSMutableArray *) getStoryDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * STORY_PAGE_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", STORY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", STORY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", STORY_CATEGORY] stringByAppendingString:@" order by post_date desc limit " ] stringByAppendingFormat:@"%d", STORY_PAGE_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
     if ([db open])
@@ -408,7 +408,7 @@ NSString* path = nil;
 -(NSMutableArray *) getCommunityDataByPage:(int)currentPage
 {
     int offsetNum = currentPage * COMMUNITY_INSIDE_NUM;
-    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", COMMUNITY_CATEGORY] stringByAppendingString:@" limit " ] stringByAppendingFormat:@"%d", COMMUNITY_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
+    NSString *sql = [[[[[@"select serverID,title,timestamp,description,profile_path,hasVideo from contentlist where category = " stringByAppendingFormat:@"%d", COMMUNITY_CATEGORY] stringByAppendingString:@" order by post_date desc  limit " ] stringByAppendingFormat:@"%d", COMMUNITY_INSIDE_NUM ] stringByAppendingString:@" Offset " ] stringByAppendingFormat:@"%d",offsetNum] ;
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableArray* muArray = [NSMutableArray new];
     if ([db open])

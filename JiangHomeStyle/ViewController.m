@@ -165,24 +165,18 @@
     musicName = (UILabel *)[self.view viewWithTag:155];
     
     landscapeBtn = (UIButton *)[self.view viewWithTag:156];
-    [landscapeBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_fengjing_normal"] forState:UIControlStateNormal];
-    [landscapeBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_fengjing_pressed"] forState:UIControlStateHighlighted];    
     [landscapeBtn addTarget:self action:@selector(scrollViewLandscapeTo) forControlEvents:UIControlEventTouchUpInside];
     
     humanityBtn = (UIButton *)[self.view viewWithTag:157];
-    [humanityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_renwen_normal"] forState:UIControlStateNormal];
-    [humanityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_renwen_pressed"] forState:UIControlStateHighlighted];
     [humanityBtn addTarget:self action:@selector(scrollViewHumanityTo ) forControlEvents:UIControlEventTouchUpInside];
     
     storyBtn = (UIButton *)[self.view viewWithTag:158];
-    [storyBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_wuyu_normal"] forState:UIControlStateNormal];
-    [storyBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_wuyu_pressed"] forState:UIControlStateHighlighted];
     [storyBtn addTarget:self action:@selector(scrollViewStoryTo ) forControlEvents:UIControlEventTouchUpInside];
     
     communityBtn = (UIButton *)[self.view viewWithTag:159];
-    [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_normal"] forState:UIControlStateNormal];
-    [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateHighlighted];
     [communityBtn addTarget:self action:@selector(scrollViewCommunityTo ) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self setNavBtnBackgroundLandscape:true Humanity:true Story:true Community:true];
     
     musicArray = [NSMutableArray new];
     [self loadMusicPlayMusic];
@@ -204,21 +198,56 @@
 -(void) scrollViewLandscapeTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, landscapeYValue) animated:YES];
+    [landscapeBtn setImage:[UIImage imageNamed:@"top_nav_btn_fengjing_pressed"] forState:UIControlStateNormal];
+    [self setNavBtnBackgroundLandscape:false Humanity:true Story:true Community:true];
 }
 
 -(void) scrollViewStoryTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, storyYValue) animated:YES];
+    [storyBtn setImage:[UIImage imageNamed:@"top_nav_btn_wuyu_pressed"] forState:UIControlStateNormal];
+    [self setNavBtnBackgroundLandscape:true Humanity:true Story:false Community:true];
 }
 
 -(void) scrollViewHumanityTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, humanityYValue) animated:YES];
+    [humanityBtn setImage:[UIImage imageNamed:@"top_nav_btn_renwen_normal"] forState:UIControlStateNormal];
+    [self setNavBtnBackgroundLandscape:true Humanity:false Story:true Community:true];
 }
 
 -(void) scrollViewCommunityTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, communityYValue) animated:YES];
+    [communityBtn setImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateNormal];
+    [self setNavBtnBackgroundLandscape:true Humanity:true Story:true Community:false];
+}
+
+-(void) setNavBtnBackgroundLandscape:(BOOL)landscape Humanity:(BOOL) humanity Story:(BOOL) story Community:(BOOL)community
+{
+    if (landscape && landscapeBtn != nil)
+    {
+        [landscapeBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_fengjing_normal"] forState:UIControlStateNormal];
+        [landscapeBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_fengjing_pressed"] forState:UIControlStateHighlighted];
+    }
+    
+    if (humanity && humanityBtn != nil)
+    {
+        [humanityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_renwen_normal"] forState:UIControlStateNormal];
+        [humanityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_renwen_pressed"] forState:UIControlStateHighlighted];
+    }
+    
+    if (story && storyBtn != nil)
+    {
+        [storyBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_wuyu_normal"] forState:UIControlStateNormal];
+        [storyBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_wuyu_pressed"] forState:UIControlStateHighlighted];
+    }
+    
+    if (community && communityBtn != nil)
+    {
+        [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_normal"] forState:UIControlStateNormal];
+        [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateHighlighted];
+    }
 }
 
 -(void) loadMusicPlayMusic

@@ -192,7 +192,6 @@ extern PopupDetailViewController* detailViewController;
              UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [firstImg addGestureRecognizer:sigTab];
             
-            NSLog(@"===================firstImg:%i",[[muDict objectForKey:@"hasVideo"] intValue]);
             if ([[muDict objectForKey:@"hasVideo"] intValue] == 1)
             {
                 [self addVideoImage:firstImg];

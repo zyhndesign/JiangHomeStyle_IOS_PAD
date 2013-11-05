@@ -1177,7 +1177,7 @@
 				ORGANIZATIONNAME = cidesign;
 				TargetAttributes = {
 					D50E55A517C6ED17002B60D7 = {
-						DevelopmentTeam = L4FEJG9JU6;
+						DevelopmentTeam = FNB4FR5EG6;
 					};
 				};
 			};

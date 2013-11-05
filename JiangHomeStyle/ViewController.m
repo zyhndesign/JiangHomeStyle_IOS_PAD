@@ -198,37 +198,25 @@
 -(void) scrollViewLandscapeTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, landscapeYValue) animated:YES];
-    [landscapeBtn setSelected:true];
-    [storyBtn setSelected:false];
-    [humanityBtn setSelected:false];
-    [communityBtn setSelected:false];
+    [self setNavBtnSelectState:true Humanity:false Story:false Community:false];
 }
 
 -(void) scrollViewStoryTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, storyYValue) animated:YES];
-    [storyBtn setSelected:true];
-    [landscapeBtn setSelected:false];
-    [humanityBtn setSelected:false];
-    [communityBtn setSelected:false];
+    [self setNavBtnSelectState:false Humanity:false Story:true Community:false];
 }
 
 -(void) scrollViewHumanityTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, humanityYValue) animated:YES];
-    [humanityBtn setSelected:true];
-    [landscapeBtn setSelected:false];
-    [storyBtn setSelected:false];
-    [communityBtn setSelected:false];
+    [self setNavBtnSelectState:false Humanity:true Story:false Community:false];
 }
 
 -(void) scrollViewCommunityTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, communityYValue) animated:YES];
-    [communityBtn setSelected:true];
-    [landscapeBtn setSelected:false];
-    [landscapeBtn setSelected:false];
-    [storyBtn setSelected:false];
+    [self setNavBtnSelectState:false Humanity:false Story:false Community:true];
 }
 
 -(void) setNavBtnBackgroundLandscape:(BOOL)landscape Humanity:(BOOL) humanity Story:(BOOL) story Community:(BOOL)community
@@ -259,6 +247,41 @@
         [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_normal"] forState:UIControlStateNormal];
         [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateHighlighted];
         [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateSelected];
+    }
+}
+
+- (void) setNavBtnSelectState:(BOOL)landBtnState Humanity:(BOOL)humanityBtnState Story:(BOOL)storyBtnState Community:(BOOL)communityState
+{
+    if (landBtnState && landscapeBtn != nil)
+    {
+        [landscapeBtn setSelected:true];
+        [storyBtn setSelected:false];
+        [humanityBtn setSelected:false];
+        [communityBtn setSelected:false];
+    }
+    
+    if (humanityBtnState && humanityBtn != nil)
+    {
+        [humanityBtn setSelected:true];
+        [landscapeBtn setSelected:false];
+        [storyBtn setSelected:false];
+        [communityBtn setSelected:false];
+    }
+    
+    if (storyBtnState && storyBtn != nil)
+    {
+        [storyBtn setSelected:true];
+        [landscapeBtn setSelected:false];
+        [humanityBtn setSelected:false];
+        [communityBtn setSelected:false];
+    }
+    
+    if (communityState && communityBtn != nil)
+    {
+        [communityBtn setSelected:true];
+        [landscapeBtn setSelected:false];
+        [landscapeBtn setSelected:false];
+        [storyBtn setSelected:false];
     }
 }
 
@@ -536,4 +559,26 @@
     return NO;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)_scrollView
+{
+    NSLog(@"scroll......");
+    CGFloat offsetY = _scrollView.contentOffset.y;
+    
+    if (offsetY >= landscapeYValue && offsetY < humanityYValue)
+    {
+        [self setNavBtnSelectState:true Humanity:false Story:false Community:false];
+    }
+    else if (offsetY >= humanityYValue && offsetY < storyYValue)
+    {
+        [self setNavBtnSelectState:false Humanity:true Story:false Community:false];
+    }
+    else if (offsetY >= storyYValue && offsetY < communityYValue)
+    {
+        [self setNavBtnSelectState:false Humanity:false Story:true Community:false];
+    }
+    else if (offsetY >= communityYValue)
+    {
+        [self setNavBtnSelectState:false Humanity:false Story:false Community:true];
+    }
+}
 @end

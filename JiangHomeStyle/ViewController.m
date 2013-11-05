@@ -198,29 +198,37 @@
 -(void) scrollViewLandscapeTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, landscapeYValue) animated:YES];
-    [landscapeBtn setImage:[UIImage imageNamed:@"top_nav_btn_fengjing_pressed"] forState:UIControlStateNormal];
-    [self setNavBtnBackgroundLandscape:false Humanity:true Story:true Community:true];
+    [landscapeBtn setSelected:true];
+    [storyBtn setSelected:false];
+    [humanityBtn setSelected:false];
+    [communityBtn setSelected:false];
 }
 
 -(void) scrollViewStoryTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, storyYValue) animated:YES];
-    [storyBtn setImage:[UIImage imageNamed:@"top_nav_btn_wuyu_pressed"] forState:UIControlStateNormal];
-    [self setNavBtnBackgroundLandscape:true Humanity:true Story:false Community:true];
+    [storyBtn setSelected:true];
+    [landscapeBtn setSelected:false];
+    [humanityBtn setSelected:false];
+    [communityBtn setSelected:false];
 }
 
 -(void) scrollViewHumanityTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, humanityYValue) animated:YES];
-    [humanityBtn setImage:[UIImage imageNamed:@"top_nav_btn_renwen_normal"] forState:UIControlStateNormal];
-    [self setNavBtnBackgroundLandscape:true Humanity:false Story:true Community:true];
+    [humanityBtn setSelected:true];
+    [landscapeBtn setSelected:false];
+    [storyBtn setSelected:false];
+    [communityBtn setSelected:false];
 }
 
 -(void) scrollViewCommunityTo
 {
     [scrollView setContentOffset:CGPointMake(scrollView.frame.origin.x, communityYValue) animated:YES];
-    [communityBtn setImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateNormal];
-    [self setNavBtnBackgroundLandscape:true Humanity:true Story:true Community:false];
+    [communityBtn setSelected:true];
+    [landscapeBtn setSelected:false];
+    [landscapeBtn setSelected:false];
+    [storyBtn setSelected:false];
 }
 
 -(void) setNavBtnBackgroundLandscape:(BOOL)landscape Humanity:(BOOL) humanity Story:(BOOL) story Community:(BOOL)community
@@ -229,24 +237,28 @@
     {
         [landscapeBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_fengjing_normal"] forState:UIControlStateNormal];
         [landscapeBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_fengjing_pressed"] forState:UIControlStateHighlighted];
+        [landscapeBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_fengjing_pressed"] forState:UIControlStateSelected];
     }
     
     if (humanity && humanityBtn != nil)
     {
         [humanityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_renwen_normal"] forState:UIControlStateNormal];
         [humanityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_renwen_pressed"] forState:UIControlStateHighlighted];
+        [humanityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_renwen_pressed"] forState:UIControlStateSelected];
     }
     
     if (story && storyBtn != nil)
     {
         [storyBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_wuyu_normal"] forState:UIControlStateNormal];
         [storyBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_wuyu_pressed"] forState:UIControlStateHighlighted];
+        [storyBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_wuyu_pressed"] forState:UIControlStateSelected];
     }
     
     if (community && communityBtn != nil)
     {
         [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_normal"] forState:UIControlStateNormal];
         [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateHighlighted];
+        [communityBtn setBackgroundImage:[UIImage imageNamed:@"top_nav_btn_shequ_pressed"] forState:UIControlStateSelected];
     }
 }
 

@@ -135,6 +135,14 @@ extern DBUtils *db;
     }    
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSURL *url = [request URL];
+    NSLog(@"%@", url);
+    NSLog(@"%@", [url description]);
+    return YES;
+}
+
 -(void)webView:(UIWebView *)_webView didFailLoadWithError:(NSError *)error
 {
     NSLog(@"webview loading file is error...%@",[error localizedFailureReason]);
@@ -146,7 +154,7 @@ extern DBUtils *db;
 
 -(void)webViewDidStartLoad:(UIWebView *)_webView
 {
-  
+    
     aniLayer1 = (UIImageView *)[self.view viewWithTag:912];
     aniLayer1.hidden = NO;
     [aniLayer1 addRotationClockWise:1 andAngle:3.0 andRepeat:100];
@@ -155,9 +163,9 @@ extern DBUtils *db;
     [aniLayer2 addRotationAntiClockWise:1 andAngle:2.0 andRepeat:100];
 }
 
-
 -(void)webViewDidFinishLoad:(UIWebView *)_webView
 {
+    NSURLRequest *req = _webView.request;
     if (aniLayer1 == nil)
     {
         aniLayer1 = (UIImageView *)[self.view viewWithTag:912];

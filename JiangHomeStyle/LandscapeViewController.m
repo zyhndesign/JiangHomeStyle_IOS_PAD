@@ -332,6 +332,7 @@ extern PopupDetailViewController* detailViewController;
 {
     NSString *path = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]] stringByAppendingString:@".jpg"];
     
+    
     if ([fileUtils fileISExist:path])
     {
         //加载本地文件

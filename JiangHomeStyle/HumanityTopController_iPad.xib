@@ -23,7 +23,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="生生不息的人文故事" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="308" y="676" width="397" height="62"/>
+                    <rect key="frame" x="318" y="676" width="397" height="62"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="62" id="20"/>
@@ -43,7 +43,7 @@
                 <constraint firstItem="3" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="5"/>
                 <constraint firstItem="3" firstAttribute="trailing" secondItem="1" secondAttribute="trailing" id="6"/>
                 <constraint firstItem="3" firstAttribute="top" secondItem="1" secondAttribute="top" id="9"/>
-                <constraint firstItem="13" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="308" id="22"/>
+                <constraint firstItem="13" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="318" id="22"/>
                 <constraint firstAttribute="bottom" secondItem="13" secondAttribute="bottom" constant="30" id="48"/>
                 <constraint firstItem="13" firstAttribute="top" secondItem="jIG-RX-mZL" secondAttribute="bottom" constant="34" id="W7y-hM-DUM"/>
                 <constraint firstItem="jIG-RX-mZL" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" id="ZQm-lV-tCI"/>

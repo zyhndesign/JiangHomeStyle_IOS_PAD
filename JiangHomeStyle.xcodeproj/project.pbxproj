@@ -1175,11 +1175,6 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = cidesign;
-				TargetAttributes = {
-					D50E55A517C6ED17002B60D7 = {
-						DevelopmentTeam = FNB4FR5EG6;
-					};
-				};
 			};
 			buildConfigurationList = D50E55A117C6ED17002B60D7 /* Build configuration list for PBXProject "JiangHomeStyle" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1537,7 +1532,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1550,9 +1546,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1570,14 +1567,16 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1587,19 +1586,20 @@
 		D50E55E217C6ED17002B60D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				INFOPLIST_FILE = "JiangHomeStyle/JiangHomeStyle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",
 					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1608,19 +1608,19 @@
 		D50E55E317C6ED17002B60D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				INFOPLIST_FILE = "JiangHomeStyle/JiangHomeStyle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",
 					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};

@@ -283,6 +283,14 @@
         [landscapeBtn setSelected:false];
         [storyBtn setSelected:false];
     }
+    
+    if (!landBtnState && !humanityBtnState && !storyBtnState && !communityState)
+    {
+        [communityBtn setSelected:false];
+        [landscapeBtn setSelected:false];
+        [landscapeBtn setSelected:false];
+        [storyBtn setSelected:false];
+    }
 }
 
 -(void) loadMusicPlayMusic
@@ -561,7 +569,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)_scrollView
 {
-    NSLog(@"scroll......");
     CGFloat offsetY = _scrollView.contentOffset.y;
     
     if (offsetY >= landscapeYValue && offsetY < humanityYValue)
@@ -579,6 +586,10 @@
     else if (offsetY >= communityYValue)
     {
         [self setNavBtnSelectState:false Humanity:false Story:false Community:true];
+    }
+    else if (offsetY < landscapeYValue)
+    {
+        [self setNavBtnSelectState:false Humanity:false Story:false Community:false];
     }
 }
 @end

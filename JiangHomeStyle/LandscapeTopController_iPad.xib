@@ -23,7 +23,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="美不胜收的影像写真" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10">
-                    <rect key="frame" x="322" y="686" width="380" height="48"/>
+                    <rect key="frame" x="321" y="686" width="380" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="380" id="20"/>
@@ -32,15 +32,15 @@
                     <color key="textColor" red="0.65098039220000004" green="0.48627450979999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="section_title_fengjing.png" translatesAutoresizingMaskIntoConstraints="NO" id="GOD-Hz-OWO">
-                    <rect key="frame" x="351" y="411" width="290" height="230"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="section_title_fengjing.png" translatesAutoresizingMaskIntoConstraints="NO" id="GOD-Hz-OWO">
+                    <rect key="frame" x="367" y="411" width="290" height="230"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="10" secondAttribute="bottom" constant="34" id="12"/>
-                <constraint firstItem="10" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="21"/>
+                <constraint firstItem="10" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" constant="-1" id="21"/>
                 <constraint firstItem="3" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="22"/>
                 <constraint firstItem="3" firstAttribute="top" secondItem="1" secondAttribute="top" id="23"/>
                 <constraint firstItem="GOD-Hz-OWO" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="351" id="emQ-pY-FYe"/>

@@ -30,4 +30,7 @@
 
 //下载zip包解压到指定目录
 -(void) downloadZipFile:(NSString *) downUrl andArticleId:(NSString *) articleId andTipsAnim:(UIWebView *) webView;
+
+//禁止备份到icloud
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL;
 @end

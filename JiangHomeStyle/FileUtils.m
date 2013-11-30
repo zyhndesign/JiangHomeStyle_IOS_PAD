@@ -12,6 +12,7 @@
 #import "AFNetworking/AFNetworking.h"
 #import "ZipArchive/ZipArchive.h"
 #import "UIImageView+RotationAnimation.h"
+#import <sys/xattr.h>
 
 @implementation FileUtils
 
@@ -24,6 +25,10 @@
     [fileManager createDirectoryAtPath:articlesPath withIntermediateDirectories:YES attributes:nil error:nil];
     [fileManager createDirectoryAtPath:thumbPath withIntermediateDirectories:YES attributes:nil error:nil];
     [fileManager createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:PATH_OF_DOCUMENT]];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:articlesPath]];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:thumbPath]];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:tempPath]];
 }
 
 -(void)createArticleDir:(NSString *)serverId
@@ -31,6 +36,7 @@
     NSString *articlesPath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:serverId];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager createDirectoryAtPath:articlesPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:articlesPath]];
 }
 
 -(void)createThumbDir:(NSString *)serverId
@@ -38,6 +44,7 @@
     NSString *articlesPath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:serverId];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager createDirectoryAtPath:articlesPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:articlesPath]];
 }
 
 -(BOOL) fileISExist:(NSString *)fileString
@@ -122,4 +129,15 @@
     [operation start];
 
 }
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL*)URL
+{
+    const char* filePath = [[URL path] fileSystemRepresentation];
+    const char* attrName = "com.apple.MobileBackup";
+    u_int8_t attrValue = 1;
+    
+    int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+    return result == 0;
+}
+
 @end

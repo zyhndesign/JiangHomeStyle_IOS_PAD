@@ -23,7 +23,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="社区互动与参与式创新" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15">
-                    <rect key="frame" x="296" y="686" width="422" height="48"/>
+                    <rect key="frame" x="301" y="686" width="422" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="22"/>
@@ -33,8 +33,8 @@
                     <color key="textColor" red="0.71764705880000002" green="0.59607843140000005" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="section_title_shequ.png" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-ec-qPD">
-                    <rect key="frame" x="362" y="412" width="290" height="230"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="section_title_shequ.png" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-ec-qPD">
+                    <rect key="frame" x="367" y="412" width="290" height="230"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
             </subviews>
@@ -43,7 +43,7 @@
                 <constraint firstItem="3" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="4"/>
                 <constraint firstItem="3" firstAttribute="trailing" secondItem="1" secondAttribute="trailing" id="6"/>
                 <constraint firstItem="3" firstAttribute="top" secondItem="1" secondAttribute="top" id="10"/>
-                <constraint firstItem="15" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="296" id="26"/>
+                <constraint firstItem="15" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="301" id="26"/>
                 <constraint firstAttribute="bottom" secondItem="15" secondAttribute="bottom" constant="34" id="48"/>
                 <constraint firstItem="15" firstAttribute="top" secondItem="epQ-ec-qPD" secondAttribute="bottom" constant="44" id="G31-GS-0al"/>
                 <constraint firstItem="epQ-ec-qPD" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="362" id="gr5-ug-lbd"/>

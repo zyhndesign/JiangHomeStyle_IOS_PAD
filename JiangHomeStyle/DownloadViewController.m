@@ -37,54 +37,37 @@ extern DBUtils *db;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor clearColor];
     closeBtn = (UIButton *)[self.view viewWithTag:811];
     [closeBtn addTarget:self action:@selector(closeWin) forControlEvents:UIControlEventTouchUpInside];
 
-    musicProgressView = (UIProgressView *)[self.view viewWithTag:812];
-    landscapeProgressView = (UIProgressView *)[self.view viewWithTag:814];;
-    humanityProgressView = (UIProgressView *)[self.view viewWithTag:816];;
-    storyProgressView = (UIProgressView *)[self.view viewWithTag:818];;
-    communityProgressView = (UIProgressView *)[self.view viewWithTag:820];;
     musicLabel = (UILabel *)[self.view viewWithTag:813];
     landscapeLabel = (UILabel *)[self.view viewWithTag:815];
     humanityLabel = (UILabel *)[self.view viewWithTag:817];
     storyLabel = (UILabel *)[self.view viewWithTag:819];
     communityLabel = (UILabel *)[self.view viewWithTag:821];
     
+    musicCancelBtn = (UIButton*)[self.view viewWithTag:812];
+    landscapeCancelBtn = (UIButton*)[self.view viewWithTag:814];;
+    humanityCancelBtn = (UIButton*)[self.view viewWithTag:816];;
+    storyCancelBtn = (UIButton*)[self.view viewWithTag:818];;
+    communityCancelBtn = (UIButton*)[self.view viewWithTag:820];;
+    
     //列出下载列表，包括音乐文件、基本文件包、视频文件（列表之前先判断是否已经下载过）
     
-    //判断当前网络环境
-    Reachability *reacheNet = [Reachability reachabilityWithHostName:@"www.baidu.com"];
-    switch ([reacheNet currentReachabilityStatus]) {
-        case NotReachable: //not network reach
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"请设置好网络连接" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-            break;
-        }
-        case ReachableViaWWAN: //use 3g network
-            NSLog(@"3g network....");
-            break;
-        case ReachableViaWiFi: //use wifi network
-        {
-            NSLog(@"wifi network....");
-            //异步获取音乐列表
-            musicArray = [NSMutableArray new];
-            [self loadMusicData];
-            //根据类别获取需要下载的文章列表
+    
+    //异步获取音乐列表并进行下载
+    musicArray = [NSMutableArray new];
+    [self loadMusicData];
+    //根据类别获取需要下载的文章列表
             
-            //开始下载
+    //开始下载风景数据
+    
+    //开始下载人文数据
+    
+    //开始下载物语数据
             
-            
-            //
-            //
-            
-            //逐个进行下载
-            break;
-        }
-        default:
-            break;
-    }
+    //开始下载社区数据
     
 }
 
@@ -123,15 +106,22 @@ extern DBUtils *db;
         FileUtils *fileUtils = [FileUtils new];
         NSArray *musicNameArray = [fileUtils getFileListByDir:[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"music"]];
         
-        NSLog(@"dir musicArray size is %d",[musicArray count]);
+        for (NSString *str in musicNameArray)
+        {
+            NSLog(@"file: %@",str);
+        }
+        
+        NSLog(@"dir musicArray size is %d",[musicNameArray count]);
         
         for (int i = 0; i < array.count; i++)
         {
             muDict = [NSMutableDictionary new];
             NSDictionary *article = [array objectAtIndex:i];
             //和音乐文件夹下的文件进行比较，查看是否已经下载，如果存在则不进行重复下载
-            if (![musicNameArray containsObject:[[NSString stringWithFormat:@"%d",[article objectForKey:@"music_id"]] stringByAppendingString:@".mp3"]])
+            
+            if (![musicNameArray containsObject:[[NSString stringWithFormat:@"%@",[article objectForKey:@"music_id"]] stringByAppendingString:@".mp3"]])
             {
+                NSLog(@"not contain music...");
                 [muDict setObject:[article objectForKey:@"music_title"] forKey:@"musicTitle"];
                 [muDict setObject:[article objectForKey:@"music_author"] forKey:@"musicAuthor"];
                 [muDict setObject:[article objectForKey:@"music_path"] forKey:@"musicPath"];
@@ -145,8 +135,13 @@ extern DBUtils *db;
         
         if ([musicArray count] > 0)
         {
-            [self downloadFile:musicArray];
+            [self downloadMusicFile:musicArray];
         }
+        else
+        {
+            [musicLabel setText:@"100%"] ;
+        }
+        [musicCancelBtn setHidden:YES];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -154,7 +149,7 @@ extern DBUtils *db;
     [operation start];
 }
 
--(void) downloadFile:(NSArray *)dataArray
+-(void) downloadMusicFile:(NSArray *)dataArray
 {
     dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
     
@@ -175,8 +170,12 @@ extern DBUtils *db;
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                 i++;
                 NSLog(@"loading file is over %f", i * percent);
-                [musicProgressView setProgress:(i * percent) animated:YES];
                 int labelValue = (i * percent * 100);
+                
+                if (labelValue == 99)
+                {
+                    labelValue = 100;
+                }
                 NSLog(@"label value is %d",labelValue);
                 [musicLabel setText:[[NSString stringWithFormat:@"%d", labelValue] stringByAppendingString:@"%"]] ;
                 [obj setObject:savePath forKey:@"musicPath"];
@@ -189,6 +188,30 @@ extern DBUtils *db;
             [operation start];
         });
     }
-    
 }
+
+//获取需要下载的风景数据，队列顺序异步进行下载
+-(void) downloadLandscapeData
+{
+
+}
+
+//获取需要下载的人文数据，队列顺序异步进行下载
+-(void) downloadHumanityData
+{
+
+}
+
+//获取需要下载的物语数据，队列顺序异步进行下载
+-(void) downloadStoryData
+{
+
+}
+
+//获取需要下载的社区数据，队列顺序异步进行下载
+-(void) downloadCommunityData
+{
+
+}
+
 @end

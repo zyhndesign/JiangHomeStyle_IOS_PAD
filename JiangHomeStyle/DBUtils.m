@@ -72,7 +72,7 @@ NSString* path = nil;
         FMDatabase *db = [FMDatabase databaseWithPath:path];
         if ([db open])
         {
-            NSString* sql = @"CREATE TABLE IF NOT EXISTS 'musiclist' ('musicID' INTEGER PRIMARY KEY NOT NULL,'musicName' VARCHAR(50),'musicAuthor' VARCHAR(35),'musicTitle' VARCHAR(50),'musicPath text')";
+            NSString* sql = @"CREATE TABLE IF NOT EXISTS 'musiclist' ('musicID' INTEGER PRIMARY KEY NOT NULL,'musicName' VARCHAR(50),'musicAuthor' VARCHAR(35),'musicTitle' VARCHAR(50),'musicPath' text)";
             
             BOOL res = [db executeUpdate:sql];
             if (!res)

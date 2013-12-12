@@ -69,6 +69,12 @@
     popupView.layer.shadowRadius = 5;
     popupView.layer.shadowOpacity = 0.5;
     
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [popupView addGestureRecognizer:singleFingerTap];
+    
+    //popupView.userInteractionEnabled = NO;
     // Add semi overlay
     UIView *overlayView = [[UIView alloc] initWithFrame:sourceView.bounds];
     overlayView.tag = kMJOverlayViewTag;
@@ -112,6 +118,13 @@
         [dismissButton addTarget:self action:@selector(dismissPopupViewControllerWithanimationTypeFade) forControlEvents:UIControlEventTouchUpInside];
         [self fadeViewIn:popupView sourceView:sourceView overlayView:overlayView];
     }    
+}
+
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    //CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    NSLog(@"click.......");
+    //Do stuff here...
 }
 
 -(UIView*)topView {

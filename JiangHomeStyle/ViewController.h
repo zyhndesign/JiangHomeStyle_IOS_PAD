@@ -21,6 +21,7 @@
 @class StoryTopViewController;
 @class CommunityTopViewController;
 @class MCProgressBarView;
+@class FooterViewController;
 
 @interface ViewController : GAITrackedViewController<UIScrollViewDelegate>
 {
@@ -56,6 +57,7 @@
     StoryViewController* storyBottomViewController;
     CommunityTopViewController* communityTopViewController;
     CommunityViewController* communityBottomViewController;
+    FooterViewController* footerViewController;
     
     UIScrollView *scrollView;
     

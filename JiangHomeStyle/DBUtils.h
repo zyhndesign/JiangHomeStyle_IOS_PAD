@@ -13,8 +13,11 @@
 
 }
 
-//创建表
-- (BOOL) createTable;
+//创建文章表
+- (BOOL) createArticleTable;
+
+//创建音乐表
+- (BOOL) createMusicTable;
 
 //写入新的纪录
 - (BOOL) insertData:(NSMutableDictionary *) nsDict;
@@ -57,4 +60,14 @@
 
 //按照类别统计所属类别的总数
 -(int)countByCategory:(int)category;
+
+//写入音乐基本数据
+-(BOOL) insertMusicData:(NSMutableDictionary *) nsDict;
+
+//读取所有音乐数据
+-(NSMutableArray*) queryMusicData;
+
+//
+
+
 @end

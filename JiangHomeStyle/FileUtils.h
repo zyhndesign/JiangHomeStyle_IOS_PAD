@@ -13,10 +13,10 @@
 //创建离线文件目录顶级，包括文章和缩略图
 -(void) createAppFilesDir;
 
-//创建指定文章的保存目录，文件夹名以sererId命名
+//创建指定文章的保存目录，文件夹名以severId命名
 -(void) createArticleDir:(NSString*) serverId;
 
-//创建缩略图的保存目录，文件夹名以sererId命名
+//创建缩略图的保存目录，文件夹名以severId命名
 -(void) createThumbDir:(NSString *)serverId;
 
 //判断文件目录是否存在
@@ -33,4 +33,7 @@
 
 //禁止备份到icloud
 - (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL;
+
+//获取指定目录下的所有文件名称
+-(NSArray *)getFileListByDir:(NSString *)dir;
 @end

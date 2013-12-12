@@ -21,14 +21,23 @@
     NSString *articlesPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"];
     NSString *thumbPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"];
     NSString *tempPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"temp"];
+    //保存离线音乐文件
+    NSString *musicPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"music"];
+    //保存离线视频文件
+    NSString *videoPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager createDirectoryAtPath:articlesPath withIntermediateDirectories:YES attributes:nil error:nil];
     [fileManager createDirectoryAtPath:thumbPath withIntermediateDirectories:YES attributes:nil error:nil];
     [fileManager createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [fileManager createDirectoryAtPath:musicPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [fileManager createDirectoryAtPath:videoPath withIntermediateDirectories:YES attributes:nil error:nil];
+    
     [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:PATH_OF_DOCUMENT]];
     [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:articlesPath]];
     [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:thumbPath]];
     [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:tempPath]];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:musicPath]];
+    [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:videoPath]];
 }
 
 -(void)createArticleDir:(NSString *)serverId
@@ -138,6 +147,17 @@
     
     int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
     return result == 0;
+}
+
+-(NSArray *)getFileListByDir:(NSString *)dir
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    NSArray *fileList = [[NSArray alloc] init];
+    //fileList便是包含有该文件夹下所有文件的文件名及文件夹名的数组
+    fileList = [fileManager contentsOfDirectoryAtPath:dir error:&error];
+    
+    return fileList;
 }
 
 @end

@@ -17,6 +17,7 @@
 #import "HumanityTopViewController.h"
 #import "StoryTopViewController.h"
 #import "CommunityTopViewController.h"
+#import "FooterViewController.h"
 #import "AFNetworking/AFJSONRequestOperation.h"
 #import "AFNetworking.h"
 #import "Constants.h"
@@ -25,6 +26,7 @@
 #import "Reachability/Reachability.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
 #import "MCProgressBarView.h"
+#import "DBUtils.h"
 
 @interface ViewController ()
 
@@ -36,6 +38,8 @@
 @synthesize topView;
 @synthesize musicAuthor, musicName, playBtn, nextBtn;
 @synthesize landscapeBtn, humanityBtn, storyboard, communityBtn;
+
+extern DBUtils *db;
 
 - (void)viewDidLoad
 {
@@ -135,14 +139,17 @@
     [scrollView addSubview:communityBottomViewController.view];
     [self addChildViewController:communityBottomViewController];
     
-    NSArray *nibFooterView = [mainBundle loadNibNamed:@"Footer" owner:self options:nil];
-    UIView *footerView = [nibFooterView objectAtIndex:0];
-    CGSize footerCGSize = footerView.frame.size;
+    //NSArray *nibFooterView = [mainBundle loadNibNamed:@"Footer" owner:self options:nil];
+    //UIView *footerView = [nibFooterView objectAtIndex:0];
+    
+    footerViewController = [[FooterViewController new] initWithNibName:@"Footer" bundle:mainBundle];
+    CGSize footerCGSize = footerViewController.view.frame.size;
     
     originHeight = originHeight + communityBottomCGSize.height;
-    footerView.frame = CGRectMake(0, originHeight,footerCGSize.width,footerCGSize.height);
-    [scrollView addSubview:footerView];
-
+    footerViewController.view.frame = CGRectMake(0, originHeight,footerCGSize.width,footerCGSize.height);
+    [scrollView addSubview:footerViewController.view];
+    [self addChildViewController:footerViewController];
+    
     CGFloat contentSizeHeight = homeTopCGSize.height + homeBottomCGSize.height + landscapeTopCGSize.height + landscapeBottomCGSize.height + humanityTopCGSize.height + humanityBottomCGSize.height + storyTopCGSize.height + storyBottomCGSize.height + communityTopCGSize.height + communityBottomCGSize.height + footerCGSize.height;
     
     scrollView.contentSize = CGSizeMake(screenBounds.size.width, contentSizeHeight);
@@ -325,7 +332,19 @@
         }
         */
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //加载本地音乐
+        NSMutableArray* musicData = [db queryMusicData];
+        NSMutableDictionary* muDict = nil;
         
+        for (int i = 0; i < musicData.count; i++)
+        {
+            muDict = [NSMutableDictionary new];
+            NSDictionary *article = [musicData objectAtIndex:i];
+            [muDict setObject:[article objectForKey:@"musicTitle"] forKey:@"music_title"];
+            [muDict setObject:[article objectForKey:@"musicAuthor"] forKey:@"music_author"];
+            [muDict setObject:[article objectForKey:@"musicPath"] forKey:@"music_path"];
+            [musicArray addObject:muDict];
+        }
     }];
     [operation start];
 }

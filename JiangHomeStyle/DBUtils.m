@@ -26,13 +26,13 @@ NSString* path = nil;
     
     path = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"JiangStyle.db"];
     
-    [self createTable];
-   
+    [self createArticleTable];
+    [self createMusicTable];
     return self;
     
 }
 
-- (BOOL) createTable
+- (BOOL) createArticleTable
 {
     NSFileManager* fileManager = [NSFileManager defaultManager];
         
@@ -41,7 +41,38 @@ NSString* path = nil;
         FMDatabase *db = [FMDatabase databaseWithPath:path];
         if ([db open])
         {
-            NSString* sql = @"CREATE TABLE IF NOT EXISTS 'contentlist' ('serverID' VARCHAR(40) PRIMARY KEY NOT NULL,'size' INTEGER,'url' text,'timestamp' VARCHAR(20),'md5' VARCHAR(40),'insertDate' VARCHAR(25),'title' TEXT,'profile_path' TEXT,'post_date' VARCHAR(15),'author' VARCHAR(30),'description' TEXT,'category' INTEGER,'main_file_path' TEXT,'max_bg_img' TEXT,'isHeadline' INTEGER,'operation' VARCHAR(1),'hasVideo' INTEGER)";
+            NSString* sql = @"CREATE TABLE IF NOT EXISTS 'contentlist' ('serverID' VARCHAR(40) PRIMARY KEY NOT NULL,'size' INTEGER,'url' text,'timestamp' VARCHAR(20),'md5' VARCHAR(40),'insertDate' VARCHAR(25),'title' TEXT,'profile_path' TEXT,'post_date' VARCHAR(15),'author' VARCHAR(30),'description' TEXT,'category' INTEGER,'main_file_path' TEXT,'max_bg_img' TEXT,'isHeadline' INTEGER,'operation' VARCHAR(1),'hasVideo' INTEGER, 'isDownload' INTEGER)";
+            
+            BOOL res = [db executeUpdate:sql];
+            if (!res)
+            {
+                [db close];
+                return NO;
+            }
+            else
+            {
+                [db close];
+                return YES;
+            }
+        }
+        else
+        {
+            return NO;
+        }
+    }
+    return NO;
+}
+
+- (BOOL) createMusicTable
+{
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:PATH_OF_DOCUMENT] == YES)
+    {
+        FMDatabase *db = [FMDatabase databaseWithPath:path];
+        if ([db open])
+        {
+            NSString* sql = @"CREATE TABLE IF NOT EXISTS 'musiclist' ('musicID' INTEGER PRIMARY KEY NOT NULL,'musicName' VARCHAR(50),'musicAuthor' VARCHAR(35),'musicTitle' VARCHAR(50),'musicPath text')";
             
             BOOL res = [db executeUpdate:sql];
             if (!res)
@@ -70,7 +101,7 @@ NSString* path = nil;
     
     if ([db open])
     {
-        NSString *sql = @"insert into contentlist (serverID,size,url,timestamp,md5,insertDate,title,profile_path,post_date,author,description,category,main_file_path,max_bg_img,isHeadline,operation,hasVideo) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        NSString *sql = @"insert into contentlist (serverID,size,url,timestamp,md5,insertDate,title,profile_path,post_date,author,description,category,main_file_path,max_bg_img,isHeadline,operation,hasVideo,isDownload) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         BOOL res = [db executeUpdate:sql,
                     [nsDict objectForKey:@"serverID"],
                     [nsDict objectForKey:@"size"],
@@ -88,7 +119,8 @@ NSString* path = nil;
                     [nsDict objectForKey:@"max_bg_img"],
                     [nsDict objectForKey:@"isHeadline"],
                     [nsDict objectForKey:@"operation"],
-                    [nsDict objectForKey:@"hasVideo"]];
+                    [nsDict objectForKey:@"hasVideo"],
+                    [nsDict objectForKey:@"isDownload"]];
         
         
         if (res)
@@ -134,6 +166,7 @@ NSString* path = nil;
             [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"isHeadline"]] forKey:@"isHeadline"];
             [nsDict setValue:[rs stringForColumn:@"operation"] forKey:@"operation"];
             [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"isDownload"]] forKey:@"isDownload"];
         }
         [db close];
         return nsDict;        
@@ -183,6 +216,7 @@ NSString* path = nil;
             [nsDict setValue:[rs stringForColumn:@"main_file_path"] forKey:@"main_file_path"];
             [nsDict setValue:[rs stringForColumn:@"max_bg_img"] forKey:@"max_bg_img"];
             [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"isDownload"]] forKey:@"isDownload"];
             [array addObject:nsDict];
         }
         [db close];
@@ -214,6 +248,7 @@ NSString* path = nil;
             [nsDict setValue:[rs stringForColumn:@"main_file_path"] forKey:@"main_file_path"];
             [nsDict setValue:[rs stringForColumn:@"max_bg_img"] forKey:@"max_bg_img"];
             [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"isDownload"]] forKey:@"isDownload"];
             [array addObject:nsDict];
         }
         [db close];
@@ -277,7 +312,7 @@ NSString* path = nil;
         FMDatabase* db = [FMDatabase databaseWithPath:path];
         if ([db open])
         {
-            NSString* sql = [[@"update contentlist set size=?,url=?,timestamp=?,md5=?,insertDate=?,title=?,profile_path=?,post_date=?,author=?,description=?,category=?,main_file_path=?,max_bg_img=?,isHeadline=?,operation=?,hasVideo=? where serverID ='" stringByAppendingString:serverId] stringByAppendingString:@"'"];
+            NSString* sql = [[@"update contentlist set size=?,url=?,timestamp=?,md5=?,insertDate=?,title=?,profile_path=?,post_date=?,author=?,description=?,category=?,main_file_path=?,max_bg_img=?,isHeadline=?,operation=?,hasVideo=?,isDownload=? where serverID ='" stringByAppendingString:serverId] stringByAppendingString:@"'"];
             BOOL res = [db executeUpdate:sql, [muDict objectForKey:@"size"],
                         [muDict objectForKey:@"url"],
                         [muDict objectForKey:@"timestamp"],
@@ -293,7 +328,8 @@ NSString* path = nil;
                         [muDict objectForKey:@"max_bg_img"],
                         [muDict objectForKey:@"isHeadline"],
                         [muDict objectForKey:@"operation"],
-                        [muDict objectForKey:@"hasVideo"]];
+                        [muDict objectForKey:@"hasVideo"],
+                        [muDict objectForKey:@"isDownload"]];
             if (res)
             {
                 [db close];
@@ -472,6 +508,63 @@ NSString* path = nil;
     }
     
     return count;
+}
+
+//写入音乐基本数据
+-(BOOL) insertMusicData:(NSMutableDictionary *) nsDict
+{
+    FMDatabase* db = [FMDatabase databaseWithPath:path];
+    
+    if ([db open])
+    {
+        NSString *sql = @"insert into musiclist (musicID,musicName,musicAuthor,musicTitle,musicPath) values (?,?,?,?,?)";
+        BOOL res = [db executeUpdate:sql,
+                    [nsDict objectForKey:@"musicID"],
+                    [nsDict objectForKey:@"musicName"],
+                    [nsDict objectForKey:@"musicAuthor"],
+                    [nsDict objectForKey:@"musicTitle"],
+                    [nsDict objectForKey:@"musicPath"]
+                    ];
+        
+        if (res)
+        {
+            [db close];
+            return YES;
+        }
+        else
+        {
+            NSLog(@"%@",[db lastErrorMessage]);
+            [db close];
+            return NO;
+        }
+    }
+    return NO;
+}
+
+//读取所有音乐数据
+-(NSMutableArray*) queryMusicData
+{
+    FMDatabase* db = [FMDatabase databaseWithPath:path];
+    NSMutableDictionary *nsDict= nil;
+    NSMutableArray *nsMuArray = nil;
+    if ([db open])
+    {
+        NSString* sql = @"select musicID,musicName,musicAuthor,musicTitle,musicPath from musiclist";
+        FMResultSet *rs = [db executeQuery:sql];
+        while ([rs next])
+        {
+            nsDict= [NSMutableDictionary new];
+            [nsDict setValue:[rs stringForColumn:@"musicID"] forKey:@"musicID"];
+            [nsDict setValue:[rs stringForColumn:@"musicName"] forKey:@"musicName"];
+            [nsDict setValue:[rs stringForColumn:@"musicAuthor"] forKey:@"musicAuthor"];
+            [nsDict setValue:[rs stringForColumn:@"musicTitle"] forKey:@"musicTitle"];
+            [nsDict setValue:[rs stringForColumn:@"musicPath"] forKey:@"musicPath"];
+            [nsMuArray addObject:nsDict];
+        }
+        [db close];
+        return nsMuArray;
+    }
+    return nil;
 }
 
 @end

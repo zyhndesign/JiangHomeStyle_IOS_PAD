@@ -18,6 +18,9 @@
     UIWebView *webView;
     UIImageView *aniLayer1;
     UIImageView *aniLayer2;
+    NSString *showUrl;
+    NSString *videoUrl;
+    NSDictionary *urlDict;
 }
 @property (strong, nonatomic) UIWebView *webView;
 @property (weak, nonatomic) id<MJPopupDelegate> delegate;

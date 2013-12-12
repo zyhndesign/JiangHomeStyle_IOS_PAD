@@ -14,6 +14,7 @@
 #import "googleAnalytics/GAI.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
 #import "UIImageView+RotationAnimation.h"
+#import "GDataXMLNode.h"
 
 @interface PopupDetailViewController ()<UIWebViewDelegate,UIAlertViewDelegate>
 
@@ -63,7 +64,8 @@ extern DBUtils *db;
     
     if (nil != self.serverID)
     {        
-
+        urlDict = [NSDictionary new];
+        
         NSString *filePath = [[[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:self.serverID] stringByAppendingPathComponent:@"doc"] stringByAppendingPathComponent:@"main.html"];
         
         [webView.scrollView setAlwaysBounceHorizontal:YES];
@@ -108,6 +110,44 @@ extern DBUtils *db;
             }
         }
         
+        //解析doc.xml文件，获取showUrl地址，videoUrl
+        NSString *docFilePath   =  [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:self.serverID]  stringByAppendingPathComponent:@"doc.xml"];
+        //NSString *jsonString  =   [NSString stringWithContentsOfFile:docFilePath encoding:NSUTF8StringEncoding error:nil];
+        NSData *xmlData = [[NSData alloc] initWithContentsOfFile:docFilePath];
+        
+        //使用NSData对象初始化
+        GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+        
+        //获取根节点（doc）
+        GDataXMLElement *rootElement = [doc rootElement];
+        
+        
+        //获取根节点下的节点（videoItems）
+        NSArray *videoItems = [rootElement elementsForName:@"videoItems"];
+        
+        if ([videoItems count] > 0)
+        {
+            for (GDataXMLElement *videoItem in videoItems)
+            {
+                NSArray *videoItemData = [videoItem elementsForName:@"videoItem"];
+                
+                for (GDataXMLElement *video in videoItemData) {
+                    
+                    //获取name节点的值
+                    GDataXMLElement *nameElement = [[video elementsForName:@"showUrl"] objectAtIndex:0];
+                    showUrl = [nameElement stringValue];
+                    NSLog(@"User name is:%@",showUrl);
+                    
+                    //获取age节点的值
+                    GDataXMLElement *ageElement = [[video elementsForName:@"videoUrl"] objectAtIndex:0];
+                    videoUrl = [ageElement stringValue];
+                    NSLog(@"User age is:%@",videoUrl);
+                    
+                    [urlDict setValue:videoUrl forKey:showUrl];
+                }
+            }
+        }
+        
     }
 }
 
@@ -140,7 +180,18 @@ extern DBUtils *db;
     NSURL *url = [request URL];
     NSLog(@"%@", url);
     NSLog(@"%@", [url description]);
-    return YES;
+    
+    //判断url是否为视频地址，如果为视频地址则进行拦截播放
+    
+    if ([urlDict objectForKey:[url description]])
+    {
+        //判断指定路径是否有视频，没有则进行下载，下载后调用原生播放器进行播放
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
 }
 
 -(void)webView:(UIWebView *)_webView didFailLoadWithError:(NSError *)error

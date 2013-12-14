@@ -412,7 +412,7 @@ int videoCancelSign = 0;
                 dispatch_async(queue, ^{
                     
                     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[nsDict objectForKey:@"videoUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-                    NSString* archivePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingString:[nsDict objectForKey:@"videoUrl"]];
+                    NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingString:[nsDict objectForKey:@"videoUrl"]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                     
                     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
                     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
@@ -426,7 +426,7 @@ int videoCancelSign = 0;
                         
                     }];
                     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-                        NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
+                        // NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
                         
                         //_progress.progress=(float)totalBytesRead/(float)totalBytesExpectedToRead;
                         videoLabel.text=[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize*100];

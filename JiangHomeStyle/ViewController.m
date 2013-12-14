@@ -41,6 +41,8 @@
 
 extern DBUtils *db;
 
+int musicLocalOrNet = 0;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -302,38 +304,13 @@ extern DBUtils *db;
 
 -(void) loadMusicPlayMusic
 {
-    NSString *visitPath = [INTERNET_VISIT_PREFIX stringByAppendingString:@"/travel/wp-admin/admin-ajax.php?action=zy_get_music&programId=1"];
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:INTERNET_VISIT_PREFIX]];
-    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET" path:visitPath parameters:nil];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *nsStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSData* jsonData = [nsStr dataUsingEncoding:NSUTF8StringEncoding];
-       
-        NSDictionary *nsDict = [jsonData objectFromJSONData];
-        NSArray *array = [nsDict objectForKey:@"data"];
-        NSMutableDictionary* muDict = nil;
+    //加载本地音乐
+    NSMutableArray* musicData = [db queryMusicData];
+    NSLog(@"local music data count is : %d",[musicData count]);
+    if ([musicData count] > 0)
+    {
+        musicLocalOrNet = 1;
         
-        for (int i = 0; i < array.count; i++)
-        {
-             muDict = [NSMutableDictionary new];
-             NSDictionary *article = [array objectAtIndex:i];
-             [muDict setObject:[article objectForKey:@"music_title"] forKey:@"music_title"];
-             [muDict setObject:[article objectForKey:@"music_author"] forKey:@"music_author"];
-             [muDict setObject:[article objectForKey:@"music_path"] forKey:@"music_path"];
-             [musicArray addObject:muDict];
-        }
-        /*
-        if ([musicArray count] > 0)
-        {
-            [self loadMusicPlayMusic];
-        }
-        */
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //加载本地音乐
-        NSMutableArray* musicData = [db queryMusicData];
         NSMutableDictionary* muDict = nil;
         
         for (int i = 0; i < musicData.count; i++)
@@ -345,94 +322,124 @@ extern DBUtils *db;
             [muDict setObject:[article objectForKey:@"musicPath"] forKey:@"music_path"];
             [musicArray addObject:muDict];
         }
-    }];
-    [operation start];
+    }
+    else
+    {
+        NSString *visitPath = [INTERNET_VISIT_PREFIX stringByAppendingString:@"/travel/wp-admin/admin-ajax.php?action=zy_get_music&programId=1"];
+        
+        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:INTERNET_VISIT_PREFIX]];
+        NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET" path:visitPath parameters:nil];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSString *nsStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            NSData* jsonData = [nsStr dataUsingEncoding:NSUTF8StringEncoding];
+            
+            NSDictionary *nsDict = [jsonData objectFromJSONData];
+            NSArray *array = [nsDict objectForKey:@"data"];
+            NSMutableDictionary* muDict = nil;
+            
+            for (int i = 0; i < array.count; i++)
+            {
+                muDict = [NSMutableDictionary new];
+                NSDictionary *article = [array objectAtIndex:i];
+                [muDict setObject:[article objectForKey:@"music_title"] forKey:@"music_title"];
+                [muDict setObject:[article objectForKey:@"music_author"] forKey:@"music_author"];
+                [muDict setObject:[article objectForKey:@"music_path"] forKey:@"music_path"];
+                [musicArray addObject:muDict];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+        [operation start];
+    }
+    
 }
 
 -(void) play
 {
     if (nil != musicArray && [musicArray count] != 0)
     {
-        if (!streamer)
+        NSDictionary *nsDict = [musicArray objectAtIndex:0];
+        //使用AVAudioPlayer进行播放
+        if (musicLocalOrNet == 1)
         {
-            NSDictionary *nsDict = [musicArray objectAtIndex:0];
-            streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nsDict objectForKey:@"music_path"]]];
-            [musicAuthor setText:[@"Directed By " stringByAppendingString:[nsDict objectForKey:@"music_author"]]];
-            [musicName setText:[nsDict objectForKey:@"music_title"]];
+            if (audioPlayer) {
+                //把音频文件转换成url格式
+                NSURL *musicUrl = [NSURL fileURLWithPath:[nsDict objectForKey:@"music_path"]];
+                audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:nil];
+            }
             
-            // set up display updater
-            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
-                                        [self methodSignatureForSelector:@selector(updateProgress)]];
-            [invocation setSelector:@selector(updateProgress)];
-            [invocation setTarget:self];
-            
-            timer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                 invocation:invocation
-                                                    repeats:YES];
-            
-            currentMusicNum = 0;
+            if ([audioPlayer isPlaying])
+            {
+                [audioPlayer pause];
+                [self setBtnPause];
+            }
+            else
+            {
+                [audioPlayer play];
+                [self setBtnPlay];
+            }
         }
+        else //使用AudioStreamer进行播放
+        {
+            if (streamer)
+            {
+                streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nsDict objectForKey:@"music_path"]]];
+            }
+            
+            if ([streamer isPlaying])
+            {
+                [streamer pause];
+                [self setBtnPause];
+            }
+            else
+            {
+                [streamer start];
+                
+                NSLog(@"start......");
+                [self setBtnPlay];
+            }
+        }
+        [musicAuthor setText:[@"Directed By " stringByAppendingString:[nsDict objectForKey:@"music_author"]]];
+        [musicName setText:[nsDict objectForKey:@"music_title"]];
         
-        if ([streamer isPlaying])
-        {
-            [streamer pause];
-            [self setBtnPause];
-        }
-        else
-        {
-            [streamer start];
-            
-            NSLog(@"start......");
-            [self setBtnPlay];
-        }
+        // set up display updater
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
+                                    [self methodSignatureForSelector:@selector(updateProgress)]];
+        [invocation setSelector:@selector(updateProgress)];
+        [invocation setTarget:self];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                             invocation:invocation
+                                                repeats:YES];
+        
+        currentMusicNum = 0;
+        
     }
     else  //播放本地音乐
     {
         [self showPlayMusicTips];
-        /*
-        if ([streamer isPlaying])
-        {
-            [streamer pause];
-            [self setBtnPause];
-        }
-        else
-        {
-            NSString *mp3Path = [[NSBundle mainBundle] pathForResource:@"music_1" ofType:@"mp3"];            
-            NSURL *defaultMusicUrl = [NSURL fileURLWithPath:mp3Path isDirectory:NO];
-            
-            NSLog(@"*****: %@",[defaultMusicUrl description]);
-            
-            NSFileManager *fileManage = [NSFileManager defaultManager];
-            NSString * path = [[NSBundle mainBundle] resourcePath] ;
-            NSArray *file = [fileManage subpathsOfDirectoryAtPath:path error:nil];
-            NSLog(@"*****2: %@",[file description]);
-            
-            streamer = [[AudioStreamer alloc] initWithURL:defaultMusicUrl];
-            [musicAuthor setText:@"Directed By MATI"];
-            [musicName setText:@"YiLi Shushu Tamber 1"];
-            
-            // set up display updater
-            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
-                                        [self methodSignatureForSelector:@selector(updateProgress)]];
-            [invocation setSelector:@selector(updateProgress)];
-            [invocation setTarget:self];
-            
-            timer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                 invocation:invocation
-                                                    repeats:YES];
-            [streamer start];
-        }      
-        */
     }
 }
 
 -(void) stop
 {
     // release streamer
-	if (streamer)
-	{
-		[streamer stop];
-	}
+    if (musicLocalOrNet == 1)
+    {
+        if (audioPlayer != nil)
+        {
+            [audioPlayer stop];
+        }
+    }
+    else
+    {
+        if (streamer)
+        {
+            [streamer stop];
+        }
+    }
 }
 
 -(void) next
@@ -442,19 +449,40 @@ extern DBUtils *db;
         ++currentMusicNum;
         if (currentMusicNum < [musicArray count])
         {
-            if (streamer)
+            if (musicLocalOrNet == 1)
             {
-                [streamer stop];
-                progressBarView.progress = -0.1;
+                if (audioPlayer)
+                {
+                    [audioPlayer stop];
+                }
             }
+            else
+            {
+                if (streamer)
+                {
+                    [streamer stop];                    
+                }
+            }
+            progressBarView.progress = -0.1;
             [self playNextMusic:currentMusicNum];
         }
         else
         {
-            if (streamer)
+            if (musicLocalOrNet == 1)
             {
-                [streamer stop];
+                if (audioPlayer)
+                {
+                    [audioPlayer stop];
+                }
             }
+            else
+            {
+                if (streamer)
+                {
+                    [streamer stop];
+                }
+            }
+            
             if (nil != musicArray)
             {
                 currentMusicNum = 0;
@@ -472,7 +500,15 @@ extern DBUtils *db;
 -(void) playNextMusic:(int) _currentMusicNum
 {
     NSDictionary *nsDict = [musicArray objectAtIndex:_currentMusicNum];
-    streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nsDict objectForKey:@"music_path"]]];
+    if (musicLocalOrNet == 1)
+    {
+        NSURL *musicUrl = [NSURL fileURLWithPath:[nsDict objectForKey:@"music_path"]];
+        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:nil];
+    }
+    else
+    {
+        streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nsDict objectForKey:@"music_path"]]];
+    }
     [musicAuthor setText:[@"Directed By " stringByAppendingString:[nsDict objectForKey:@"music_author"]]];
     [musicName setText:[nsDict objectForKey:@"music_title"]];
     
@@ -485,34 +521,64 @@ extern DBUtils *db;
                                          invocation:invocation
                                             repeats:YES];
     
-    if (nil != streamer)
+    if (musicLocalOrNet == 1)
     {
-        [streamer start];
-        [self setBtnPlay];
+        if (audioPlayer != nil)
+        {
+            [audioPlayer play];
+            [self setBtnPlay];
+        }
     }
+    else
+    {
+        if (nil != streamer)
+        {
+            [streamer start];
+            [self setBtnPlay];
+        }
+    }
+    
 }
 
 - (void)updateProgress
 {
-    if (streamer.progress != 0.0)
+    if (musicLocalOrNet == 1)
     {
-        if ((int)streamer.progress < (int)streamer.duration)
+        if(audioPlayer.currentTime < audioPlayer.duration)
         {
-            progressBarView.progress = streamer.progress/streamer.duration;
+            progressBarView.progress = audioPlayer.currentTime/audioPlayer.duration;
         }
         else
         {
             progressBarView.progress = -0.1;
-            if ([streamer isFinishing])
+            
+            if([timer isValid])
             {
-                if([timer isValid])
+               [timer invalidate];
+            }
+        }
+    }
+    else
+    {
+        if (streamer.progress != 0.0)
+        {
+            if ((int)streamer.progress < (int)streamer.duration)
+            {
+                progressBarView.progress = streamer.progress/streamer.duration;
+            }
+            else
+            {
+                progressBarView.progress = -0.1;
+                if ([streamer isFinishing])
                 {
-                    [timer invalidate];
+                    if([timer isValid])
+                    {
+                        [timer invalidate];
+                    }
                 }
             }
         }
     }
-    
 }
 
 -(void) setBtnPause

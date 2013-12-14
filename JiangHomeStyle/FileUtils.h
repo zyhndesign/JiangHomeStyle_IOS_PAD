@@ -36,4 +36,7 @@
 
 //获取指定目录下的所有文件名称
 -(NSArray *)getFileListByDir:(NSString *)dir;
+
+//删除指定目录下文件
+-(void)removeAtPath:(NSString*)path;
 @end

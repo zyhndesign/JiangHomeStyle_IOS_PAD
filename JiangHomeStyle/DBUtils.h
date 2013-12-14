@@ -28,6 +28,9 @@
 //根据类别获取该类别下所有数据，并且以发布时间降序排列
 - (NSMutableArray*) queryByCategory:(int) category;
 
+//根据类别获取该类别下所有下载数据
+- (NSMutableArray*) queryDownloadDataByCategory:(int) category;
+
 //获取头条文章数据 （按照时间降序排列取前面4条）
 - (NSMutableArray*) queryHeadline;
 
@@ -67,7 +70,9 @@
 //读取所有音乐数据
 -(NSMutableArray*) queryMusicData;
 
-//
+//根据serverId更新下载标志
+-(BOOL) updateSignByServerId:(NSString *)serverId;
 
-
+//读取需要下载视频的数据
+-(NSMutableArray *)getVideoData;
 @end

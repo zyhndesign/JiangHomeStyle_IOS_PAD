@@ -92,7 +92,7 @@
     
     //下载zip文件包
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:downUrl]];
-    NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"temp"] stringByAppendingString:articleId] stringByAppendingString:@".zip"];
+    NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"temp"] stringByAppendingPathComponent:articleId] stringByAppendingString:@".zip"];
     NSString *articlesPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"];
                               
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -124,7 +124,8 @@
         
         if (result)
         {
-            NSLog(@"unzip file is success");
+            NSLog(@"unzip file is success and delete the zip file");
+            [self removeAtPath:archivePath];
         }
         else
         {
@@ -158,6 +159,14 @@
     fileList = [fileManager contentsOfDirectoryAtPath:dir error:&error];
     
     return fileList;
+}
+
+-(void)removeAtPath:(NSString*)path
+{
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    if([defaultManager fileExistsAtPath:path]){
+        [defaultManager removeItemAtPath:path error:nil];
+    }
 }
 
 @end

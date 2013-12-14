@@ -17,15 +17,20 @@
     UILabel *humanityLabel;
     UILabel *storyLabel;
     UILabel *communityLabel;
+    UILabel *videoLabel;
     
     UIButton* musicCancelBtn;
     UIButton* landscapeCancelBtn;
     UIButton* humanityCancelBtn;
     UIButton* storyCancelBtn;
     UIButton* communityCancelBtn;
+    UIButton* videoCancelBtn;
     
     NSMutableArray *musicArray;
     
+    NSString *showUrl;
+    NSString *videoUrl;
+    NSString *fileSize;
 }
 @property (weak, nonatomic) id<MJPopupDelegate> delegate;
 
@@ -35,17 +40,8 @@
 //队列顺序异步下载音乐数据
 -(void) downloadMusicFile:(NSArray *)dataArray;
 
-//获取需要下载的风景数据，队列顺序异步进行下载
--(void) downloadLandscapeData;
-
-//获取需要下载的人文数据，队列顺序异步进行下载
--(void) downloadHumanityData;
-
-//获取需要下载的物语数据，队列顺序异步进行下载
--(void) downloadStoryData;
-
-//获取需要下载的社区数据，队列顺序异步进行下载
--(void) downloadCommunityData;
+//获取需要下载的类别数据，队列顺序异步进行下载
+-(void) downloadDataByCategory:(int) category;
 
 @end
 

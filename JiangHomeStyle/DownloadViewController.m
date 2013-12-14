@@ -15,14 +15,23 @@
 #import "JSONKit.h"
 #import "FileUtils.h"
 #import "DBUtils.h"
+#import "ZipArchive/ZipArchive.h"
+#import "GDataXMLNode.h"
 
 @interface DownloadViewController ()
 
 @end
 
 extern DBUtils *db;
+extern FileUtils *fileUtils;
 
 @implementation DownloadViewController
+
+int landscapeCancelSign = 0;
+int humanityCancelSign = 0;
+int storyCancelSign = 0;
+int communityCancelSign = 0;
+int videoCancelSign = 0;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,28 +55,25 @@ extern DBUtils *db;
     humanityLabel = (UILabel *)[self.view viewWithTag:817];
     storyLabel = (UILabel *)[self.view viewWithTag:819];
     communityLabel = (UILabel *)[self.view viewWithTag:821];
+    videoLabel = (UILabel *)[self.view viewWithTag:823];
     
     musicCancelBtn = (UIButton*)[self.view viewWithTag:812];
-    landscapeCancelBtn = (UIButton*)[self.view viewWithTag:814];;
-    humanityCancelBtn = (UIButton*)[self.view viewWithTag:816];;
-    storyCancelBtn = (UIButton*)[self.view viewWithTag:818];;
-    communityCancelBtn = (UIButton*)[self.view viewWithTag:820];;
-    
+    landscapeCancelBtn = (UIButton*)[self.view viewWithTag:814];
+    [landscapeCancelBtn addTarget:self action:@selector(cancelLandscapeDownBtn) forControlEvents:UIControlEventTouchUpInside];
+    humanityCancelBtn = (UIButton*)[self.view viewWithTag:816];
+    [humanityCancelBtn addTarget:self action:@selector(cancelHumanityDownBtn) forControlEvents:UIControlEventTouchUpInside];
+    storyCancelBtn = (UIButton*)[self.view viewWithTag:818];
+    [storyCancelBtn addTarget:self action:@selector(cancelStoryDownBtn) forControlEvents:UIControlEventTouchUpInside];
+    communityCancelBtn = (UIButton*)[self.view viewWithTag:820];
+    [communityCancelBtn addTarget:self action:@selector(cancelCommunityDownBtn) forControlEvents:UIControlEventTouchUpInside];
+    videoCancelBtn = (UIButton*)[self.view viewWithTag:822];
+    [communityCancelBtn addTarget:self action:@selector(cancelVideoDownBtn) forControlEvents:UIControlEventTouchUpInside];
     //列出下载列表，包括音乐文件、基本文件包、视频文件（列表之前先判断是否已经下载过）
     
     
     //异步获取音乐列表并进行下载
     musicArray = [NSMutableArray new];
     [self loadMusicData];
-    //根据类别获取需要下载的文章列表
-            
-    //开始下载风景数据
-    
-    //开始下载人文数据
-    
-    //开始下载物语数据
-            
-    //开始下载社区数据
     
 }
 
@@ -83,6 +89,41 @@ extern DBUtils *db;
     {
         [self.delegate closeButtonClicked];
     }
+}
+
+-(void)cancelLandscapeDownBtn
+{
+    landscapeCancelSign = 1;
+    [landscapeLabel setHidden:YES];
+    [landscapeCancelBtn setHidden:YES];
+}
+
+-(void)cancelHumanityDownBtn
+{
+    humanityCancelSign = 1;
+    [humanityLabel setHidden:YES];
+    [humanityCancelBtn setHidden:YES];
+}
+
+-(void)cancelStoryDownBtn
+{
+    storyCancelSign = 1;
+    [storyLabel setHidden:YES];
+    [storyCancelBtn setHidden:YES];
+}
+
+-(void)cancelCommunityDownBtn
+{
+    communityCancelSign = 1;
+    [communityLabel setHidden:YES];
+    [communityCancelBtn setHidden:YES];
+}
+
+-(void)cancelVideoDownBtn
+{
+    videoCancelSign = 1;
+    [videoLabel setHidden:YES];
+    [videoCancelBtn setHidden:YES];
 }
 
 //异步加载需要下载的音乐数据
@@ -103,13 +144,7 @@ extern DBUtils *db;
         NSMutableDictionary* muDict = nil;
         
         //读取music文件夹下的所有音乐文件
-        FileUtils *fileUtils = [FileUtils new];
         NSArray *musicNameArray = [fileUtils getFileListByDir:[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"music"]];
-        
-        for (NSString *str in musicNameArray)
-        {
-            NSLog(@"file: %@",str);
-        }
         
         NSLog(@"dir musicArray size is %d",[musicNameArray count]);
         
@@ -121,7 +156,6 @@ extern DBUtils *db;
             
             if (![musicNameArray containsObject:[[NSString stringWithFormat:@"%@",[article objectForKey:@"music_id"]] stringByAppendingString:@".mp3"]])
             {
-                NSLog(@"not contain music...");
                 [muDict setObject:[article objectForKey:@"music_title"] forKey:@"musicTitle"];
                 [muDict setObject:[article objectForKey:@"music_author"] forKey:@"musicAuthor"];
                 [muDict setObject:[article objectForKey:@"music_path"] forKey:@"musicPath"];
@@ -140,6 +174,7 @@ extern DBUtils *db;
         else
         {
             [musicLabel setText:@"100%"] ;
+            [self downloadLinear];
         }
         [musicCancelBtn setHidden:YES];
         
@@ -162,7 +197,7 @@ extern DBUtils *db;
         dispatch_async(queue, ^{
             NSString *path = [obj objectForKey:@"musicPath"];
             NSString *musicName = [[NSString stringWithFormat:@"%@",[obj objectForKey:@"musicID"]] stringByAppendingString:@".mp3"];
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:path]];
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
             NSString *savePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"music"] stringByAppendingPathComponent:musicName];
             
             AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -172,46 +207,375 @@ extern DBUtils *db;
                 NSLog(@"loading file is over %f", i * percent);
                 int labelValue = (i * percent * 100);
                 
-                if (labelValue == 99)
+                if (labelValue >= 99)
                 {
                     labelValue = 100;
+                    [self downloadLinear];
                 }
-                NSLog(@"label value is %d",labelValue);
-                [musicLabel setText:[[NSString stringWithFormat:@"%d", labelValue] stringByAppendingString:@"%"]] ;
+                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue];
                 [obj setObject:savePath forKey:@"musicPath"];
                 [db insertMusicData:obj];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"loading is failure %@",[error description]);
                 NSLog(@"path is : %@",path);
                 i++;
+                int labelValue = (i * percent * 100);
+                
+                if (labelValue >= 99)
+                {
+                    labelValue = 100;
+                    [self downloadLinear];
+                }
+                NSLog(@"label value is %d",labelValue);
+                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue];
             }];
             [operation start];
         });
     }
 }
 
-//获取需要下载的风景数据，队列顺序异步进行下载
--(void) downloadLandscapeData
+//获取需要下载的类别数据，队列顺序异步进行下载
+-(void) downloadDataByCategory:(int) category
 {
-
+    if (category == LANDSCAPE_CATEGORY)
+    {
+        [landscapeCancelBtn setHidden:YES];
+    }
+    else if (category == HUMANITY_CATEGORY)
+    {
+        [humanityCancelBtn setHidden:YES];
+    }
+    else if (category == STORY_CATEGORY)
+    {
+        [storyCancelBtn setHidden:YES];
+    }
+    else if (category == COMMUNITY_CATEGORY)
+    {
+        [communityCancelBtn setHidden:YES];
+    }
+    else if (category == VIDEO_CATEGORY)
+    {
+        [videoCancelBtn setHidden:YES];
+    }
+    NSMutableArray* categoryDataArray = [db queryDownloadDataByCategory:category];
+    dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
+    __block long long totalFileSize = 0;
+    __block long long alreadyDownSize = 0;
+    
+    if ([categoryDataArray count] > 0)
+    {
+        
+        for (NSMutableDictionary *nsDict in categoryDataArray)
+        {
+            NSString *filePath = [[[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]] stringByAppendingPathComponent:@"doc"] stringByAppendingPathComponent:@"main.html"];
+            
+            if (![fileUtils fileISExist:filePath])
+            {
+                dispatch_async(queue, ^{
+                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[nsDict objectForKey:@"url"]]];
+                    NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"temp"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]] stringByAppendingString:@".zip"];
+                    NSString *articlesPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"];
+                    NSString* fileSizeStr = [nsDict objectForKey:@"size"];
+                    totalFileSize = totalFileSize + [fileSizeStr longLongValue];
+                    
+                    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
+                    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        NSLog(@"loading zip is success");
+                        
+                        //解压文件
+                        BOOL result = FALSE;
+                        ZipArchive *zip = [ZipArchive new];
+                        if ([zip UnzipOpenFile:archivePath])
+                        {
+                            result = [zip UnzipFileTo:articlesPath overWrite:YES];
+                        }
+                        else
+                        {
+                            NSLog(@"there is no zip file");
+                        }
+                        
+                        [db updateSignByServerId:[nsDict objectForKey:@"serverID"]];
+                        
+                        if (result)
+                        {
+                            NSLog(@"unzip file is success and delete the zip file");
+                            [fileUtils removeAtPath:archivePath];
+                        }
+                        else
+                        {
+                            NSLog(@"unzip file is failure");
+                        }
+                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        NSLog(@"loading zip is failure %@",[error description]);
+                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                    }];
+                    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                        // NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
+                        
+                        //_progress.progress=(float)totalBytesRead/(float)totalBytesExpectedToRead;
+                        //_provalue.text=[[NSString alloc] initWithFormat:@"%0.2f%%",(float)totalBytesRead/(float)totalBytesExpectedToRead*100];
+                        [self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize*100] floatValue]];
+                    }];
+                    [operation start];
+                });
+            }
+            
+            if (totalFileSize == 0)
+            {
+                [self updateUIPanelData:category AndPercent:100];
+            }
+        }
+    }
+    else
+    {
+        [self updateStateByCategroy:category];
+    }
 }
 
-//获取需要下载的人文数据，队列顺序异步进行下载
--(void) downloadHumanityData
+-(void) downloadVideo
 {
-
+    NSMutableArray *videoArray = [db getVideoData];
+    NSMutableArray *videoDownArray = [NSMutableArray new];
+    NSMutableDictionary *urlDict;
+    
+    long long totalFileSize = 0;
+    __block long long alreadyDownSize = 0;
+    for (NSMutableDictionary *nsDict in videoArray)
+    {
+        //解析doc.xml文件，获取showUrl地址，videoUrl
+        NSString *docFilePath   =  [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]]  stringByAppendingPathComponent:@"doc.xml"];
+        //NSString *jsonString  =   [NSString stringWithContentsOfFile:docFilePath encoding:NSUTF8StringEncoding error:nil];
+        NSData *xmlData = [[NSData alloc] initWithContentsOfFile:docFilePath];
+        
+        //使用NSData对象初始化
+        GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+        
+        //获取根节点（doc）
+        GDataXMLElement *rootElement = [doc rootElement];
+        
+        
+        //获取根节点下的节点（videoItems）
+        NSArray *videoItems = [rootElement elementsForName:@"videoItems"];
+        
+        if ([videoItems count] > 0)
+        {
+            for (GDataXMLElement *videoItem in videoItems)
+            {
+                NSArray *videoItemData = [videoItem elementsForName:@"videoItem"];
+                
+                for (GDataXMLElement *video in videoItemData) {
+                    urlDict = [NSMutableDictionary new];
+                    //获取showUrl节点的值
+                    GDataXMLElement *nameElement = [[video elementsForName:@"showUrl"] objectAtIndex:0];
+                    showUrl = [nameElement stringValue];
+                    NSLog(@"showUrl is:%@",showUrl);
+                    
+                    //获取videoUrl节点的值
+                    GDataXMLElement *ageElement = [[video elementsForName:@"videoUrl"] objectAtIndex:0];
+                    videoUrl = [ageElement stringValue];
+                    NSLog(@"videoUrl is:%@",videoUrl);
+                    
+                    //
+                    GDataXMLElement *sizeElement = [[video elementsForName:@"size"] objectAtIndex:0];
+                    //fileSize = [[sizeElement stringValue] longLongValue];
+                    fileSize = [sizeElement stringValue];
+                    NSLog(@"fileSize is:%@",fileSize);
+                    
+                    [urlDict setValue:videoUrl forKey:@"videoUrl"];
+                    [urlDict setValue:showUrl forKey:@"showUrl"];
+                    [urlDict setValue:fileSize forKey:@"fileSize"];
+                    [videoDownArray addObject:urlDict];
+                }
+            }
+        }
+    }
+    
+    if ([videoDownArray count] > 0)
+    {
+        dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
+        
+        //读取video文件夹下的所有视频文件
+        NSArray *videoIsDownArray = [fileUtils getFileListByDir:[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"]];
+        
+        NSLog(@"dir videoArray size is %d",[videoIsDownArray count]);
+        
+        for (NSMutableDictionary *nsDict in videoDownArray)
+        {
+            if (![videoIsDownArray containsObject:[nsDict objectForKey:@"videoUrl"]])
+            {
+                NSLog(@"download video...");
+                NSString* fileSizeStr = [nsDict objectForKey:@"fileSize"];
+                totalFileSize = totalFileSize + [fileSizeStr longLongValue];
+                
+                dispatch_async(queue, ^{
+                    
+                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[nsDict objectForKey:@"videoUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+                    NSString* archivePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingString:[nsDict objectForKey:@"videoUrl"]];
+                    
+                    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
+                    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                       alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                        NSLog(@"download success");
+                        
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                       alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                        NSLog(@"download failure");
+                        
+                    }];
+                    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                        NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
+                        
+                        //_progress.progress=(float)totalBytesRead/(float)totalBytesExpectedToRead;
+                        videoLabel.text=[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize*100];
+                    }];
+                    [operation start];
+                });
+    
+            }
+        }
+        
+    }
 }
 
-//获取需要下载的物语数据，队列顺序异步进行下载
--(void) downloadStoryData
+-(void) downloadLinear
 {
-
+    if (landscapeCancelSign == 0)
+    {
+        [self downloadDataByCategory:LANDSCAPE_CATEGORY];
+    }
+    else if (humanityCancelSign == 0)
+    {
+        [self downloadDataByCategory:HUMANITY_CATEGORY];
+    }
+    else if (storyCancelSign == 0)
+    {
+        [self downloadDataByCategory:STORY_CATEGORY];
+    }
+    else if (communityCancelSign == 0)
+    {
+        [self downloadDataByCategory:COMMUNITY_CATEGORY];
+    }
+    else if (videoCancelSign == 0)
+    {
+        [self downloadVideo];
+    }
 }
 
-//获取需要下载的社区数据，队列顺序异步进行下载
--(void) downloadCommunityData
+-(void) updateStateByCategroy:(int) category
 {
-
+    if (category == LANDSCAPE_CATEGORY)
+    {
+        [landscapeLabel setText:@"100%"];
+        [landscapeCancelBtn setHidden:YES];
+        if (humanityCancelSign == 0)
+        {
+            [self downloadDataByCategory:HUMANITY_CATEGORY];
+        }
+        else
+        {
+            if (storyCancelSign == 0)
+            {
+                [self downloadDataByCategory:STORY_CATEGORY];
+            }
+            else
+            {
+                if (communityCancelSign == 0)
+                {
+                    [self downloadDataByCategory:COMMUNITY_CATEGORY];
+                }
+                else
+                {
+                    if (videoCancelSign == 0)
+                    {
+                        [self downloadVideo];
+                    }
+                }
+            }
+        }
+    }
+    else if (category == HUMANITY_CATEGORY)
+    {
+        [humanityLabel setText:@"100%"];
+        [humanityCancelBtn setHidden:YES];
+        if (storyCancelSign == 0)
+        {
+            [self downloadDataByCategory:STORY_CATEGORY];
+        }
+        else
+        {
+            if (communityCancelSign == 0)
+            {
+                [self downloadDataByCategory:COMMUNITY_CATEGORY];
+            }
+            else
+            {
+                if (videoCancelSign == 0)
+                {
+                    [self downloadVideo];
+                }
+            }
+        }
+    }
+    else if (category == STORY_CATEGORY)
+    {
+        [storyLabel setText:@"100%"];
+        [storyCancelBtn setHidden:YES];
+        if (communityCancelSign == 0)
+        {
+            [self downloadDataByCategory:COMMUNITY_CATEGORY];
+        }
+        else
+        {
+            if (videoCancelSign == 0)
+            {
+                [self downloadVideo];
+            }
+        }
+    }
+    else if (category == COMMUNITY_CATEGORY)
+    {
+        [communityLabel setText:@"100%"];
+        [communityCancelBtn setHidden:YES];
+        if (videoCancelSign == 0)
+        {
+            [self downloadVideo];
+        }
+    }
+    else if (category == VIDEO_CATEGORY)
+    {
+        [videoLabel setText:@"100%"];
+        [videoCancelBtn setHidden:YES];
+    }
 }
 
+-(void) updateUIPanelData:(int)category AndPercent:(float)value
+{
+    if (category == MUSIC_CATEGOTY)
+    {
+        [musicLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+    }
+    else if (category == LANDSCAPE_CATEGORY)
+    {
+        [landscapeLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+    }
+    else if (category == HUMANITY_CATEGORY)
+    {
+        [humanityLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+    }
+    else if (category == STORY_CATEGORY)
+    {
+        [storyLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+    }
+    else if (category == COMMUNITY_CATEGORY)
+    {
+        [communityLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+    }
+    else if (category == VIDEO_CATEGORY)
+    {
+        [videoLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]];
+    }
+}
 @end

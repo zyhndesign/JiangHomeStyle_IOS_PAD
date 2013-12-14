@@ -221,7 +221,31 @@ NSString* path = nil;
         }
         [db close];
     }
-    return nil;
+    return array;
+}
+
+//根据类别获取该类别下所有下载数据
+- (NSMutableArray*) queryDownloadDataByCategory:(int) category
+{
+    FMDatabase* db = [FMDatabase databaseWithPath:path];
+    NSMutableArray *array = [NSMutableArray new];
+    NSMutableDictionary *nsDict = nil;
+    if ([db open])
+    {
+        NSString* sql = [@"select serverID,url,hasVideo,size from contentlist where isDownload = 0 and category = " stringByAppendingFormat:@"%d", category];
+                FMResultSet *rs = [db executeQuery:sql];
+        while ([rs next])
+        {
+            nsDict = [NSMutableDictionary new];
+            [nsDict setValue:[rs stringForColumn:@"serverID"] forKey:@"serverID"];
+            [nsDict setValue:[rs stringForColumn:@"url"] forKey:@"url"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"hasVideo"]] forKey:@"hasVideo"];
+            [nsDict setValue:[NSNumber numberWithInt:[rs intForColumn:@"size"]] forKey:@"size"];
+            [array addObject:nsDict];
+        }
+        [db close];
+    }
+    return array;
 }
 
 //获取头条文章数据 （按照时间降序排列取前面4条）
@@ -528,6 +552,7 @@ NSString* path = nil;
         
         if (res)
         {
+            NSLog(@"%@",@"insert music data success.......");
             [db close];
             return YES;
         }
@@ -546,10 +571,10 @@ NSString* path = nil;
 {
     FMDatabase* db = [FMDatabase databaseWithPath:path];
     NSMutableDictionary *nsDict= nil;
-    NSMutableArray *nsMuArray = nil;
+    NSMutableArray *nsMuArray = [NSMutableArray new];
     if ([db open])
     {
-        NSString* sql = @"select musicID,musicName,musicAuthor,musicTitle,musicPath from musiclist";
+        NSString* sql = @"select musicID,musicName,musicAuthor,musicTitle,musicPath from musiclist ";
         FMResultSet *rs = [db executeQuery:sql];
         while ([rs next])
         {
@@ -562,9 +587,61 @@ NSString* path = nil;
             [nsMuArray addObject:nsDict];
         }
         [db close];
-        return nsMuArray;
+       
     }
-    return nil;
+     return nsMuArray;
+}
+
+//根据serverId更新下载标志
+-(BOOL) updateSignByServerId:(NSString *)serverId
+{
+    if ([[self queryByServerID:serverId] count] > 0)
+    {
+        NSLog(@"update data");
+        FMDatabase* db = [FMDatabase databaseWithPath:path];
+        if ([db open])
+        {
+            NSString* sql = [[@"update contentlist set isDownload=1 where serverID ='" stringByAppendingString:serverId] stringByAppendingString:@"'"];
+            BOOL res = [db executeUpdate:sql];
+            if (res)
+            {
+                [db close];
+                return YES;
+            }
+            else
+            {
+                [db close];
+                return NO;
+            }
+        }
+        else
+        {
+            return NO;
+        }
+    }
+    return NO;
+}
+
+//读取需要下载视频的数据
+-(NSMutableArray *)getVideoData
+{
+    FMDatabase* db = [FMDatabase databaseWithPath:path];
+    NSMutableDictionary *nsDict = nil;
+    NSMutableArray *nsMuArray = [NSMutableArray new];
+    if ([db open])
+    {
+        NSString* sql = @"select serverID from contentlist where hasVideo = 1";
+        FMResultSet *rs = [db executeQuery:sql];
+        while ([rs next])
+        {
+            nsDict= [NSMutableDictionary new];
+            [nsDict setValue:[rs stringForColumn:@"serverID"] forKey:@"serverID"];
+            [nsMuArray addObject:nsDict];
+        }
+        [db close];
+        
+    }
+    return nsMuArray;
 }
 
 @end

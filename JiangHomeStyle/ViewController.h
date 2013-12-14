@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "googleAnalytics/GAI.h"
+#import <AVFoundation/AVAudioPlayer.h>
 
 @class AudioStreamer;
 @class HomeViewController;
@@ -37,6 +38,8 @@
     UIButton * communityBtn;
     
     AudioStreamer *streamer;
+    AVAudioPlayer *audioPlayer;
+    
     NSURL *url;
     NSTimer *timer;
     int currentMusicNum;

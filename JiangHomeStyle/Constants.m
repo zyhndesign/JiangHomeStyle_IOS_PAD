@@ -13,6 +13,8 @@ const int LANDSCAPE_CATEGORY = 0;
 const int HUMANITY_CATEGORY = 1;
 const int STORY_CATEGORY = 2;
 const int COMMUNITY_CATEGORY = 3;
+const int MUSIC_CATEGOTY = 4;
+const int VIDEO_CATEGORY = 5;
 
 const int LANDSCAPE_PAGE_INSIDE_NUM = 4;
 const int HUMANITY_PAGE_INSIDE_NUM = 3;

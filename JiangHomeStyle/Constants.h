@@ -13,6 +13,8 @@ extern const int LANDSCAPE_CATEGORY;
 extern const int HUMANITY_CATEGORY;
 extern const int STORY_CATEGORY;
 extern const int COMMUNITY_CATEGORY;
+extern const int MUSIC_CATEGOTY;
+extern const int VIDEO_CATEGORY;
 
 extern const int LANDSCAPE_PAGE_INSIDE_NUM;
 extern const int HUMANITY_PAGE_INSIDE_NUM;

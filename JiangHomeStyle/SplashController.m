@@ -172,6 +172,7 @@ NSUserDefaults *baseInfo = nil;
                 
                 [muDict setObject:currTime forKey:@"insertDate"];
                 [muDict setObject:@" " forKey:@"main_file_path"];
+                [muDict setObject:[NSNumber numberWithInt:0] forKey:@"isDownload"];
                 [db updateDataByServerId:[article objectForKey:@"id"] withDict:muDict];
             }
             else

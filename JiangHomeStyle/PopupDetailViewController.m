@@ -15,8 +15,11 @@
 #import "googleAnalytics/GAIDictionaryBuilder.h"
 #import "UIImageView+RotationAnimation.h"
 #import "GDataXMLNode.h"
+#import <MediaPlayer/MPMoviePlayerController.h>
+#import "MJPopup/UIViewController+MJPopupViewController.h"
+#import "VideoViewController.h"
 
-@interface PopupDetailViewController ()<UIWebViewDelegate,UIAlertViewDelegate>
+@interface PopupDetailViewController ()<UIWebViewDelegate,UIAlertViewDelegate,MJPopupDelegate>
 
 @end
 
@@ -28,6 +31,7 @@
 
 extern FileUtils *fileUtils;
 extern DBUtils *db;
+VideoViewController *videoViewController = nil;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andParams:(NSString *)_serverID
 {
@@ -63,8 +67,7 @@ extern DBUtils *db;
     NSLog(@"get article id is :%@",self.serverID);
     
     if (nil != self.serverID)
-    {        
-        urlDict = [NSDictionary new];
+    {
         
         NSString *filePath = [[[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:self.serverID] stringByAppendingPathComponent:@"doc"] stringByAppendingPathComponent:@"main.html"];
         
@@ -121,9 +124,10 @@ extern DBUtils *db;
         //获取根节点（doc）
         GDataXMLElement *rootElement = [doc rootElement];
         
-        
         //获取根节点下的节点（videoItems）
         NSArray *videoItems = [rootElement elementsForName:@"videoItems"];
+        
+        videoArray = [NSMutableArray new];
         
         if ([videoItems count] > 0)
         {
@@ -132,22 +136,24 @@ extern DBUtils *db;
                 NSArray *videoItemData = [videoItem elementsForName:@"videoItem"];
                 
                 for (GDataXMLElement *video in videoItemData) {
-                    
-                    //获取name节点的值
+                    urlDict = [NSMutableDictionary new];
+                    //获取showUrl节点的值
                     GDataXMLElement *nameElement = [[video elementsForName:@"showUrl"] objectAtIndex:0];
                     showUrl = [nameElement stringValue];
-                    NSLog(@"User name is:%@",showUrl);
+                    NSLog(@"showUrl is:%@",showUrl);
                     
-                    //获取age节点的值
+                    //获取videoUrl节点的值
                     GDataXMLElement *ageElement = [[video elementsForName:@"videoUrl"] objectAtIndex:0];
                     videoUrl = [ageElement stringValue];
-                    NSLog(@"User age is:%@",videoUrl);
+                    NSLog(@"videoUrl is:%@",videoUrl);
                     
-                    [urlDict setValue:videoUrl forKey:showUrl];
+                    [urlDict setValue:videoUrl forKey:@"videoUrl"];
+                    [urlDict setValue:showUrl forKey:@"showUrl"];
+                    
+                    [videoArray addObject:urlDict];
                 }
             }
         }
-        
     }
 }
 
@@ -178,20 +184,32 @@ extern DBUtils *db;
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSURL *url = [request URL];
-    NSLog(@"%@", url);
-    NSLog(@"%@", [url description]);
     
     //判断url是否为视频地址，如果为视频地址则进行拦截播放
-    
-    if ([urlDict objectForKey:[url description]])
+    for (NSMutableDictionary *dict in videoArray)
     {
-        //判断指定路径是否有视频，没有则进行下载，下载后调用原生播放器进行播放
-        return NO;
+        if ([[urlDict objectForKey:@"showUrl"]isEqualToString:[url description]])
+        {
+            //判断指定路径是否有视频，没有则进行下载，下载后调用原生播放器进行播放
+            NSString *path =[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingPathComponent:[self getFileNameFromUrl:[urlDict objectForKey:@"videoUrl"]]];
+            if ([fileUtils fileISExist:path])
+            {                                
+                if (videoViewController == nil)
+                {
+                    videoViewController = [[VideoViewController alloc] initWithNibName:@"VideoPlay" bundle:nil andUrl:path];
+                    videoViewController.delegate = self;                    
+                    [self presentPopupViewController:videoViewController animationType:MJPopupViewAnimationSlideRightLeft];
+                }
+            }
+            
+            return NO;
+        }
+        else
+        {
+            return YES;
+        }
     }
-    else
-    {
-        return YES;
-    }
+    return YES;
 }
 
 -(void)webView:(UIWebView *)_webView didFailLoadWithError:(NSError *)error
@@ -205,7 +223,6 @@ extern DBUtils *db;
 
 -(void)webViewDidStartLoad:(UIWebView *)_webView
 {
-    
     aniLayer1 = (UIImageView *)[self.view viewWithTag:912];
     aniLayer1.hidden = NO;
     [aniLayer1 addRotationClockWise:1 andAngle:3.0 andRepeat:100];
@@ -251,6 +268,18 @@ extern DBUtils *db;
     }
 }
 
+-(NSString *)getFileNameFromUrl:(NSString *)url
+{
+    NSArray *array = [url componentsSeparatedByString:@"/"];
+    
+    return [array objectAtIndex:([array count] - 1)];
+}
+
+- (void) closeButtonClicked
+{
+    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
+    videoViewController = nil;
+}
 -(void) dealloc
 {
     NSLog(@"webview delegate set nil.....");

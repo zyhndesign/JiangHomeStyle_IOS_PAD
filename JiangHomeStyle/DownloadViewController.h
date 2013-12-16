@@ -26,6 +26,13 @@
     UIButton* communityCancelBtn;
     UIButton* videoCancelBtn;
     
+    UIImageView* musicImageView;
+    UIImageView* landscapeImageView;
+    UIImageView* humanityImageView;
+    UIImageView* storyImageView;
+    UIImageView* communityImageView;
+    UIImageView* videoImageView;
+    
     NSMutableArray *musicArray;
     
     NSString *showUrl;

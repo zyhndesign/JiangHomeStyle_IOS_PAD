@@ -266,6 +266,8 @@
 		D5F77B2F1859724200E91F4E /* cache_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F77B2B1859724200E91F4E /* cache_btn@2x.png */; };
 		D5F77B301859724200E91F4E /* icon_tick_50.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F77B2C1859724200E91F4E /* icon_tick_50.png */; };
 		D5F77B311859724200E91F4E /* icon_tick_50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F77B2D1859724200E91F4E /* icon_tick_50@2x.png */; };
+		D5F79F84185EE30D00996F91 /* VideoPlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5F79F83185EE30D00996F91 /* VideoPlay.xib */; };
+		D5F79F87185EE47E00996F91 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F79F86185EE47E00996F91 /* VideoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -603,6 +605,9 @@
 		D5F77B2B1859724200E91F4E /* cache_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cache_btn@2x.png"; path = "images/cache_btn@2x.png"; sourceTree = "<group>"; };
 		D5F77B2C1859724200E91F4E /* icon_tick_50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_tick_50.png; path = images/icon_tick_50.png; sourceTree = "<group>"; };
 		D5F77B2D1859724200E91F4E /* icon_tick_50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_tick_50@2x.png"; path = "images/icon_tick_50@2x.png"; sourceTree = "<group>"; };
+		D5F79F83185EE30D00996F91 /* VideoPlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlay.xib; sourceTree = "<group>"; };
+		D5F79F85185EE47E00996F91 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		D5F79F86185EE47E00996F91 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -777,6 +782,7 @@
 				D5111BAD17D4276200D95E3E /* CommunityViewModel_iPad.xib */,
 				D5D6267F17D7077E0077DA42 /* PopupView_iPad.xib */,
 				D5E4B9AB184EBDE50048FD79 /* DownloadWin.xib */,
+				D5F79F83185EE30D00996F91 /* VideoPlay.xib */,
 			);
 			name = xibs;
 			sourceTree = "<group>";
@@ -849,6 +855,8 @@
 				D5A6425C184DC9CE00E3783F /* FooterViewController.m */,
 				D5F2AD0618555213007FBA0F /* DownloadViewController.h */,
 				D5F2AD0718555213007FBA0F /* DownloadViewController.m */,
+				D5F79F85185EE47E00996F91 /* VideoViewController.h */,
+				D5F79F86185EE47E00996F91 /* VideoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1359,6 +1367,7 @@
 				D51299B4180B9041001736F7 /* deco_line_white@2x.png in Resources */,
 				D51B8CD6180BDC2B00BD53B4 /* icon-72.png in Resources */,
 				D5F51EA217CEED0B00E9DE39 /* section_title_fengjing.png in Resources */,
+				D5F79F84185EE30D00996F91 /* VideoPlay.xib in Resources */,
 				D5F51EA317CEED0B00E9DE39 /* section_title_renwen.png in Resources */,
 				D51299D6180B9041001736F7 /* title_text_featured_article@2x.png in Resources */,
 				D51299E1180B9041001736F7 /* visiting_info_text@2x.png in Resources */,
@@ -1477,6 +1486,7 @@
 				D5111B9F17D4176700D95E3E /* FMDatabasePool.m in Sources */,
 				D5111BA017D4176700D95E3E /* FMDatabaseQueue.m in Sources */,
 				D5111BA117D4176700D95E3E /* FMResultSet.m in Sources */,
+				D5F79F87185EE47E00996F91 /* VideoViewController.m in Sources */,
 				D5F2AD0818555213007FBA0F /* DownloadViewController.m in Sources */,
 				D5111BA617D4177A00D95E3E /* JSONKit.m in Sources */,
 				D5E74CF817D59AE100919A19 /* NSObject+MKBlockTimer.m in Sources */,

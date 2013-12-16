@@ -70,6 +70,12 @@ int videoCancelSign = 0;
     [communityCancelBtn addTarget:self action:@selector(cancelVideoDownBtn) forControlEvents:UIControlEventTouchUpInside];
     //列出下载列表，包括音乐文件、基本文件包、视频文件（列表之前先判断是否已经下载过）
     
+    musicImageView = (UIImageView*)[self.view viewWithTag:824];
+    landscapeImageView = (UIImageView*)[self.view viewWithTag:825];
+    humanityImageView = (UIImageView*)[self.view viewWithTag:826];
+    storyImageView = (UIImageView*)[self.view viewWithTag:827];
+    communityImageView = (UIImageView*)[self.view viewWithTag:828];
+    videoImageView = (UIImageView*)[self.view viewWithTag:829];
     
     //异步获取音乐列表并进行下载
     musicArray = [NSMutableArray new];
@@ -173,7 +179,8 @@ int videoCancelSign = 0;
         }
         else
         {
-            [musicLabel setText:@"100%"] ;
+            [musicLabel setText:@"100.00%"];
+            [musicImageView setHidden:NO];
             [self downloadLinear];
         }
         [musicCancelBtn setHidden:YES];
@@ -253,10 +260,7 @@ int videoCancelSign = 0;
     {
         [communityCancelBtn setHidden:YES];
     }
-    else if (category == VIDEO_CATEGORY)
-    {
-        [videoCancelBtn setHidden:YES];
-    }
+    
     NSMutableArray* categoryDataArray = [db queryDownloadDataByCategory:category];
     dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
     __block long long totalFileSize = 0;
@@ -307,35 +311,49 @@ int videoCancelSign = 0;
                             NSLog(@"unzip file is failure");
                         }
                         alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                        if (alreadyDownSize == totalFileSize)
+                        {
+                            [self updateStateByCategroy:category];
+                        }
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         NSLog(@"loading zip is failure %@",[error description]);
                         alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                        if (alreadyDownSize == totalFileSize)
+                        {
+                            [self updateStateByCategroy:category];
+                        }
                     }];
                     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
                         // NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
                         
                         //_progress.progress=(float)totalBytesRead/(float)totalBytesExpectedToRead;
                         //_provalue.text=[[NSString alloc] initWithFormat:@"%0.2f%%",(float)totalBytesRead/(float)totalBytesExpectedToRead*100];
-                        [self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize*100] floatValue]];
+                        [self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100] floatValue]];
+                        
+                       
                     }];
                     [operation start];
                 });
             }
-            
-            if (totalFileSize == 0)
-            {
-                [self updateUIPanelData:category AndPercent:100];
-            }
+        }
+        
+        if (totalFileSize == 0)
+        {
+            [self updateUIPanelData:category AndPercent:100.00];
+            [self updateStateByCategroy:category];
         }
     }
     else
     {
         [self updateStateByCategroy:category];
+        [musicImageView setHidden:NO];
     }
 }
 
 -(void) downloadVideo
 {
+    [videoCancelBtn setHidden:YES];
+    
     NSMutableArray *videoArray = [db getVideoData];
     NSMutableArray *videoDownArray = [NSMutableArray new];
     NSMutableDictionary *urlDict;
@@ -401,10 +419,13 @@ int videoCancelSign = 0;
         
         NSLog(@"dir videoArray size is %d",[videoIsDownArray count]);
         
+        int countDown = 0;
+        
         for (NSMutableDictionary *nsDict in videoDownArray)
         {
-            if (![videoIsDownArray containsObject:[nsDict objectForKey:@"videoUrl"]])
+            if (![videoIsDownArray containsObject:[self getFileNameFromUrl:[nsDict objectForKey:@"videoUrl"]]])
             {
+                countDown++;
                 NSLog(@"download video...");
                 NSString* fileSizeStr = [nsDict objectForKey:@"fileSize"];
                 totalFileSize = totalFileSize + [fileSizeStr longLongValue];
@@ -412,18 +433,25 @@ int videoCancelSign = 0;
                 dispatch_async(queue, ^{
                     
                     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[nsDict objectForKey:@"videoUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-                    NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingString:[nsDict objectForKey:@"videoUrl"]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    NSString* archivePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingPathComponent:[self getFileNameFromUrl:[nsDict objectForKey:@"videoUrl"]]];
                     
                     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
                     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
                     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
                         NSLog(@"download success");
+                        if (alreadyDownSize == totalFileSize)
+                        {
+                            [videoImageView setHidden:NO];
+                        }
                         
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
                         NSLog(@"download failure");
-                        
+                        if (alreadyDownSize == totalFileSize)
+                        {
+                            [videoImageView setHidden:NO];
+                        }
                     }];
                     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
                         // NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
@@ -435,6 +463,12 @@ int videoCancelSign = 0;
                 });
     
             }
+        }
+        
+        if (countDown == 0)
+        {
+            [videoLabel setText:@"100.00%"];
+            [videoImageView setHidden:NO];
         }
         
     }
@@ -468,8 +502,9 @@ int videoCancelSign = 0;
 {
     if (category == LANDSCAPE_CATEGORY)
     {
-        [landscapeLabel setText:@"100%"];
+        [landscapeLabel setText:@"100.00%"];
         [landscapeCancelBtn setHidden:YES];
+        [landscapeImageView setHidden:NO];
         if (humanityCancelSign == 0)
         {
             [self downloadDataByCategory:HUMANITY_CATEGORY];
@@ -498,8 +533,9 @@ int videoCancelSign = 0;
     }
     else if (category == HUMANITY_CATEGORY)
     {
-        [humanityLabel setText:@"100%"];
+        [humanityLabel setText:@"100.00%"];
         [humanityCancelBtn setHidden:YES];
+        [humanityImageView setHidden:NO];
         if (storyCancelSign == 0)
         {
             [self downloadDataByCategory:STORY_CATEGORY];
@@ -521,8 +557,9 @@ int videoCancelSign = 0;
     }
     else if (category == STORY_CATEGORY)
     {
-        [storyLabel setText:@"100%"];
+        [storyLabel setText:@"100.00%"];
         [storyCancelBtn setHidden:YES];
+        [storyImageView setHidden:NO];
         if (communityCancelSign == 0)
         {
             [self downloadDataByCategory:COMMUNITY_CATEGORY];
@@ -537,8 +574,9 @@ int videoCancelSign = 0;
     }
     else if (category == COMMUNITY_CATEGORY)
     {
-        [communityLabel setText:@"100%"];
+        [communityLabel setText:@"100.00%"];
         [communityCancelBtn setHidden:YES];
+        [communityImageView setHidden:NO];
         if (videoCancelSign == 0)
         {
             [self downloadVideo];
@@ -546,7 +584,8 @@ int videoCancelSign = 0;
     }
     else if (category == VIDEO_CATEGORY)
     {
-        [videoLabel setText:@"100%"];
+        [videoLabel setText:@"100.00%"];
+        [videoImageView setHidden:NO];
         [videoCancelBtn setHidden:YES];
     }
 }
@@ -555,27 +594,64 @@ int videoCancelSign = 0;
 {
     if (category == MUSIC_CATEGOTY)
     {
-        [musicLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+        [musicLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
+
+        if (value == 100)
+        {
+            [musicImageView setHidden:NO];
+        }
     }
     else if (category == LANDSCAPE_CATEGORY)
     {
-        [landscapeLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+        [landscapeLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
+        
+        if (value == 100)
+        {
+            [landscapeImageView setHidden:NO];
+        }
     }
     else if (category == HUMANITY_CATEGORY)
     {
-        [humanityLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+        [humanityLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
+        
+        if (value == 100)
+        {
+            [humanityImageView setHidden:NO];
+        }
     }
     else if (category == STORY_CATEGORY)
     {
-        [storyLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+        [storyLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
+        
+        if (value == 100)
+        {
+            [storyImageView setHidden:NO];
+        }
     }
     else if (category == COMMUNITY_CATEGORY)
     {
-        [communityLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]] ;
+        [communityLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
+        
+        if (value == 100)
+        {
+            [communityImageView setHidden:NO];
+        }
     }
     else if (category == VIDEO_CATEGORY)
     {
-        [videoLabel setText:[[NSString stringWithFormat:@"%f", value] stringByAppendingString:@"%"]];
+        [videoLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]];
+        
+        if (value == 100)
+        {
+            [videoImageView setHidden:NO];
+        }
     }
+}
+
+-(NSString *)getFileNameFromUrl:(NSString *)url
+{
+    NSArray *array = [url componentsSeparatedByString:@"/"];
+    
+    return [array objectAtIndex:([array count] - 1)];
 }
 @end

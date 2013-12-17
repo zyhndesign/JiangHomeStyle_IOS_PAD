@@ -381,21 +381,16 @@ int musicLocalOrNet = 0;
             if (!audioPlayer) {
                 //把音频文件转换成url格式
                 NSURL *musicUrl = [NSURL fileURLWithPath:[nsDict objectForKey:@"music_path"]];
-                NSLog(@"******:%@",musicUrl);
                 audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:nil];
             }
             
-            NSLog(@"======:%hhd",[audioPlayer isPlaying]);
-            
             if ([audioPlayer isPlaying])
             {
-                NSLog(@"======:1");
                 [audioPlayer pause];
                 [self setBtnPause];
             }
             else
             {
-                NSLog(@"======:2");
                 [audioPlayer play];
                 [self setBtnPlay];
             }
@@ -416,7 +411,6 @@ int musicLocalOrNet = 0;
             {
                 [streamer start];
                 
-                NSLog(@"start......");
                 [self setBtnPlay];
             }
         }
@@ -469,7 +463,7 @@ int musicLocalOrNet = 0;
                     [streamer stop];                    
                 }
             }
-            progressBarView.progress = -0.1;
+            progressBarView.progress = 0;
             [self playNextMusic:currentMusicNum];
         }
         else
@@ -492,7 +486,7 @@ int musicLocalOrNet = 0;
             if (nil != musicArray)
             {
                 currentMusicNum = 0;
-                progressBarView.progress = -0.1;
+                progressBarView.progress = 0;
                 [self playNextMusic:currentMusicNum];
             }        
         }
@@ -505,7 +499,6 @@ int musicLocalOrNet = 0;
 
 -(void) playNextMusic:(int) _currentMusicNum
 {
-    progressBarView.progress = 0;
     NSDictionary *nsDict = [musicArray objectAtIndex:_currentMusicNum];
     if (musicLocalOrNet == 1)
     {

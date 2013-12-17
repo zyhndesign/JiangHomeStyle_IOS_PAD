@@ -72,4 +72,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) dealloc
+{
+    NSLog(@"release resources .....");
+    [player stop];
+    player = nil;
+    mp = nil;
+}
+
 @end

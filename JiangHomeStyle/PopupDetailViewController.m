@@ -200,8 +200,7 @@ VideoViewController *videoViewController = nil;
                     videoViewController.delegate = self;                    
                     [self presentPopupViewController:videoViewController animationType:MJPopupViewAnimationSlideRightLeft];
                 }
-            }
-            
+            }            
             return NO;
         }
         else

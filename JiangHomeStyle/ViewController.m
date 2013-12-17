@@ -361,29 +361,48 @@ int musicLocalOrNet = 0;
     if (nil != musicArray && [musicArray count] != 0)
     {
         NSDictionary *nsDict = [musicArray objectAtIndex:0];
+        [musicAuthor setText:[@"Directed By " stringByAppendingString:[nsDict objectForKey:@"music_author"]]];
+        [musicName setText:[nsDict objectForKey:@"music_title"]];
+        
+        // set up display updater
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
+                                    [self methodSignatureForSelector:@selector(updateProgress)]];
+        [invocation setSelector:@selector(updateProgress)];
+        [invocation setTarget:self];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                             invocation:invocation
+                                                repeats:YES];
+        
+        currentMusicNum = 0;
         //使用AVAudioPlayer进行播放
         if (musicLocalOrNet == 1)
         {
-            if (audioPlayer) {
+            if (!audioPlayer) {
                 //把音频文件转换成url格式
                 NSURL *musicUrl = [NSURL fileURLWithPath:[nsDict objectForKey:@"music_path"]];
+                NSLog(@"******:%@",musicUrl);
                 audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:nil];
             }
             
+            NSLog(@"======:%hhd",[audioPlayer isPlaying]);
+            
             if ([audioPlayer isPlaying])
             {
+                NSLog(@"======:1");
                 [audioPlayer pause];
                 [self setBtnPause];
             }
             else
             {
+                NSLog(@"======:2");
                 [audioPlayer play];
                 [self setBtnPlay];
             }
         }
         else //使用AudioStreamer进行播放
         {
-            if (streamer)
+            if (!streamer)
             {
                 streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nsDict objectForKey:@"music_path"]]];
             }
@@ -401,20 +420,7 @@ int musicLocalOrNet = 0;
                 [self setBtnPlay];
             }
         }
-        [musicAuthor setText:[@"Directed By " stringByAppendingString:[nsDict objectForKey:@"music_author"]]];
-        [musicName setText:[nsDict objectForKey:@"music_title"]];
         
-        // set up display updater
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
-                                    [self methodSignatureForSelector:@selector(updateProgress)]];
-        [invocation setSelector:@selector(updateProgress)];
-        [invocation setTarget:self];
-        
-        timer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                             invocation:invocation
-                                                repeats:YES];
-        
-        currentMusicNum = 0;
         
     }
     else  //播放本地音乐
@@ -499,6 +505,7 @@ int musicLocalOrNet = 0;
 
 -(void) playNextMusic:(int) _currentMusicNum
 {
+    progressBarView.progress = 0;
     NSDictionary *nsDict = [musicArray objectAtIndex:_currentMusicNum];
     if (musicLocalOrNet == 1)
     {
@@ -550,7 +557,7 @@ int musicLocalOrNet = 0;
         }
         else
         {
-            progressBarView.progress = -0.1;
+            progressBarView.progress = 0;
             
             if([timer isValid])
             {
@@ -568,7 +575,7 @@ int musicLocalOrNet = 0;
             }
             else
             {
-                progressBarView.progress = -0.1;
+                progressBarView.progress = 0;
                 if ([streamer isFinishing])
                 {
                     if([timer isValid])

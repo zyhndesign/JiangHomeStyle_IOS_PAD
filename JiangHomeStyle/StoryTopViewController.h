@@ -10,5 +10,7 @@
 #import "googleAnalytics/GAI.h"
 
 @interface StoryTopViewController : GAITrackedViewController
-
+{
+    UIImageView *storyBgImageView;
+}
 @end

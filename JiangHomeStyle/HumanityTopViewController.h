@@ -10,5 +10,7 @@
 #import "googleAnalytics/GAI.h"
 
 @interface HumanityTopViewController : GAITrackedViewController
-
+{
+    UIImageView *humanityBgImageView;
+}
 @end

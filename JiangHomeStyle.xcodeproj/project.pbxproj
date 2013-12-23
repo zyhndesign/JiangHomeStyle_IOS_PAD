@@ -1586,8 +1586,8 @@
 		D50E55E217C6ED17002B60D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				INFOPLIST_FILE = "JiangHomeStyle/JiangHomeStyle-Info.plist";
@@ -1598,8 +1598,8 @@
 					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
+				PROVISIONING_PROFILE = "02AAF7E5-80CA-4FD4-82BB-BF42018B4B2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "02AAF7E5-80CA-4FD4-82BB-BF42018B4B2C";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1608,8 +1608,8 @@
 		D50E55E317C6ED17002B60D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhongyi (Hunan) Industrial Design Co., Ltd. (FNB4FR5EG6)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				INFOPLIST_FILE = "JiangHomeStyle/JiangHomeStyle-Info.plist";
@@ -1620,7 +1620,7 @@
 					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
+				PROVISIONING_PROFILE = "02AAF7E5-80CA-4FD4-82BB-BF42018B4B2C";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};

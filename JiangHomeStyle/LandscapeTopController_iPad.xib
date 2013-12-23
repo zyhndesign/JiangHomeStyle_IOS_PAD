@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
+        <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
@@ -16,12 +16,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="301" contentMode="scaleToFill" image="temple.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3">
-                    <rect key="frame" x="0.0" y="0.0" width="1280" height="620"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1280" height="720"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="620" id="6"/>
+                        <constraint firstAttribute="height" constant="720" id="6"/>
                     </constraints>
                 </imageView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TBX-fb-fbd">
+                    <rect key="frame" x="0.0" y="615" width="1024" height="153"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="美不胜收的影像写真" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                     <rect key="frame" x="321" y="686" width="380" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -32,7 +37,7 @@
                     <color key="textColor" red="0.65098039220000004" green="0.48627450979999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="section_title_fengjing.png" translatesAutoresizingMaskIntoConstraints="NO" id="GOD-Hz-OWO">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="section_title_fengjing.png" translatesAutoresizingMaskIntoConstraints="NO" id="GOD-Hz-OWO">
                     <rect key="frame" x="367" y="411" width="290" height="230"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
@@ -43,7 +48,7 @@
                 <constraint firstItem="10" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" constant="-1" id="21"/>
                 <constraint firstItem="3" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="22"/>
                 <constraint firstItem="3" firstAttribute="top" secondItem="1" secondAttribute="top" id="23"/>
-                <constraint firstItem="GOD-Hz-OWO" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="351" id="emQ-pY-FYe"/>
+                <constraint firstItem="GOD-Hz-OWO" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="367" id="emQ-pY-FYe"/>
                 <constraint firstItem="10" firstAttribute="top" secondItem="GOD-Hz-OWO" secondAttribute="bottom" constant="45" id="hye-ui-lEH"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>

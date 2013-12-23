@@ -37,6 +37,11 @@
 @synthesize musicAuthor, musicName, playBtn, nextBtn;
 @synthesize landscapeBtn, humanityBtn, storyboard, communityBtn;
 
+int landscapeAnimation = 0;
+int humanityAnimation = 0;
+int storyAnimation = 0;
+int communityAnimation = 0;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -571,21 +576,39 @@
 {
     CGFloat offsetY = _scrollView.contentOffset.y;
     
+    
     if (offsetY >= landscapeYValue && offsetY < humanityYValue)
     {
         [self setNavBtnSelectState:true Humanity:false Story:false Community:false];
+       
+        if ((offsetY - landscapeYValue) < 100 && (offsetY - landscapeYValue) > 0)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LANDSCAPE_ANIMATION" object:_scrollView];
+        }
     }
     else if (offsetY >= humanityYValue && offsetY < storyYValue)
     {
         [self setNavBtnSelectState:false Humanity:true Story:false Community:false];
+        if ((offsetY - humanityYValue) < 100 && (offsetY - humanityYValue) > 0)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HUMANITY_ANIMATION" object:_scrollView];
+        }
     }
     else if (offsetY >= storyYValue && offsetY < communityYValue)
     {
         [self setNavBtnSelectState:false Humanity:false Story:true Community:false];
+        if ((offsetY - storyYValue) < 100 && (offsetY - storyYValue) > 0)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"STORY_ANIMATION" object:_scrollView];
+        }
     }
     else if (offsetY >= communityYValue)
     {
         [self setNavBtnSelectState:false Humanity:false Story:false Community:true];
+        if ((offsetY - communityYValue) < 100 && (offsetY - communityYValue) > 0)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"COMMUNITY_ANIMATION" object:_scrollView];
+        }
     }
     else if (offsetY < landscapeYValue)
     {

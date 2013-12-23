@@ -10,5 +10,7 @@
 #import "googleAnalytics/GAI.h"
 
 @interface CommunityTopViewController : GAITrackedViewController
-
+{
+    UIImageView *communityBgImageView;
+}
 @end

@@ -36,6 +36,28 @@
     // Send the screen view.
     [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
     
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+   
+    [center addObserver:self selector:@selector(landscapeImageAnimation:) name:@"LANDSCAPE_ANIMATION" object:nil];
+    
+    //风景上移动动画
+    landscapeBgImageView = (UIImageView *)[self.view viewWithTag:301];
+    
+    
+}
+
+-(void)landscapeImageAnimation:(NSNotification *) notification
+{
+    UIScrollView *scrollView = [notification object];
+    
+    [UIView animateWithDuration:2.0 delay:0.5 options:UIViewAnimationCurveEaseOut animations:^{
+        
+        landscapeBgImageView.frame = CGRectMake(0, (self.view.frame.origin.y - scrollView.contentOffset.y), landscapeBgImageView.frame.size.width, landscapeBgImageView.frame.size.height);
+        
+    } completion:^(BOOL finished){
+        
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,5 +10,7 @@
 #import "googleAnalytics/GAI.h"
 
 @interface LandscapeTopViewController : GAITrackedViewController
-
+{
+    UIImageView *landscapeBgImageView;
+}
 @end

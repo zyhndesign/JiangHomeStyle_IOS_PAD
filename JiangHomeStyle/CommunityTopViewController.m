@@ -36,6 +36,26 @@
     
     // Send the screen view.
     [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserver:self selector:@selector(communityImageAnimation:) name:@"COMMUNITY_ANIMATION" object:nil];
+    
+    //风景上移动动画
+    communityBgImageView = (UIImageView *)[self.view viewWithTag:601];
+}
+
+-(void)communityImageAnimation:(NSNotification *) notification
+{
+    UIScrollView *scrollView = [notification object];
+    
+    [UIView animateWithDuration:2.0 delay:0.5 options:UIViewAnimationCurveEaseOut animations:^{
+        communityBgImageView.frame = CGRectMake(0, self.view.frame.origin.y - scrollView.contentOffset.y, communityBgImageView.frame.size.width, communityBgImageView.frame.size.height);
+        
+    } completion:^(BOOL finished){
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning

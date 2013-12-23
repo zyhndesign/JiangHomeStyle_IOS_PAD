@@ -41,7 +41,7 @@
 
 extern DBUtils *db;
 
-int musicLocalOrNet = 0;
+int musicLocalOrNet = 0;  
 
 - (void)viewDidLoad
 {

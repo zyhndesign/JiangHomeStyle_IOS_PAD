@@ -22,7 +22,7 @@
                         <constraint firstAttribute="height" constant="720" id="6"/>
                     </constraints>
                 </imageView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TBX-fb-fbd">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBX-fb-fbd">
                     <rect key="frame" x="0.0" y="615" width="1024" height="153"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -48,8 +48,12 @@
                 <constraint firstItem="10" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" constant="-1" id="21"/>
                 <constraint firstItem="3" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="22"/>
                 <constraint firstItem="3" firstAttribute="top" secondItem="1" secondAttribute="top" id="23"/>
+                <constraint firstItem="TBX-fb-fbd" firstAttribute="centerX" secondItem="GOD-Hz-OWO" secondAttribute="centerX" id="FVu-Ea-DLn"/>
+                <constraint firstItem="TBX-fb-fbd" firstAttribute="top" secondItem="1" secondAttribute="top" constant="615" id="KaS-0E-r7k"/>
                 <constraint firstItem="GOD-Hz-OWO" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="367" id="emQ-pY-FYe"/>
+                <constraint firstAttribute="bottom" secondItem="TBX-fb-fbd" secondAttribute="bottom" id="fPh-gY-dPH"/>
                 <constraint firstItem="10" firstAttribute="top" secondItem="GOD-Hz-OWO" secondAttribute="bottom" constant="45" id="hye-ui-lEH"/>
+                <constraint firstItem="TBX-fb-fbd" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="vAy-ba-yvz"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

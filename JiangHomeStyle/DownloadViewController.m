@@ -77,6 +77,14 @@ int videoCancelSign = 0;
     communityImageView = (UIImageView*)[self.view viewWithTag:828];
     videoImageView = (UIImageView*)[self.view viewWithTag:829];
     
+    
+    musicResultLabel = (UILabel*)[self.view viewWithTag:831];
+    landscapeResultLabel = (UILabel*)[self.view viewWithTag:832];;
+    humanityResultLabel = (UILabel*)[self.view viewWithTag:833];;
+    storyResultLabel = (UILabel*)[self.view viewWithTag:834];;
+    communityResultLabel = (UILabel*)[self.view viewWithTag:835];;
+    videoResultLabel = (UILabel*)[self.view viewWithTag:836];;
+    
     //异步获取音乐列表并进行下载
     musicArray = [NSMutableArray new];
     [self loadMusicData];
@@ -287,7 +295,7 @@ int videoCancelSign = 0;
                     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                         NSLog(@"loading zip is success");
                         
-                        //解压文件
+                        //解压文件 ,
                         BOOL result = FALSE;
                         ZipArchive *zip = [ZipArchive new];
                         if ([zip UnzipOpenFile:archivePath])
@@ -346,7 +354,6 @@ int videoCancelSign = 0;
     else
     {
         [self updateStateByCategroy:category];
-        [musicImageView setHidden:NO];
     }
 }
 

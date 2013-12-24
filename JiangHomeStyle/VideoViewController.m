@@ -78,6 +78,7 @@
     [player stop];
     player = nil;
     mp = nil;
+    NSLog(@"dealloc exec .....");
 }
 
 @end

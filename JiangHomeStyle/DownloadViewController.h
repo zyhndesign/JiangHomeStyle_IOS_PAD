@@ -33,6 +33,13 @@
     UIImageView* communityImageView;
     UIImageView* videoImageView;
     
+    UILabel *musicResultLabel;
+    UILabel *landscapeResultLabel;
+    UILabel *humanityResultLabel;
+    UILabel *storyResultLabel;
+    UILabel *communityResultLabel;
+    UILabel *videoResultLabel;
+    
     NSMutableArray *musicArray;
     
     NSString *showUrl;

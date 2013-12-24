@@ -244,6 +244,7 @@
     } completion:^(BOOL finished) {
         [popupView removeFromSuperview];
         [overlayView removeFromSuperview];
+        
     }];
 }
 

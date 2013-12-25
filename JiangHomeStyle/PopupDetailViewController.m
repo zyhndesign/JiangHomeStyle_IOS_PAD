@@ -275,9 +275,11 @@ VideoViewController *videoViewController = nil;
 }
 
 - (void) closeButtonClicked
-{    
+{
+    
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
     [self performSelector:@selector(releasePopResource) withObject:nil afterDelay:1.0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PAUSE_MUSIC_PLAYING" object:nil];
 }
 
 -(void) releasePopResource

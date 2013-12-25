@@ -206,6 +206,9 @@ int videoCancelSign = 0;
     float percent = 1.0 / [dataArray count];
     
     __block int i = 0;
+    __block int successNum = 0;
+    __block int failureNum = 0;
+    
     for(NSMutableDictionary *obj in dataArray)
     {
         
@@ -227,7 +230,8 @@ int videoCancelSign = 0;
                     labelValue = 100;
                     [self downloadLinear];
                 }
-                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue];
+                successNum++;
+                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue Success:successNum Failure:failureNum];
                 [obj setObject:savePath forKey:@"musicPath"];
                 [db insertMusicData:obj];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -242,7 +246,8 @@ int videoCancelSign = 0;
                     [self downloadLinear];
                 }
                 NSLog(@"label value is %d",labelValue);
-                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue];
+                failureNum++;
+                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue Success:successNum Failure:failureNum];
             }];
             [operation start];
         });
@@ -273,6 +278,8 @@ int videoCancelSign = 0;
     dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
     __block long long totalFileSize = 0;
     __block long long alreadyDownSize = 0;
+    __block int successNum = 0;
+    __block int failureNum = 0;
     
     if ([categoryDataArray count] > 0)
     {
@@ -323,6 +330,7 @@ int videoCancelSign = 0;
                         {
                             [self updateStateByCategroy:category];
                         }
+                        successNum++;
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         NSLog(@"loading zip is failure %@",[error description]);
                         alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
@@ -330,13 +338,14 @@ int videoCancelSign = 0;
                         {
                             [self updateStateByCategroy:category];
                         }
+                        failureNum++;
                     }];
                     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
                         // NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
                         
                         //_progress.progress=(float)totalBytesRead/(float)totalBytesExpectedToRead;
                         //_provalue.text=[[NSString alloc] initWithFormat:@"%0.2f%%",(float)totalBytesRead/(float)totalBytesExpectedToRead*100];
-                        [self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100] floatValue]];
+                        [self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100] floatValue] Success:successNum Failure:failureNum];
                         
                        
                     }];
@@ -347,7 +356,7 @@ int videoCancelSign = 0;
         
         if (totalFileSize == 0)
         {
-            [self updateUIPanelData:category AndPercent:100.00];
+            [self updateUIPanelData:category AndPercent:100.00 Success:successNum Failure:failureNum];
             [self updateStateByCategroy:category];
         }
     }
@@ -597,12 +606,12 @@ int videoCancelSign = 0;
     }
 }
 
--(void) updateUIPanelData:(int)category AndPercent:(float)value
+-(void) updateUIPanelData:(int)category AndPercent:(float)value Success:(int)successNum Failure:(int)failureNum
 {
     if (category == MUSIC_CATEGOTY)
     {
-        [musicLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
-
+        [musicLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]];
+        [musicResultLabel setText:[NSString stringWithFormat:@"%d个成功，%d个失败",successNum,failureNum]];
         if (value == 100)
         {
             [musicImageView setHidden:NO];
@@ -611,7 +620,7 @@ int videoCancelSign = 0;
     else if (category == LANDSCAPE_CATEGORY)
     {
         [landscapeLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
-        
+        [landscapeResultLabel setText:[NSString stringWithFormat:@"%d个成功，%d个失败",successNum,failureNum]];
         if (value == 100)
         {
             [landscapeImageView setHidden:NO];
@@ -620,7 +629,7 @@ int videoCancelSign = 0;
     else if (category == HUMANITY_CATEGORY)
     {
         [humanityLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
-        
+        [humanityResultLabel setText:[NSString stringWithFormat:@"%d个成功，%d个失败",successNum,failureNum]];
         if (value == 100)
         {
             [humanityImageView setHidden:NO];
@@ -629,7 +638,7 @@ int videoCancelSign = 0;
     else if (category == STORY_CATEGORY)
     {
         [storyLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
-        
+        [storyResultLabel setText:[NSString stringWithFormat:@"%d个成功，%d个失败",successNum,failureNum]];
         if (value == 100)
         {
             [storyImageView setHidden:NO];
@@ -638,7 +647,7 @@ int videoCancelSign = 0;
     else if (category == COMMUNITY_CATEGORY)
     {
         [communityLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]] ;
-        
+        [communityResultLabel setText:[NSString stringWithFormat:@"%d个成功，%d个失败",successNum,failureNum]];
         if (value == 100)
         {
             [communityImageView setHidden:NO];
@@ -647,7 +656,7 @@ int videoCancelSign = 0;
     else if (category == VIDEO_CATEGORY)
     {
         [videoLabel setText:[[NSString stringWithFormat:@"%0.2f", value] stringByAppendingString:@"%"]];
-        
+        [videoResultLabel setText:[NSString stringWithFormat:@"%d个成功，%d个失败",successNum,failureNum]];
         if (value == 100)
         {
             [videoImageView setHidden:NO];

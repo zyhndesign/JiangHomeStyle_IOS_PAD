@@ -65,6 +65,8 @@
     UIScrollView *scrollView;
     
     MCProgressBarView *progressBarView;
+    
+    int isVideoToMusicPause; //纪录是否是因为视频播放引起暂停
 }
 
 @property (nonatomic, retain) AudioStreamer *streamer;

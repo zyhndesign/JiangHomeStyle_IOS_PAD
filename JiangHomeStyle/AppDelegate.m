@@ -66,6 +66,7 @@
     NSLog(@"applicationDidBecomeActive....");
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:@"HOME_PAGE_VIDEO" object:nil];
+    [center postNotificationName:@"PLAYING_PAUSE_VIDEO" object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

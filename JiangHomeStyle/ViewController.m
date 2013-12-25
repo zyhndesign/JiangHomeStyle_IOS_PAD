@@ -43,6 +43,7 @@ extern DBUtils *db;
 
 int musicLocalOrNet = 0;  
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,7 +57,7 @@ int musicLocalOrNet = 0;
     [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
     
     currentMusicNum = 0;
-    
+    isVideoToMusicPause = 0; 
     CGRect screenBounds = [[UIScreen mainScreen]bounds];
     
     NSBundle* mainBundle = [NSBundle mainBundle];
@@ -197,7 +198,11 @@ int musicLocalOrNet = 0;
     logoImgView.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoOnClick)];
     [logoImgView addGestureRecognizer:singleTap];
-     
+    
+    //注册音乐监听广播，用于视频播放时，暂时停止音乐播放
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(pauseMusic) name:@"PAUSE_MUSIC_PAUSE" object:nil];
+    [center addObserver:self selector:@selector(playingMusic) name:@"PAUSE_MUSIC_PLAYING" object:nil];
 }
 
 -(void)logoOnClick
@@ -388,6 +393,7 @@ int musicLocalOrNet = 0;
             {
                 [audioPlayer pause];
                 [self setBtnPause];
+                isVideoToMusicPause = 0;
             }
             else
             {
@@ -676,5 +682,33 @@ int musicLocalOrNet = 0;
     {
         [self setNavBtnSelectState:false Humanity:false Story:false Community:false];
     }
+}
+
+-(void)pauseMusic
+{
+    if (streamer != nil && [streamer isPlaying])
+    {
+        [streamer pause];
+        [self setBtnPause];
+    }
+    else if (audioPlayer != nil && [audioPlayer isPlaying])
+    {
+        [audioPlayer pause];
+        [self setBtnPause];
+        isVideoToMusicPause = 1;
+    }
+}
+
+-(void)playingMusic
+{
+    if (streamer != nil && [streamer isPaused])
+    {
+        [streamer start];
+    }
+    else if (audioPlayer != nil && isVideoToMusicPause == 1)
+    {
+        [audioPlayer play];
+    }
+    
 }
 @end

@@ -56,6 +56,10 @@
     //[player setFullscreen:YES];
     [player play];
 
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(playingPauseVideo) name:@"PLAYING_PAUSE_VIDEO" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PAUSE_MUSIC_PAUSE" object:nil];
 }
 
 - (void)BtnCloseClick
@@ -70,6 +74,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)playingPauseVideo
+{
+    if (nil != player && mp != nil)
+    {
+        [player play];
+    }
 }
 
 -(void) dealloc

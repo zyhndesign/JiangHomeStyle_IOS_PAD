@@ -70,7 +70,16 @@ DownloadViewController *downloadViewController;
             {
                 downloadViewController = [[DownloadViewController alloc] initWithNibName:@"DownloadWin" bundle:nil];
                 downloadViewController.delegate = self;
-                [self presentPopupViewController:downloadViewController animationType:MJPopupViewAnimationSlideBottomTop];
+                [[[self parentViewController] view] addSubview:downloadViewController.view];
+                [downloadViewController.view setFrame:CGRectMake(0, 768, downloadViewController.view.frame.size.width, downloadViewController.view.frame.size.height)];
+                
+                [UIView animateWithDuration:1.0 animations:^{
+                    NSLog(@"Animation start....");
+                    [downloadViewController.view setFrame:CGRectMake(0, 0, downloadViewController.view.frame.size.width, downloadViewController.view.frame.size.height)];
+                } completion:^(BOOL finished) {
+                    NSLog(@"Animation done....");
+                }];
+                
                 break;
             }
             default:
@@ -83,7 +92,17 @@ DownloadViewController *downloadViewController;
 
 - (void) closeButtonClicked
 {
-    downloadViewController = nil;
-    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
+    if (downloadViewController != nil)
+    {
+        [UIView animateWithDuration:1.0 animations:^{
+            NSLog(@"remove Animation start....");
+            [downloadViewController.view setFrame:CGRectMake(0, 768, downloadViewController.view.frame.size.width, downloadViewController.view.frame.size.height)];
+        } completion:^(BOOL finished) {
+            NSLog(@"remove Animation done....");
+        }];
+        [downloadViewController removeFromParentViewController];
+        downloadViewController = nil;
+    }
+    
 }
 @end

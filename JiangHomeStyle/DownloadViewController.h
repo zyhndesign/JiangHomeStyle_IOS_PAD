@@ -45,6 +45,13 @@
     NSString *showUrl;
     NSString *videoUrl;
     NSString *fileSize;
+    
+    NSOperationQueue *musicQueue;
+    NSOperationQueue *landscapeQueue;
+    NSOperationQueue *humanityQueue;
+    NSOperationQueue *storyQueue;
+    NSOperationQueue *communityQueue;
+    NSOperationQueue *videoQueue;
 }
 @property (weak, nonatomic) id<MJPopupDelegate> delegate;
 

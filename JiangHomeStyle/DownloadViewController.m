@@ -67,7 +67,7 @@ int videoCancelSign = 0;
     communityCancelBtn = (UIButton*)[self.view viewWithTag:820];
     [communityCancelBtn addTarget:self action:@selector(cancelCommunityDownBtn) forControlEvents:UIControlEventTouchUpInside];
     videoCancelBtn = (UIButton*)[self.view viewWithTag:822];
-    [communityCancelBtn addTarget:self action:@selector(cancelVideoDownBtn) forControlEvents:UIControlEventTouchUpInside];
+    [videoCancelBtn addTarget:self action:@selector(cancelVideoDownBtn) forControlEvents:UIControlEventTouchUpInside];
     //列出下载列表，包括音乐文件、基本文件包、视频文件（列表之前先判断是否已经下载过）
     
     musicImageView = (UIImageView*)[self.view viewWithTag:824];
@@ -85,6 +85,19 @@ int videoCancelSign = 0;
     communityResultLabel = (UILabel*)[self.view viewWithTag:835];;
     videoResultLabel = (UILabel*)[self.view viewWithTag:836];;
     
+    musicQueue = [NSOperationQueue new];
+    [musicQueue setMaxConcurrentOperationCount:1];
+    landscapeQueue = [NSOperationQueue new];
+    [landscapeQueue setMaxConcurrentOperationCount:1];
+    humanityQueue = [NSOperationQueue new];
+    [humanityQueue setMaxConcurrentOperationCount:1];
+    storyQueue = [NSOperationQueue new];
+    [storyQueue setMaxConcurrentOperationCount:1];
+    communityQueue = [NSOperationQueue new];
+    [communityQueue setMaxConcurrentOperationCount:1];
+    videoQueue = [NSOperationQueue new];
+    [videoQueue setMaxConcurrentOperationCount:1];
+    
     //异步获取音乐列表并进行下载
     musicArray = [NSMutableArray new];
     [self loadMusicData];
@@ -101,6 +114,11 @@ int videoCancelSign = 0;
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(closeButtonClicked)])
     {
+        [musicQueue cancelAllOperations];
+        [landscapeQueue cancelAllOperations];
+        [humanityQueue cancelAllOperations];
+        [storyQueue cancelAllOperations];
+        [videoQueue cancelAllOperations];
         [self.delegate closeButtonClicked];
     }
 }
@@ -110,6 +128,7 @@ int videoCancelSign = 0;
     landscapeCancelSign = 1;
     [landscapeLabel setHidden:YES];
     [landscapeCancelBtn setHidden:YES];
+    [landscapeQueue cancelAllOperations];
 }
 
 -(void)cancelHumanityDownBtn
@@ -117,6 +136,7 @@ int videoCancelSign = 0;
     humanityCancelSign = 1;
     [humanityLabel setHidden:YES];
     [humanityCancelBtn setHidden:YES];
+    [humanityQueue cancelAllOperations];
 }
 
 -(void)cancelStoryDownBtn
@@ -124,6 +144,7 @@ int videoCancelSign = 0;
     storyCancelSign = 1;
     [storyLabel setHidden:YES];
     [storyCancelBtn setHidden:YES];
+    [storyQueue cancelAllOperations];
 }
 
 -(void)cancelCommunityDownBtn
@@ -131,6 +152,7 @@ int videoCancelSign = 0;
     communityCancelSign = 1;
     [communityLabel setHidden:YES];
     [communityCancelBtn setHidden:YES];
+    [communityQueue cancelAllOperations];
 }
 
 -(void)cancelVideoDownBtn
@@ -138,6 +160,7 @@ int videoCancelSign = 0;
     videoCancelSign = 1;
     [videoLabel setHidden:YES];
     [videoCancelBtn setHidden:YES];
+    [videoQueue cancelAllOperations];
 }
 
 //异步加载需要下载的音乐数据
@@ -201,8 +224,6 @@ int videoCancelSign = 0;
 
 -(void) downloadMusicFile:(NSArray *)dataArray
 {
-    dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
-    
     float percent = 1.0 / [dataArray count];
     
     __block int i = 0;
@@ -211,46 +232,44 @@ int videoCancelSign = 0;
     
     for(NSMutableDictionary *obj in dataArray)
     {
-        
-        dispatch_async(queue, ^{
-            NSString *path = [obj objectForKey:@"musicPath"];
-            NSString *musicName = [[NSString stringWithFormat:@"%@",[obj objectForKey:@"musicID"]] stringByAppendingString:@".mp3"];
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-            NSString *savePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"music"] stringByAppendingPathComponent:musicName];
+        NSString *path = [obj objectForKey:@"musicPath"];
+        NSString *musicName = [[NSString stringWithFormat:@"%@",[obj objectForKey:@"musicID"]] stringByAppendingString:@".mp3"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+        NSString *savePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"music"] stringByAppendingPathComponent:musicName];
             
-            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-            operation.outputStream = [NSOutputStream outputStreamToFileAtPath:savePath append:NO];
-            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                i++;
-                NSLog(@"loading file is over %f", i * percent);
-                int labelValue = (i * percent * 100);
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:savePath append:NO];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            i++;
+            NSLog(@"loading file is over %f", i * percent);
+            int labelValue = (i * percent * 100);
                 
-                if (labelValue >= 99)
-                {
-                    labelValue = 100;
-                    [self downloadLinear];
-                }
-                successNum++;
-                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue Success:successNum Failure:failureNum];
-                [obj setObject:savePath forKey:@"musicPath"];
-                [db insertMusicData:obj];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"loading is failure %@",[error description]);
-                NSLog(@"path is : %@",path);
-                i++;
-                int labelValue = (i * percent * 100);
+            if (labelValue >= 99)
+            {
+                labelValue = 100;
+                [self downloadLinear];
+            }
+            successNum++;
+            [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue Success:successNum Failure:failureNum];
+            [obj setObject:savePath forKey:@"musicPath"];
+            [db insertMusicData:obj];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"loading is failure %@",[error description]);
+            NSLog(@"path is : %@",path);
+            i++;
+            int labelValue = (i * percent * 100);
                 
-                if (labelValue >= 99)
-                {
-                    labelValue = 100;
-                    [self downloadLinear];
-                }
-                NSLog(@"label value is %d",labelValue);
-                failureNum++;
-                [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue Success:successNum Failure:failureNum];
-            }];
-            [operation start];
-        });
+            if (labelValue >= 99)
+            {
+                labelValue = 100;
+                [self downloadLinear];
+            }
+            NSLog(@"label value is %d",labelValue);
+            failureNum++;
+            [self updateUIPanelData:MUSIC_CATEGOTY AndPercent:labelValue Success:successNum Failure:failureNum];
+        }];
+        
+        [musicQueue addOperation:operation];
     }
 }
 
@@ -275,7 +294,7 @@ int videoCancelSign = 0;
     }
     
     NSMutableArray* categoryDataArray = [db queryDownloadDataByCategory:category];
-    dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
+    
     __block long long totalFileSize = 0;
     __block long long alreadyDownSize = 0;
     __block int successNum = 0;
@@ -283,74 +302,85 @@ int videoCancelSign = 0;
     
     if ([categoryDataArray count] > 0)
     {
-        
         for (NSMutableDictionary *nsDict in categoryDataArray)
         {
             NSString *filePath = [[[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]] stringByAppendingPathComponent:@"doc"] stringByAppendingPathComponent:@"main.html"];
             
             if (![fileUtils fileISExist:filePath])
             {
-                dispatch_async(queue, ^{
-                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[nsDict objectForKey:@"url"]]];
-                    NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"temp"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]] stringByAppendingString:@".zip"];
-                    NSString *articlesPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"];
-                    NSString* fileSizeStr = [nsDict objectForKey:@"size"];
-                    totalFileSize = totalFileSize + [fileSizeStr longLongValue];
-                    
-                    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-                    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
-                    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        NSLog(@"loading zip is success");
+                
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[nsDict objectForKey:@"url"]]];
+                NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"temp"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]] stringByAppendingString:@".zip"];
+                NSString *articlesPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"];
+                NSString* fileSizeStr = [nsDict objectForKey:@"size"];
+                totalFileSize = totalFileSize + [fileSizeStr longLongValue];
+                
+                NSLog(@"totalFileSize is : %lld",totalFileSize);
+                
+                AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
+                [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"loading zip is success");
                         
-                        //解压文件 ,
-                        BOOL result = FALSE;
-                        ZipArchive *zip = [ZipArchive new];
-                        if ([zip UnzipOpenFile:archivePath])
-                        {
-                            result = [zip UnzipFileTo:articlesPath overWrite:YES];
-                        }
-                        else
-                        {
-                            NSLog(@"there is no zip file");
-                        }
+                    //解压文件 ,
+                    BOOL result = FALSE;
+                    ZipArchive *zip = [ZipArchive new];
+                    if ([zip UnzipOpenFile:archivePath])
+                    {
+                        result = [zip UnzipFileTo:articlesPath overWrite:YES];
+                    }
+                    else
+                    {
+                        NSLog(@"there is no zip file");
+                    }
                         
-                        [db updateSignByServerId:[nsDict objectForKey:@"serverID"]];
+                    [db updateSignByServerId:[nsDict objectForKey:@"serverID"]];
                         
-                        if (result)
-                        {
-                            NSLog(@"unzip file is success and delete the zip file");
-                            [fileUtils removeAtPath:archivePath];
-                        }
-                        else
-                        {
-                            NSLog(@"unzip file is failure");
-                        }
-                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
-                        if (alreadyDownSize == totalFileSize)
-                        {
-                            [self updateStateByCategroy:category];
-                        }
-                        successNum++;
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"loading zip is failure %@",[error description]);
-                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
-                        if (alreadyDownSize == totalFileSize)
-                        {
-                            [self updateStateByCategroy:category];
-                        }
-                        failureNum++;
-                    }];
-                    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-                        // NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
-                        
-                        //_progress.progress=(float)totalBytesRead/(float)totalBytesExpectedToRead;
-                        //_provalue.text=[[NSString alloc] initWithFormat:@"%0.2f%%",(float)totalBytesRead/(float)totalBytesExpectedToRead*100];
-                        [self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100] floatValue] Success:successNum Failure:failureNum];
-                        
-                       
-                    }];
-                    [operation start];
-                });
+                    if (result)
+                    {
+                        NSLog(@"unzip file is success and delete the zip file");
+                        [fileUtils removeAtPath:archivePath];
+                    }
+                    else
+                    {
+                        NSLog(@"unzip file is failure");
+                    }
+                    alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                    if (alreadyDownSize == totalFileSize)
+                    {
+                        [self updateStateByCategroy:category];
+                    }
+                    successNum++;
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"loading zip is failure %@",[error description]);
+                    alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+                    if (alreadyDownSize == totalFileSize)
+                    {
+                        [self updateStateByCategroy:category];
+                    }
+                    failureNum++;
+                }];
+                [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                    NSLog(@"totalBytesRead : %lld , %lld, %lld", totalBytesRead, totalBytesExpectedToRead, alreadyDownSize);
+                    [self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100] floatValue] Success:successNum Failure:failureNum];
+                }];
+                
+                if (category == LANDSCAPE_CATEGORY)
+                {
+                    [landscapeQueue addOperation:operation];
+                }
+                else if (category == HUMANITY_CATEGORY)
+                {
+                    [humanityQueue addOperation:operation];
+                }
+                else if (category == STORY_CATEGORY)
+                {
+                    [storyQueue addOperation:operation];
+                }
+                else if (category == COMMUNITY_CATEGORY)
+                {
+                    [communityQueue addOperation:operation];
+                }
             }
         }
         
@@ -428,8 +458,6 @@ int videoCancelSign = 0;
     
     if ([videoDownArray count] > 0)
     {
-        dispatch_queue_t queue = dispatch_queue_create("com.mark.serialQueue", NULL);
-        
         //读取video文件夹下的所有视频文件
         NSArray *videoIsDownArray = [fileUtils getFileListByDir:[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"]];
         
@@ -446,14 +474,13 @@ int videoCancelSign = 0;
                 NSString* fileSizeStr = [nsDict objectForKey:@"fileSize"];
                 totalFileSize = totalFileSize + [fileSizeStr longLongValue];
                 
-                dispatch_async(queue, ^{
                     
-                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[nsDict objectForKey:@"videoUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-                    NSString* archivePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingPathComponent:[self getFileNameFromUrl:[nsDict objectForKey:@"videoUrl"]]];
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[nsDict objectForKey:@"videoUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+                NSString* archivePath = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingPathComponent:[self getFileNameFromUrl:[nsDict objectForKey:@"videoUrl"]]];
                     
-                    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-                    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
-                    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
+                [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
                         NSLog(@"download success");
                         if (alreadyDownSize == totalFileSize)
@@ -470,14 +497,11 @@ int videoCancelSign = 0;
                         }
                     }];
                     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-                        // NSLog(@"%d-%lld-%lld-%@",bytesRead,totalBytesRead,totalBytesExpectedToRead,operation.request.allHTTPHeaderFields);
                         
-                        //_progress.progress=(float)totalBytesRead/(float)totalBytesExpectedToRead;
                         videoLabel.text=[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize*100];
-                    }];
-                    [operation start];
-                });
-    
+                }];
+                
+                [videoQueue addOperation:operation];
             }
         }
         

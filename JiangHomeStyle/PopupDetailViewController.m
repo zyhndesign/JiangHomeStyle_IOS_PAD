@@ -155,12 +155,24 @@ VideoViewController *videoViewController = nil;
             }
         }
     }
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(stopMovePlayer) name:@"STOP_MOVE_PLAYER" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)stopMovePlayer
+{
+    if (videoViewController != nil)
+    {
+        videoViewController = nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PAUSE_MUSIC_PLAYING" object:nil];
+    }
 }
 
 - (void)BtnCloseClick
@@ -197,8 +209,9 @@ VideoViewController *videoViewController = nil;
                 if (videoViewController == nil)
                 {
                     videoViewController = [[VideoViewController alloc] initWithNibName:@"VideoPlay" bundle:nil andUrl:path];
-                    videoViewController.delegate = self;                    
-                    [self presentPopupViewController:videoViewController animationType:MJPopupViewAnimationSlideRightLeft];
+                    //videoViewController.delegate = self;
+                    //[self presentPopupViewController:videoViewController animationType:MJPopupViewAnimationSlideRightLeft];
+                    [self presentViewController:videoViewController animated:YES completion:nil];
                 }
             }            
             return NO;
@@ -273,7 +286,7 @@ VideoViewController *videoViewController = nil;
     
     return [array objectAtIndex:([array count] - 1)];
 }
-
+/*
 - (void) closeButtonClicked
 {
     
@@ -281,7 +294,7 @@ VideoViewController *videoViewController = nil;
     [self performSelector:@selector(releasePopResource) withObject:nil afterDelay:1.0];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PAUSE_MUSIC_PLAYING" object:nil];
 }
-
+*/
 -(void) releasePopResource
 {
     videoViewController = nil;

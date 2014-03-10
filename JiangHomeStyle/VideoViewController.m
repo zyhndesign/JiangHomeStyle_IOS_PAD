@@ -44,13 +44,14 @@
     NSURL* fileURl = [NSURL fileURLWithPath:url];
         
     mp = [[MPMoviePlayerViewController alloc] initWithContentURL:fileURl];
-    mp.view.frame = CGRectMake(0, 49, 1024, 719);
+    //mp.view.frame = CGRectMake(0, 0, 1024, 768);
+    [mp.view setFrame:self.view.bounds];
     [self.view addSubview:mp.view];
     player = [mp moviePlayer];
     //[player setRepeatMode:MPMovieRepeatModeOne];
     //mp.view.userInteractionEnabled = NO;
     player.shouldAutoplay = YES;
-    player.controlStyle = MPMovieControlModeDefault;
+    player.controlStyle = MPMovieControlStyleFullscreen;
     player.scalingMode = MPMovieScalingModeAspectFill;
     
     //[player setFullscreen:YES];
@@ -60,6 +61,11 @@
     [center addObserver:self selector:@selector(playingPauseVideo) name:@"PLAYING_PAUSE_VIDEO" object:nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PAUSE_MUSIC_PAUSE" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(myMovieFinishedCallback:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:player];
 }
 
 - (void)BtnCloseClick
@@ -68,6 +74,14 @@
     {
        [self.delegate closeButtonClicked];
     }
+}
+
+-(void)myMovieFinishedCallback:(NSNotification*)notify
+{
+    [player stop];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"STOP_MOVE_PLAYER" object:nil];
 }
 
 - (void)didReceiveMemoryWarning

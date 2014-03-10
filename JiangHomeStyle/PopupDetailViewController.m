@@ -171,7 +171,7 @@ VideoViewController *videoViewController = nil;
     if (videoViewController != nil)
     {
         videoViewController = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PAUSE_MUSIC_PLAYING" object:nil];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"PAUSE_MUSIC_PLAYING" object:nil];
     }
 }
 

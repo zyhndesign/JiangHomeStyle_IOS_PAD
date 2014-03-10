@@ -1227,6 +1227,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = cidesign;
+				TargetAttributes = {
+					D50E55A517C6ED17002B60D7 = {
+						DevelopmentTeam = FNB4FR5EG6;
+					};
+				};
 			};
 			buildConfigurationList = D50E55A117C6ED17002B60D7 /* Build configuration list for PBXProject "JiangHomeStyle" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1648,8 +1653,8 @@
 		D50E55E217C6ED17002B60D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1665,8 +1670,8 @@
 					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2D25A5A5-EDF4-489E-9841-EC64AFF19EC7";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2D25A5A5-EDF4-489E-9841-EC64AFF19EC7";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1675,8 +1680,8 @@
 		D50E55E317C6ED17002B60D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1692,7 +1697,7 @@
 					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2D25A5A5-EDF4-489E-9841-EC64AFF19EC7";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};

@@ -194,7 +194,18 @@ int videoCancelSign = 0;
         {
             [self downloadMusicFile:musicArray];
         }
-        
+        else
+        {
+            NSDictionary *item = [downloadArray objectAtIndex:0];
+            NSDictionary *refreshItem = [refreshArray objectAtIndex:0];
+            NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:refreshItem];
+            [mutableItem setValue:[item objectForKey:@"downloadName"] forKey:@"downloadName"];
+            [mutableItem setValue:@"全部下载完毕" forKey:@"downloadResult"];
+            [mutableItem setValue:[NSString stringWithFormat:[item objectForKey:@"downProgress"], 100.00] forKey:@"downProgress"];
+            [mutableItem setValue:[NSNumber numberWithInt:1] forKey:@"downSignImg"];
+            [refreshArray setObject:mutableItem atIndexedSubscript:0];
+            [downLoadTableView reloadData];
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -228,7 +239,7 @@ int videoCancelSign = 0;
             [obj setObject:savePath forKey:@"musicPath"];
             [db insertMusicData:obj];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
+            alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
             failureNum++;
         }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {

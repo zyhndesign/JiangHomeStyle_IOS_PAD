@@ -21,7 +21,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="1044" height="89"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" tag="160" contentMode="scaleToFill" misplaced="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="62">
+                        <imageView userInteractionEnabled="NO" tag="160" contentMode="scaleToFill" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="62">
                             <rect key="frame" x="0.0" y="-2" width="320" height="90"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>

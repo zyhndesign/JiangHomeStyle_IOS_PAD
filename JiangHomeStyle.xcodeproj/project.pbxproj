@@ -31,7 +31,6 @@
 		D5111BA017D4176700D95E3E /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D5111B9917D4176700D95E3E /* FMDatabaseQueue.m */; };
 		D5111BA117D4176700D95E3E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D5111B9B17D4176700D95E3E /* FMResultSet.m */; };
 		D5111BA617D4177A00D95E3E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5111BA517D4177A00D95E3E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D5111BA817D4257500D95E3E /* LandscapeViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BA717D4257500D95E3E /* LandscapeViewModel_iPad.xib */; };
 		D5111BAA17D4270000D95E3E /* HumanityViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BA917D4270000D95E3E /* HumanityViewModel_iPad.xib */; };
 		D5111BAC17D4272200D95E3E /* StoryViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BAB17D4272200D95E3E /* StoryViewModel_iPad.xib */; };
 		D5111BAE17D4276200D95E3E /* CommunityViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BAD17D4276200D95E3E /* CommunityViewModel_iPad.xib */; };
@@ -176,6 +175,7 @@
 		D5E024D917CF4966006C7F74 /* HumanityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024D817CF4966006C7F74 /* HumanityViewController.m */; };
 		D5E024DC17CF4980006C7F74 /* StoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024DB17CF4980006C7F74 /* StoryViewController.m */; };
 		D5E024DF17CF4993006C7F74 /* CommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024DE17CF4993006C7F74 /* CommunityViewController.m */; };
+		D5E1C3351904B7B60019E05B /* LandscapeViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E1C3371904B7B60019E05B /* LandscapeViewModel_iPad.xib */; };
 		D5E4B9AC184EBDE50048FD79 /* DownloadWin.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E4B9AB184EBDE50048FD79 /* DownloadWin.xib */; };
 		D5E4BB7D17E2DFD700C66089 /* slider.png in Resources */ = {isa = PBXBuildFile; fileRef = D5E4BB7C17E2DFD600C66089 /* slider.png */; };
 		D5E520DA17E5B34A00156874 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E520D917E5B34A00156874 /* AudioStreamer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -268,6 +268,9 @@
 		D5F77B311859724200E91F4E /* icon_tick_50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F77B2D1859724200E91F4E /* icon_tick_50@2x.png */; };
 		D5F79F84185EE30D00996F91 /* VideoPlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5F79F83185EE30D00996F91 /* VideoPlay.xib */; };
 		D5F79F87185EE47E00996F91 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F79F86185EE47E00996F91 /* VideoViewController.m */; };
+		D5F8AACA190F3E850095D277 /* DownloadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F8AAC8190F3E850095D277 /* DownloadTableViewCell.m */; };
+		D5F8AACB190F3E850095D277 /* DownloadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5F8AAC9190F3E850095D277 /* DownloadTableViewCell.xib */; };
+		D5F8AACD190F46420095D277 /* download_zh.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5F8AACC190F46420095D277 /* download_zh.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -317,7 +320,6 @@
 		D5111B9B17D4176700D95E3E /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D5111BA417D4177A00D95E3E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		D5111BA517D4177A00D95E3E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		D5111BA717D4257500D95E3E /* LandscapeViewModel_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandscapeViewModel_iPad.xib; sourceTree = "<group>"; };
 		D5111BA917D4270000D95E3E /* HumanityViewModel_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HumanityViewModel_iPad.xib; sourceTree = "<group>"; };
 		D5111BAB17D4272200D95E3E /* StoryViewModel_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryViewModel_iPad.xib; sourceTree = "<group>"; };
 		D5111BAD17D4276200D95E3E /* CommunityViewModel_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityViewModel_iPad.xib; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 		D5E024DB17CF4980006C7F74 /* StoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryViewController.m; sourceTree = "<group>"; };
 		D5E024DD17CF4993006C7F74 /* CommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityViewController.h; sourceTree = "<group>"; };
 		D5E024DE17CF4993006C7F74 /* CommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityViewController.m; sourceTree = "<group>"; };
+		D5E1C3361904B7B60019E05B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LandscapeViewModel_iPad.xib; sourceTree = "<group>"; };
 		D5E4B9AB184EBDE50048FD79 /* DownloadWin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadWin.xib; sourceTree = "<group>"; };
 		D5E4BB7C17E2DFD600C66089 /* slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = slider.png; path = images/slider.png; sourceTree = "<group>"; };
 		D5E520D817E5B34A00156874 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
@@ -608,6 +611,10 @@
 		D5F79F83185EE30D00996F91 /* VideoPlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlay.xib; sourceTree = "<group>"; };
 		D5F79F85185EE47E00996F91 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		D5F79F86185EE47E00996F91 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		D5F8AAC7190F3E850095D277 /* DownloadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadTableViewCell.h; sourceTree = "<group>"; };
+		D5F8AAC8190F3E850095D277 /* DownloadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewCell.m; sourceTree = "<group>"; };
+		D5F8AAC9190F3E850095D277 /* DownloadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadTableViewCell.xib; sourceTree = "<group>"; };
+		D5F8AACC190F46420095D277 /* download_zh.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = download_zh.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -711,6 +718,7 @@
 				D50E55B217C6ED17002B60D7 /* InfoPlist.strings */,
 				D50E55B517C6ED17002B60D7 /* main.m */,
 				D50E55B717C6ED17002B60D7 /* JiangHomeStyle-Prefix.pch */,
+				D5F8AACC190F46420095D277 /* download_zh.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -761,7 +769,7 @@
 		D50E55E917C6EE2A002B60D7 /* xibs */ = {
 			isa = PBXGroup;
 			children = (
-				D5111BA717D4257500D95E3E /* LandscapeViewModel_iPad.xib */,
+				D5E1C3371904B7B60019E05B /* LandscapeViewModel_iPad.xib */,
 				D50E55C417C6ED17002B60D7 /* ViewController_iPhone.xib */,
 				D50E55C717C6ED17002B60D7 /* ViewController_iPad.xib */,
 				D50E581717C6FC68002B60D7 /* HomeTopController_iPad.xib */,
@@ -783,6 +791,7 @@
 				D5D6267F17D7077E0077DA42 /* PopupView_iPad.xib */,
 				D5E4B9AB184EBDE50048FD79 /* DownloadWin.xib */,
 				D5F79F83185EE30D00996F91 /* VideoPlay.xib */,
+				D5F8AAC9190F3E850095D277 /* DownloadTableViewCell.xib */,
 			);
 			name = xibs;
 			sourceTree = "<group>";
@@ -857,6 +866,8 @@
 				D5F2AD0718555213007FBA0F /* DownloadViewController.m */,
 				D5F79F85185EE47E00996F91 /* VideoViewController.h */,
 				D5F79F86185EE47E00996F91 /* VideoViewController.m */,
+				D5F8AAC7190F3E850095D277 /* DownloadTableViewCell.h */,
+				D5F8AAC8190F3E850095D277 /* DownloadTableViewCell.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1269,6 +1280,7 @@
 				D50E55C917C6ED17002B60D7 /* ViewController_iPad.xib in Resources */,
 				D50E581817C6FC68002B60D7 /* HomeTopController_iPad.xib in Resources */,
 				D50E581A17C70233002B60D7 /* HomeBottomController_iPad.xib in Resources */,
+				D5F8AACD190F46420095D277 /* download_zh.plist in Resources */,
 				D51299D5180B9041001736F7 /* title_text_cover_story@2x.png in Resources */,
 				D50E581E17C7395F002B60D7 /* LandscapeTopController_iPad.xib in Resources */,
 				D51299B1180B9041001736F7 /* cameral@2x.png in Resources */,
@@ -1317,6 +1329,7 @@
 				D5F51E6517CEED0A00E9DE39 /* btn_close_normal.png in Resources */,
 				D51299B0180B9041001736F7 /* btn_go_pre@2x.png in Resources */,
 				D5F51E6617CEED0A00E9DE39 /* btn_close_pressed.png in Resources */,
+				D5F8AACB190F3E850095D277 /* DownloadTableViewCell.xib in Resources */,
 				D5E4B9AC184EBDE50048FD79 /* DownloadWin.xib in Resources */,
 				D51B8CDA180BDC2B00BD53B4 /* icon@2x.png in Resources */,
 				D5F51E6717CEED0A00E9DE39 /* btn_close.png in Resources */,
@@ -1415,7 +1428,7 @@
 				D5F51EB817CEED0B00E9DE39 /* top_nav_btn_wuyu_pressed.png in Resources */,
 				D5F51EBA17CEED0B00E9DE39 /* visiting_info_text.png in Resources */,
 				D5F51EBB17CEED0B00E9DE39 /* wuyu_item_blackout.png in Resources */,
-				D5111BA817D4257500D95E3E /* LandscapeViewModel_iPad.xib in Resources */,
+				D5E1C3351904B7B60019E05B /* LandscapeViewModel_iPad.xib in Resources */,
 				D51299AB180B9041001736F7 /* btn_close_pressed@2x.png in Resources */,
 				D51299AA180B9041001736F7 /* btn_close_normal@2x.png in Resources */,
 				D5111BAA17D4270000D95E3E /* HumanityViewModel_iPad.xib in Resources */,
@@ -1514,6 +1527,7 @@
 				D5D6268F17D70F2E0077DA42 /* mztools.c in Sources */,
 				D5D6269017D70F2E0077DA42 /* unzip.c in Sources */,
 				D5A64263184DE1B700E3783F /* GDataXMLNode.m in Sources */,
+				D5F8AACA190F3E850095D277 /* DownloadTableViewCell.m in Sources */,
 				D5D6269117D70F2E0077DA42 /* zip.c in Sources */,
 				D51733051804F045003D1C32 /* UILabel+VerticalAlign.m in Sources */,
 				D5F25E1317D80BAD008957CB /* Reachability.m in Sources */,
@@ -1582,6 +1596,14 @@
 				D50E55DA17C6ED17002B60D7 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D5E1C3371904B7B60019E05B /* LandscapeViewModel_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5E1C3361904B7B60019E05B /* en */,
+			);
+			name = LandscapeViewModel_iPad.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1663,7 +1685,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "JiangHomeStyle/JiangHomeStyle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",
@@ -1690,7 +1712,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "JiangHomeStyle/JiangHomeStyle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",

@@ -7,40 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol MJPopupDelegate;
 
-@interface DownloadViewController : UIViewController
+@protocol DownloadProtocol <NSObject>
+
+- (void) closeButtonClicked;
+
+@end
+
+@interface DownloadViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {
-    UIButton* closeBtn;
-    UILabel *musicLabel;
-    UILabel *landscapeLabel;
-    UILabel *humanityLabel;
-    UILabel *storyLabel;
-    UILabel *communityLabel;
-    UILabel *videoLabel;
-    
-    UIButton* musicCancelBtn;
-    UIButton* landscapeCancelBtn;
-    UIButton* humanityCancelBtn;
-    UIButton* storyCancelBtn;
-    UIButton* communityCancelBtn;
-    UIButton* videoCancelBtn;
-    
-    UIImageView* musicImageView;
-    UIImageView* landscapeImageView;
-    UIImageView* humanityImageView;
-    UIImageView* storyImageView;
-    UIImageView* communityImageView;
-    UIImageView* videoImageView;
-    
-    UILabel *musicResultLabel;
-    UILabel *landscapeResultLabel;
-    UILabel *humanityResultLabel;
-    UILabel *storyResultLabel;
-    UILabel *communityResultLabel;
-    UILabel *videoResultLabel;
+    IBOutlet UITableView *downLoadTableView;
     
     NSMutableArray *musicArray;
+    NSMutableDictionary* muDict;
     
     NSString *showUrl;
     NSString *videoUrl;
@@ -52,8 +31,16 @@
     NSOperationQueue *storyQueue;
     NSOperationQueue *communityQueue;
     NSOperationQueue *videoQueue;
+    
+    NSArray *downloadArray;
+    NSMutableArray *refreshArray;
 }
-@property (weak, nonatomic) id<MJPopupDelegate> delegate;
+
+@property (nonatomic, strong) IBOutlet UITableView *downLoadTableView;
+
+@property (strong, nonatomic) id delegate;
+
+- (IBAction)closeWin:(id)sender;
 
 //异步加载需要下载的音乐数据
 -(void) loadMusicData;
@@ -66,9 +53,3 @@
 
 @end
 
-@protocol MJPopupDelegate <NSObject>
-
-@optional
-- (void)closeButtonClicked;
-
-@end

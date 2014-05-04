@@ -138,7 +138,6 @@
 		D5ACCFE317CDF6CA000FF15F /* SplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ACCFE217CDF6CA000FF15F /* SplashController.m */; };
 		D5C2CB1517E842E8000BD7F9 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C2CB1417E842E8000BD7F9 /* libGoogleAnalyticsServices.a */; };
 		D5C2CB1717E84313000BD7F9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C2CB1617E84310000BD7F9 /* CoreData.framework */; };
-		D5C2CB1D17E8465F000BD7F9 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C2CB1C17E8465F000BD7F9 /* libTestFlight.a */; };
 		D5D03B1917C74A0300890227 /* HumanityBottomController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D03B1817C74A0300890227 /* HumanityBottomController_iPad.xib */; };
 		D5D03B1B17C74A4900890227 /* HumanityTopController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D03B1A17C74A4900890227 /* HumanityTopController_iPad.xib */; };
 		D5D03B1D17C765F400890227 /* StoryTopController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D03B1C17C765F400890227 /* StoryTopController_iPad.xib */; };
@@ -443,10 +442,6 @@
 		D5C2CB1317E842E8000BD7F9 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		D5C2CB1417E842E8000BD7F9 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		D5C2CB1617E84310000BD7F9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D5C2CB1917E8465F000BD7F9 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		D5C2CB1A17E8465F000BD7F9 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		D5C2CB1B17E8465F000BD7F9 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		D5C2CB1C17E8465F000BD7F9 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		D5D03B1817C74A0300890227 /* HumanityBottomController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HumanityBottomController_iPad.xib; sourceTree = "<group>"; };
 		D5D03B1A17C74A4900890227 /* HumanityTopController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HumanityTopController_iPad.xib; sourceTree = "<group>"; };
 		D5D03B1C17C765F400890227 /* StoryTopController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryTopController_iPad.xib; sourceTree = "<group>"; };
@@ -637,7 +632,6 @@
 				D50E55AC17C6ED17002B60D7 /* Foundation.framework in Frameworks */,
 				D50E55AE17C6ED17002B60D7 /* CoreGraphics.framework in Frameworks */,
 				D5C2CB1517E842E8000BD7F9 /* libGoogleAnalyticsServices.a in Frameworks */,
-				D5C2CB1D17E8465F000BD7F9 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,7 +740,6 @@
 			isa = PBXGroup;
 			children = (
 				D5A6425E184DDFB000E3783F /* GDataXml */,
-				D5C2CB1817E84658000BD7F9 /* testFlight */,
 				D5C2CB0D17E842E0000BD7F9 /* googleAnalytics */,
 				D5E520D217E5A99100156874 /* Audio */,
 				D5F5FDE417E03F1A008F45D0 /* files */,
@@ -884,17 +877,6 @@
 				D5C2CB1417E842E8000BD7F9 /* libGoogleAnalyticsServices.a */,
 			);
 			path = googleAnalytics;
-			sourceTree = "<group>";
-		};
-		D5C2CB1817E84658000BD7F9 /* testFlight */ = {
-			isa = PBXGroup;
-			children = (
-				D5C2CB1917E8465F000BD7F9 /* TestFlight+AsyncLogging.h */,
-				D5C2CB1A17E8465F000BD7F9 /* TestFlight+ManualSessions.h */,
-				D5C2CB1B17E8465F000BD7F9 /* TestFlight.h */,
-				D5C2CB1C17E8465F000BD7F9 /* libTestFlight.a */,
-			);
-			path = testFlight;
 			sourceTree = "<group>";
 		};
 		D5D6265717D6BFA30077DA42 /* AFNetworking */ = {

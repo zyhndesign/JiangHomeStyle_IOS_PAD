@@ -30,11 +30,10 @@ extern FileUtils *fileUtils;
 
 @synthesize downLoadTableView;
 
-int landscapeCancelSign = 0;
-int humanityCancelSign = 0;
-int storyCancelSign = 0;
-int communityCancelSign = 0;
-int videoCancelSign = 0;
+int landscapeDownSign = 0;
+int humanityDownSign = 0;
+int storyDownSign = 0;
+int communityDownSign = 0;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -82,7 +81,6 @@ int videoCancelSign = 0;
         [muDict setObject:[dic objectForKey:@"downLoadName"] forKey:@"downLoadName"];
         [muDict setObject:@"" forKey:@"downloadResult"];
         [muDict setObject:@"" forKey:@"downProgress"];
-        [muDict setObject:@"" forKey:@"downSignImg"];
         [refreshArray addObject:muDict];
     }
    
@@ -145,11 +143,6 @@ int videoCancelSign = 0;
     cell.downloadResult.text = [rowData objectForKey:@"downloadResult"];
     cell.downProgress.text = [rowData objectForKey:@"downProgress"];
     
-    if ([[rowData objectForKey:@"downSignImg"] integerValue] == 1)
-    {
-        cell.downSignImg.image = [UIImage imageNamed:@"icon_tick_50.png"];
-    }
-    
     return cell;
 }
 
@@ -196,15 +189,9 @@ int videoCancelSign = 0;
         }
         else
         {
-            NSDictionary *item = [downloadArray objectAtIndex:0];
-            NSDictionary *refreshItem = [refreshArray objectAtIndex:0];
-            NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:refreshItem];
-            [mutableItem setValue:[item objectForKey:@"downloadName"] forKey:@"downloadName"];
-            [mutableItem setValue:@"全部下载完毕" forKey:@"downloadResult"];
-            [mutableItem setValue:[NSString stringWithFormat:[item objectForKey:@"downProgress"], 100.00] forKey:@"downProgress"];
-            [mutableItem setValue:[NSNumber numberWithInt:1] forKey:@"downSignImg"];
-            [refreshArray setObject:mutableItem atIndexedSubscript:0];
-            [downLoadTableView reloadData];
+            [self downloadIsComplete:0];
+            
+            [self downloadArticles];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -235,31 +222,25 @@ int videoCancelSign = 0;
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
-            successNum++;
+            ++successNum;
             [obj setObject:savePath forKey:@"musicPath"];
             [db insertMusicData:obj];
+            if (alreadyDownSize == totalFileSize)
+            {
+                [self downloadArticles];
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
-            failureNum++;
+            ++failureNum;
+            if (alreadyDownSize == totalFileSize)
+            {
+                [self downloadArticles];
+            }
         }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
             
-            NSDictionary *item = [downloadArray objectAtIndex:0];
-            NSDictionary *refreshItem = [refreshArray objectAtIndex:0];
-            NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:refreshItem];
-            
-            [mutableItem setValue:[item objectForKey:@"downloadName"] forKey:@"downloadName"];
-            [mutableItem setValue:[NSString stringWithFormat:[item objectForKey:@"downloadResult"], successNum, failureNum] forKey:@"downloadResult"];
-            [mutableItem setValue:[NSString stringWithFormat:[item objectForKey:@"downProgress"], ((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100] forKey:@"downProgress"];
-            
-            if ((successNum + failureNum) == [dataArray count])
-            {
-                [mutableItem setValue:[NSNumber numberWithInt:1] forKey:@"downSignImg"];
-            }
-            
-            [refreshArray setObject:mutableItem atIndexedSubscript:0];
-            
-            [downLoadTableView reloadData];
+            float percent = ((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100;
+            [self refreshTableViewByCategory:0 successNum:successNum failureNum:failureNum downloadPercent:percent];
             
         }];
         [musicQueue addOperation:operation];
@@ -325,21 +306,45 @@ int videoCancelSign = 0;
                     alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
                     if (alreadyDownSize == totalFileSize)
                     {
+                        //下载完毕
+                        [self updateDownLoadSing:category];
                         
+                        [self launchDownloadVideo];
                     }
-                    successNum++;
+                    ++successNum;
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"loading zip is failure %@",[error description]);
                     alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
                     if (alreadyDownSize == totalFileSize)
                     {
-                        
+                        //下载完毕
+                        [self updateDownLoadSing:category];
                     }
-                    failureNum++;
+                    ++failureNum;
+                    [self launchDownloadVideo];
                 }];
                 [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-                    NSLog(@"totalBytesRead : %lld , %lld, %lld", totalBytesRead, totalBytesExpectedToRead, alreadyDownSize);
-                    //[self updateUIPanelData:category AndPercent:[[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100] floatValue] Success:successNum Failure:failureNum];
+                    float percent = ((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100;
+                    if (category == LANDSCAPE_CATEGORY)
+                    {
+                        [self refreshTableViewByCategory:1 successNum:successNum failureNum:failureNum downloadPercent:percent];
+
+                    }
+                    else if (category == HUMANITY_CATEGORY)
+                    {
+                        [self refreshTableViewByCategory:2 successNum:successNum failureNum:failureNum downloadPercent:percent];
+                    }
+                    else if (category == STORY_CATEGORY)
+                    {
+                        [self refreshTableViewByCategory:3 successNum:successNum failureNum:failureNum downloadPercent:percent];
+
+                    }
+                    else if (category == COMMUNITY_CATEGORY)
+                    {
+                        [self refreshTableViewByCategory:4 successNum:successNum failureNum:failureNum downloadPercent:percent];
+                    }
+                    
+                    [downLoadTableView reloadData];
                 }];
                 
                 if (category == LANDSCAPE_CATEGORY)
@@ -364,7 +369,25 @@ int videoCancelSign = 0;
     }
     else
     {
+        if (category == LANDSCAPE_CATEGORY)
+        {
+            [self downloadIsComplete:1];
+        }
+        else if (category == HUMANITY_CATEGORY)
+        {
+            [self downloadIsComplete:2];
+        }
+        else if (category == STORY_CATEGORY)
+        {
+            [self downloadIsComplete:3];
+        }
+        else if (category == COMMUNITY_CATEGORY)
+        {
+            [self downloadIsComplete:4];
+        }
         
+        [self updateDownLoadSing:category];
+        [self launchDownloadVideo];
     }
 }
 
@@ -377,10 +400,15 @@ int videoCancelSign = 0;
     
     long long totalFileSize = 0;
     __block long long alreadyDownSize = 0;
+    __block int successNum = 0;
+    __block int failureNum = 0;
+    
     for (NSMutableDictionary *nsDict in videoArray)
     {
         //解析doc.xml文件，获取showUrl地址，videoUrl
         NSString *docFilePath   =  [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]]  stringByAppendingPathComponent:@"doc.xml"];
+        
+        
         //NSString *jsonString  =   [NSString stringWithContentsOfFile:docFilePath encoding:NSUTF8StringEncoding error:nil];
         NSData *xmlData = [[NSData alloc] initWithContentsOfFile:docFilePath];
         
@@ -394,6 +422,7 @@ int videoCancelSign = 0;
         //获取根节点下的节点（videoItems）
         NSArray *videoItems = [rootElement elementsForName:@"videoItems"];
         
+        
         if ([videoItems count] > 0)
         {
             for (GDataXMLElement *videoItem in videoItems)
@@ -405,18 +434,18 @@ int videoCancelSign = 0;
                     //获取showUrl节点的值
                     GDataXMLElement *nameElement = [[video elementsForName:@"showUrl"] objectAtIndex:0];
                     showUrl = [nameElement stringValue];
-                    NSLog(@"showUrl is:%@",showUrl);
+                    //NSLog(@"showUrl is:%@",showUrl);
                     
                     //获取videoUrl节点的值
                     GDataXMLElement *ageElement = [[video elementsForName:@"videoUrl"] objectAtIndex:0];
                     videoUrl = [ageElement stringValue];
-                    NSLog(@"videoUrl is:%@",videoUrl);
+                    //NSLog(@"videoUrl is:%@",videoUrl);
                     
                     //
                     GDataXMLElement *sizeElement = [[video elementsForName:@"size"] objectAtIndex:0];
                     //fileSize = [[sizeElement stringValue] longLongValue];
                     fileSize = [sizeElement stringValue];
-                    NSLog(@"fileSize is:%@",fileSize);
+                    //NSLog(@"fileSize is:%@",fileSize);
                     
                     [urlDict setValue:videoUrl forKey:@"videoUrl"];
                     [urlDict setValue:showUrl forKey:@"showUrl"];
@@ -454,24 +483,95 @@ int videoCancelSign = 0;
                 [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
                         NSLog(@"download success");
+                        ++successNum;
                     
-                        
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                        alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
                         NSLog(@"download failure");
-                        
+                        ++failureNum;
                     }];
                     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-                     //videoLabel.text=[[NSString alloc] initWithFormat:@"%0.2f%%",((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize*100];
-                }];
+                     
+                        float percent = ((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100;
+                        [self refreshTableViewByCategory:5 successNum:successNum failureNum:failureNum downloadPercent:percent];
+                    }];
                 
                 [videoQueue addOperation:operation];
             }
         }
     }
+    
+    if ([videoQueue operationCount] == 0)
+    {
+        [self downloadIsComplete:5];
+    }
 }
 
+-(void) downloadArticles
+{
+    [self downloadDataByCategory:0];
+    [self downloadDataByCategory:1];
+    [self downloadDataByCategory:2];
+    [self downloadDataByCategory:3];
+}
 
+-(void) updateDownLoadSing:(int)category
+{
+    if (category == LANDSCAPE_CATEGORY)
+    {
+        landscapeDownSign = 1;
+    }
+    else if (category == HUMANITY_CATEGORY)
+    {
+        humanityDownSign = 1;
+    }
+    else if (category == STORY_CATEGORY)
+    {
+        storyDownSign = 1;
+    }
+    else if (category == COMMUNITY_CATEGORY)
+    {
+        communityDownSign = 1;
+    }
+}
+
+-(void) refreshTableViewByCategory:(int)category
+                        successNum:(int)successNum
+                        failureNum:(int)failureNum
+                   downloadPercent:(float)downloadPercent
+{
+    NSDictionary *item = [downloadArray objectAtIndex:category];
+    NSDictionary *refreshItem = [refreshArray objectAtIndex:category];
+    NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:refreshItem];
+    
+    [mutableItem setValue:[item objectForKey:@"downloadName"] forKey:@"downloadName"];
+    [mutableItem setValue:[NSString stringWithFormat:[item objectForKey:@"downloadResult"], successNum, failureNum] forKey:@"downloadResult"];
+    [mutableItem setValue:[NSString stringWithFormat:[item objectForKey:@"downProgress"], downloadPercent] forKey:@"downProgress"];
+    
+    [refreshArray setObject:mutableItem atIndexedSubscript:category];
+    
+    [downLoadTableView reloadData];
+}
+
+-(void) downloadIsComplete:(int)category
+{
+    NSDictionary *item = [downloadArray objectAtIndex:category];
+    NSDictionary *refreshItem = [refreshArray objectAtIndex:category];
+    NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:refreshItem];
+    [mutableItem setValue:[item objectForKey:@"downloadName"] forKey:@"downloadName"];
+    [mutableItem setValue:@"当前栏目下载完毕" forKey:@"downloadResult"];
+    [mutableItem setValue:[NSString stringWithFormat:[item objectForKey:@"downProgress"], 100.00] forKey:@"downProgress"];
+    [refreshArray setObject:mutableItem atIndexedSubscript:category];
+    [downLoadTableView reloadData];
+}
+
+-(void)launchDownloadVideo
+{
+    if (landscapeDownSign == 1 && humanityDownSign == 1 && storyDownSign == 1 && communityDownSign == 1)
+    {
+        [self downloadVideo];
+    }
+}
 
 -(NSString *)getFileNameFromUrl:(NSString *)url
 {
@@ -488,6 +588,7 @@ int videoCancelSign = 0;
         [landscapeQueue cancelAllOperations];
         [humanityQueue cancelAllOperations];
         [storyQueue cancelAllOperations];
+        [communityQueue cancelAllOperations];
         [videoQueue cancelAllOperations];
         [self.delegate closeButtonClicked];
     }

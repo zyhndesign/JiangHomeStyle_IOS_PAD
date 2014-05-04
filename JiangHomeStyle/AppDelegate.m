@@ -10,7 +10,8 @@
 
 #import "SplashController.h"
 #import "googleAnalytics/GAI.h"
-#import "TestFlight.h"
+
+#import <AVFoundation/AVFoundation.h>
 
 @implementation AppDelegate
 
@@ -34,10 +35,8 @@
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithName:@"JiangHomeStyle" trackingId:@"UA-44083057-1"];
     //-----------------------------------------------------
     
-    //test flight------------------------------------------don't use it in release edition
-    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-    //[TestFlight takeOff:@"ab1fd6ba-8561-4f43-a5b4-8b42921410d2"];
-    //-----------------------------------------------------
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
     return YES;
 }
 

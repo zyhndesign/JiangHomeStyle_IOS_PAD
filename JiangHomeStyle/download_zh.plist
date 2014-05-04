@@ -9,18 +9,6 @@
 		<string>成功 %d 个, 失败 %d 个</string>
 		<key>downProgress</key>
 		<string>%0.2f%%</string>
-		<key>downSignImg</key>
-		<string>0</string>
-	</dict>
-	<dict>
-		<key>downLoadName</key>
-		<string>视频</string>
-		<key>downloadResult</key>
-		<string>成功 %d 个, 失败 %d 个</string>
-		<key>downProgress</key>
-		<string>%0.2f%%</string>
-		<key>downSignImg</key>
-		<string>0</string>
 	</dict>
 	<dict>
 		<key>downLoadName</key>
@@ -29,8 +17,6 @@
 		<string>成功 %d 个, 失败 %d 个</string>
 		<key>downProgress</key>
 		<string>%0.2f%%</string>
-		<key>downSignImg</key>
-		<string>0</string>
 	</dict>
 	<dict>
 		<key>downLoadName</key>
@@ -39,8 +25,6 @@
 		<string>成功 %d 个, 失败 %d 个</string>
 		<key>downProgress</key>
 		<string>%0.2f%%</string>
-		<key>downSignImg</key>
-		<string>0</string>
 	</dict>
 	<dict>
 		<key>downLoadName</key>
@@ -49,8 +33,6 @@
 		<string>成功 %d 个, 失败 %d 个</string>
 		<key>downProgress</key>
 		<string>%0.2f%%</string>
-		<key>downSignImg</key>
-		<string>0</string>
 	</dict>
 	<dict>
 		<key>downLoadName</key>
@@ -59,8 +41,14 @@
 		<string>成功 %d 个, 失败 %d 个</string>
 		<key>downProgress</key>
 		<string>%0.2f%%</string>
-		<key>downSignImg</key>
-		<string>0</string>
+	</dict>
+	<dict>
+		<key>downLoadName</key>
+		<string>视频</string>
+		<key>downloadResult</key>
+		<string>成功 %d 个, 失败 %d 个</string>
+		<key>downProgress</key>
+		<string>%0.2f%%</string>
 	</dict>
 </array>
 </plist>

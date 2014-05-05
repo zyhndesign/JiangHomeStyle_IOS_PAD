@@ -32,7 +32,7 @@
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval =  20;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithName:@"JiangHomeStyle" trackingId:@"UA-44083057-1"];
+    [[GAI sharedInstance] trackerWithName:@"JiangHomeStyle" trackingId:@"UA-44083057-1"];
     //-----------------------------------------------------
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];

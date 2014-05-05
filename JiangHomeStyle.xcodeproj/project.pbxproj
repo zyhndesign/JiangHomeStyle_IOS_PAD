@@ -16,7 +16,6 @@
 		D50E55C317C6ED17002B60D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D50E55C217C6ED17002B60D7 /* ViewController.m */; };
 		D50E55C617C6ED17002B60D7 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D50E55C417C6ED17002B60D7 /* ViewController_iPhone.xib */; };
 		D50E55C917C6ED17002B60D7 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D50E55C717C6ED17002B60D7 /* ViewController_iPad.xib */; };
-		D50E55D117C6ED17002B60D7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D50E55D017C6ED17002B60D7 /* SenTestingKit.framework */; };
 		D50E55D217C6ED17002B60D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D50E55A917C6ED17002B60D7 /* UIKit.framework */; };
 		D50E55D317C6ED17002B60D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D50E55AB17C6ED17002B60D7 /* Foundation.framework */; };
 		D50E55DB17C6ED17002B60D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D50E55D917C6ED17002B60D7 /* InfoPlist.strings */; };
@@ -34,8 +33,6 @@
 		D5111BAA17D4270000D95E3E /* HumanityViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BA917D4270000D95E3E /* HumanityViewModel_iPad.xib */; };
 		D5111BAC17D4272200D95E3E /* StoryViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BAB17D4272200D95E3E /* StoryViewModel_iPad.xib */; };
 		D5111BAE17D4276200D95E3E /* CommunityViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5111BAD17D4276200D95E3E /* CommunityViewModel_iPad.xib */; };
-		D5111BAF17D4366600D95E3E /* JSONKit.h in Sources */ = {isa = PBXBuildFile; fileRef = D5111BA417D4177A00D95E3E /* JSONKit.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D5111BB017D4366600D95E3E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5111BA517D4177A00D95E3E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D51299A3180B9041001736F7 /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5129962180B9041001736F7 /* arrow_down@2x.png */; };
 		D51299A4180B9041001736F7 /* arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5129963180B9041001736F7 /* arrow_left@2x.png */; };
 		D51299A5180B9041001736F7 /* arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5129964180B9041001736F7 /* arrow_right@2x.png */; };
@@ -298,8 +295,7 @@
 		D50E55C217C6ED17002B60D7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D50E55C517C6ED17002B60D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		D50E55C817C6ED17002B60D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		D50E55CF17C6ED17002B60D7 /* JiangHomeStyleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JiangHomeStyleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D50E55D017C6ED17002B60D7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D50E55CF17C6ED17002B60D7 /* JiangHomeStyleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JiangHomeStyleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E55D817C6ED17002B60D7 /* JiangHomeStyleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JiangHomeStyleTests-Info.plist"; sourceTree = "<group>"; };
 		D50E55DA17C6ED17002B60D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D50E55DC17C6ED17002B60D7 /* JiangHomeStyleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JiangHomeStyleTests.h; sourceTree = "<group>"; };
@@ -642,7 +638,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D50E55D117C6ED17002B60D7 /* SenTestingKit.framework in Frameworks */,
 				D50E55D217C6ED17002B60D7 /* UIKit.framework in Frameworks */,
 				D50E55D317C6ED17002B60D7 /* Foundation.framework in Frameworks */,
 			);
@@ -675,7 +670,7 @@
 			isa = PBXGroup;
 			children = (
 				D50E55A617C6ED17002B60D7 /* JiangHomeStyle.app */,
-				D50E55CF17C6ED17002B60D7 /* JiangHomeStyleTests.octest */,
+				D50E55CF17C6ED17002B60D7 /* JiangHomeStyleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -689,7 +684,6 @@
 				D50E55A917C6ED17002B60D7 /* UIKit.framework */,
 				D50E55AB17C6ED17002B60D7 /* Foundation.framework */,
 				D50E55AD17C6ED17002B60D7 /* CoreGraphics.framework */,
-				D50E55D017C6ED17002B60D7 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1214,8 +1208,8 @@
 			);
 			name = JiangHomeStyleTests;
 			productName = JiangHomeStyleTests;
-			productReference = D50E55CF17C6ED17002B60D7 /* JiangHomeStyleTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = D50E55CF17C6ED17002B60D7 /* JiangHomeStyleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1223,6 +1217,7 @@
 		D50E559E17C6ED17002B60D7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = cidesign;
 				TargetAttributes = {
@@ -1537,8 +1532,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5111BAF17D4366600D95E3E /* JSONKit.h in Sources */,
-				D5111BB017D4366600D95E3E /* JSONKit.m in Sources */,
 				D50E55DE17C6ED17002B60D7 /* JiangHomeStyleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1609,8 +1602,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1625,8 +1618,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "2D25A5A5-EDF4-489E-9841-EC64AFF19EC7";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2D25A5A5-EDF4-489E-9841-EC64AFF19EC7";
+				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1644,8 +1637,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ShenZhen Bobo Network Technology Co.,Ltd";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1653,7 +1646,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "2D25A5A5-EDF4-489E-9841-EC64AFF19EC7";
+				PROVISIONING_PROFILE = "01A91C94-54F0-479C-87FB-3BD0D055CE31";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1718,15 +1711,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JiangHomeStyle.app/JiangHomeStyle";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"",
+					"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				INFOPLIST_FILE = "JiangHomeStyleTests/JiangHomeStyleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1735,15 +1728,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JiangHomeStyle.app/JiangHomeStyle";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"",
+					"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JiangHomeStyle/JiangHomeStyle-Prefix.pch";
 				INFOPLIST_FILE = "JiangHomeStyleTests/JiangHomeStyleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

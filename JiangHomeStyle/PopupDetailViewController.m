@@ -200,7 +200,7 @@ VideoViewController *videoViewController = nil;
     //判断url是否为视频地址，如果为视频地址则进行拦截播放
     for (NSMutableDictionary *dict in videoArray)
     {
-        if ([[urlDict objectForKey:@"showUrl"]isEqualToString:[url description]])
+        if ([[dict objectForKey:@"showUrl"]isEqualToString:[url description]])
         {
             //判断指定路径是否有视频，没有则进行下载，下载后调用原生播放器进行播放
             NSString *path =[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"video"] stringByAppendingPathComponent:[self getFileNameFromUrl:[urlDict objectForKey:@"videoUrl"]]];

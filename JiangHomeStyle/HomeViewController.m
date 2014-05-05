@@ -139,8 +139,9 @@ extern PopupDetailViewController* detailViewController;
 
 - (void)panelClick:(id)sender
 {
+    NSLog(@"******************************************************::::::::%@",[sender accessibilityLabel]);
     if (detailViewController == nil)
-    {
+    {   
         detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:[sender accessibilityLabel]];
         detailViewController.delegate = self;
         

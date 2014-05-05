@@ -14,25 +14,21 @@
 #import "VarUtils.h"
 #import "FileUtils.h"
 #import "AFNetworking.h"
-#import "MJPopup/UIViewController+MJPopupViewController.h"
 #import "PopupDetailViewController.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
 #import "UILabel+VerticalAlign.h"
 
-@interface LandscapeViewController ()<MJPopupDelegate>
-{
-    
+@interface LandscapeViewController ()
+{    
 }
 @end
 
 @implementation LandscapeViewController
 
 
-@synthesize landscapeBtmBgView, landscapeScrollView,landscapePageControl;
+@synthesize landscapeBtmBgView;
 
 extern DBUtils *db;
-extern FileUtils *fileUtils;
-extern PopupDetailViewController* detailViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +44,7 @@ extern PopupDetailViewController* detailViewController;
 
 - (void)viewDidLoad
 {
+    NSLog(@"view did load in LandscapeViewController...");
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.screenName = @"风景界面";
@@ -59,14 +56,24 @@ extern PopupDetailViewController* detailViewController;
     [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
     
     //[landscapeBtmBgView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dmxj_bg.png"]]];
-    landscapeBtmBgView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"dmxj_bg.png"]];
-    
     int countArticle = [db countByCategory:LANDSCAPE_CATEGORY];
     countPage = (countArticle / LANDSCAPE_PAGE_INSIDE_NUM);
     if ((countArticle % LANDSCAPE_PAGE_INSIDE_NUM) > 0)
     {
         countPage = countPage + 1;
     }
+    
+    landscapeBtmBgView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"dmxj_bg.png"]];
+    columnScrollView = (UIScrollView *)[self.view viewWithTag:330];
+    pageControl = (UIPageControl *)[self.view viewWithTag:331];
+    columnScrollView.contentSize = CGSizeMake(columnScrollView.frame.size.width * countPage, columnScrollView.frame.size.height);
+    columnScrollView.delegate = self;
+    
+    pageControl.currentPage = 0;
+    pageControl.numberOfPages = countPage;
+    
+    pageControlBeingUsed = NO;
+    
     
     muDistionary = [NSMutableDictionary dictionaryWithCapacity:4];
     currentPage = 0;
@@ -78,97 +85,7 @@ extern PopupDetailViewController* detailViewController;
             [self assemblePanel:i];
         }
     }
-        
-    self.landscapeScrollView.contentSize = CGSizeMake(self.landscapeScrollView.frame.size.width * countPage, self.landscapeScrollView.frame.size.height);
-    
-    self.landscapeScrollView.delegate = self;
-    
-    self.landscapePageControl.currentPage = 0;
-    self.landscapePageControl.numberOfPages = countPage;
-    
-    pageControlBeingUsed = NO;
 }
-
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSLog(@"beigin...");
-    
-    if (!pageControlBeingUsed)
-    {
-        CGFloat pageWidth = self.landscapeScrollView.frame.size.width;
-        currentPage = floor((self.landscapeScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        //NSLog(@"%i",currentPage);
-        
-        //NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(addNewModelInScrollView:) object:[NSNumber numberWithInt:currentPage]];
-        //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-        //[queue addOperation:operation];
-        
-        self.landscapePageControl.currentPage = currentPage;
-    }
-    
-}
-
-- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    NSLog(@"beigin. Drag..");
-    [self addNewModelInScrollView:currentPage];
-    pageControlBeingUsed = NO;
-}
-
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{    
-    NSLog(@"end.. Uesd.");
-    //[self performSelectorInBackground:@selector(removeOldModelInScrollView:) withObject:[NSNumber numberWithInt:currentPage]];
-    [self removeOldModelInScrollView:currentPage];
-    pageControlBeingUsed = NO;
-    
-}
-
--(void) addNewModelInScrollView:(int) pageNum
-{
-    //[self logTimeTakenToRunBlock:^{
-        if (nil != landscapeScrollView)
-        {
-            NSLog(@"currentPage : %i",currentPage);
-                        
-            UIView* subview3 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum + 1)]];
-            if (nil == subview3 && (pageNum + 1 < countPage))
-            {
-                [self assemblePanel:(pageNum + 1)];
-            }
-            
-            UIView* subview4 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum - 1)]];
-            if (nil == subview4 && (pageNum - 1 >= 0))
-            {
-                
-                [self assemblePanel:(pageNum - 1)];
-            }
-        }
-   // } withPrefix:@"add landscape panel"];
-    
-}
-
--(void) removeOldModelInScrollView:(int)pageNum
-{
-    //[self logTimeTakenToRunBlock:^{
-        UIView* subview1 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum + 2)]];
-        if (nil != subview1 && (pageNum + 2) < countPage)
-        {
-            NSLog(@"remove view with ID: %i",(pageNum + 2));
-            [subview1 removeFromSuperview];
-            [muDistionary removeObjectForKey:[NSNumber numberWithInt:(pageNum + 2)]];
-        }
-        
-        UIView* subview2 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum - 2)]];
-        if (nil != subview2 && (pageNum - 2 >= 0))
-        {
-            NSLog(@"remove view with ID: %i",(pageNum - 2));
-            [subview2 removeFromSuperview];
-            [muDistionary removeObjectForKey:[NSNumber numberWithInt:(pageNum - 2)]];
-        }
-    //} withPrefix:@"remove landscape panel"];
-}
-
 
 -(void) assemblePanel:(int) pageNum
 {
@@ -178,10 +95,11 @@ extern PopupDetailViewController* detailViewController;
     CGRect frame;
     UIView *subview = [[bundle loadNibNamed:@"LandscapeViewModel_iPad" owner:self options:nil] lastObject];
     
-    frame.origin.x = self.landscapeScrollView.frame.size.width * (pageNum);
-    frame.origin.y = 0;
-    frame.size.width = self.landscapeScrollView.frame.size.width;
+    frame.origin.x = columnScrollView.frame.size.width * (pageNum);
+    frame.origin.y = 15;
+    frame.size.width = columnScrollView.frame.size.width;
     frame.size.height = subview.frame.size.height;
+        
     if (subview != nil && muArray != nil)
     {
         UIControl *firstPanel = (UIControl*)[subview viewWithTag:318];
@@ -320,81 +238,11 @@ extern PopupDetailViewController* detailViewController;
             fourPanel.hidden = YES;
         }
         
-        [self.landscapeScrollView addSubview:subview];
-        
-        NSLog(@"add view with ID: %i",(pageNum));
+        [columnScrollView addSubview:subview];
         
         [muDistionary setObject:subview forKey:[NSNumber  numberWithInt:(pageNum)]];
     }
 }
-
--(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
-{
-    NSString *path = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]] stringByAppendingString:@".jpg"];
-    
-    
-    if ([fileUtils fileISExist:path])
-    {
-        //加载本地文件
-        [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
-        
-    }
-    else //加载网络文件，并下载到本地
-    {
-        NSMutableString *muString = [muDict objectForKey:@"profile_path"];
-        
-        NSString *suffixString;
-        if ([muString hasSuffix:@".png"])
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.png"];
-        }
-        else
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.jpg"];
-        }
-        
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[suffixString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-        
-
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //NSLog(@"loading image is success");
-            //[uiImg setImage:[UIImage imageWithContentsOfFile:path]];
-            [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"loading image is failure %@",[error description]);
-        }];
-        [operation start];        
-    }
-    
-}
-
--(void) addVideoImage:(UIView *)view
-{
-    UIImage *videoImage = [UIImage imageNamed:@"hasvideo"];
-    UIImageView *videoImgView = [[UIImageView alloc] initWithImage:videoImage];
-    videoImgView.contentMode = UIViewContentModeScaleAspectFit;
-    videoImgView.frame = CGRectMake(0, 0, 80, 80);
-    [view addSubview:videoImgView];
-}
-
-- (void)panelClick:(id)sender
-{
-    if (detailViewController == nil)
-    {
-        detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:[sender accessibilityLabel]];
-        detailViewController.delegate = self;
-        [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
-    }
-}
-
-- (void) closeButtonClicked
-{
-    detailViewController = nil;
-    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
-}
-
 
 - (void)didReceiveMemoryWarning
 {

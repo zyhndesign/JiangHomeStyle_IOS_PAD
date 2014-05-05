@@ -33,7 +33,7 @@
                     <color key="textColor" red="0.71764705880000002" green="0.59607843140000005" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="section_title_shequ.png" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-ec-qPD">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="section_title_shequ.png" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-ec-qPD">
                     <rect key="frame" x="367" y="412" width="290" height="230"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
@@ -46,7 +46,7 @@
                 <constraint firstItem="15" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="301" id="26"/>
                 <constraint firstAttribute="bottom" secondItem="15" secondAttribute="bottom" constant="34" id="48"/>
                 <constraint firstItem="15" firstAttribute="top" secondItem="epQ-ec-qPD" secondAttribute="bottom" constant="44" id="G31-GS-0al"/>
-                <constraint firstItem="epQ-ec-qPD" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="362" id="gr5-ug-lbd"/>
+                <constraint firstItem="epQ-ec-qPD" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="367" id="gr5-ug-lbd"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

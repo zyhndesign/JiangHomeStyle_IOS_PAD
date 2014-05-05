@@ -38,6 +38,7 @@
 @synthesize topView;
 @synthesize musicAuthor, musicName, playBtn, nextBtn;
 @synthesize landscapeBtn, humanityBtn, storyboard, communityBtn;
+@synthesize url,streamer,storyBtn;
 
 extern DBUtils *db;
 
@@ -91,6 +92,7 @@ int musicLocalOrNet = 0;
         
     originHeight = originHeight + homeBottomCGSize.height;
     landscapeBottomViewController.view.frame = CGRectMake(0, originHeight,landscapeBottomCGSize.width,landscapeBottomCGSize.height);
+   
     [scrollView addSubview:landscapeBottomViewController.view];
     [self addChildViewController:landscapeBottomViewController];
     

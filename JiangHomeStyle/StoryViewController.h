@@ -7,23 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "googleAnalytics/GAI.h"
+#import "SuperColumnViewController.h"
 
-@interface StoryViewController : GAITrackedViewController<UIScrollViewDelegate>
+@interface StoryViewController : SuperColumnViewController
 {
-    NSMutableDictionary *muDistionary;
-    UIScrollView *storyScrollView;
-    int currentPage;
-    int countPage;
-    BOOL pageControlBeingUsed;
+
 }
-@property (strong, nonatomic) IBOutlet UIScrollView *storyScrollView;
-@property (weak, nonatomic) IBOutlet UIPageControl *storyPageControl;
+
 - (IBAction)pageChanged:(id)sender;
 
-//加载视频标识
--(void) addVideoImage:(UIView *)view;
-
-//异步加载图片
--(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg;
 @end

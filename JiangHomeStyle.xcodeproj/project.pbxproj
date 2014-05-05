@@ -183,6 +183,7 @@
 		D5E64A2117E6B8290048AB53 /* vline_dark_w1.png in Resources */ = {isa = PBXBuildFile; fileRef = D5E64A2017E6B8290048AB53 /* vline_dark_w1.png */; };
 		D5E64A2317E702F10048AB53 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5E64A2217E702F00048AB53 /* MediaPlayer.framework */; };
 		D5E74CF817D59AE100919A19 /* NSObject+MKBlockTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E74CF717D59AE100919A19 /* NSObject+MKBlockTimer.m */; };
+		D5ECBC1D191732B900BE6766 /* SuperColumnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ECBC1C191732B900BE6766 /* SuperColumnViewController.m */; };
 		D5F25E1317D80BAD008957CB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F25E1217D80BAD008957CB /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D5F25E1517D80CC2008957CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F25E1417D80CC2008957CB /* SystemConfiguration.framework */; };
 		D5F25E1917D8109D008957CB /* DBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F25E1817D8109D008957CB /* DBUtils.m */; };
@@ -516,6 +517,8 @@
 		D5E64A2217E702F00048AB53 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D5E74CF617D59AE100919A19 /* NSObject+MKBlockTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MKBlockTimer.h"; sourceTree = "<group>"; };
 		D5E74CF717D59AE100919A19 /* NSObject+MKBlockTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MKBlockTimer.m"; sourceTree = "<group>"; };
+		D5ECBC1B191732B900BE6766 /* SuperColumnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperColumnViewController.h; sourceTree = "<group>"; };
+		D5ECBC1C191732B900BE6766 /* SuperColumnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperColumnViewController.m; sourceTree = "<group>"; };
 		D5F25E1117D80BAD008957CB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D5F25E1217D80BAD008957CB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		D5F25E1417D80CC2008957CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -861,6 +864,8 @@
 				D5F79F86185EE47E00996F91 /* VideoViewController.m */,
 				D5F8AAC7190F3E850095D277 /* DownloadTableViewCell.h */,
 				D5F8AAC8190F3E850095D277 /* DownloadTableViewCell.m */,
+				D5ECBC1B191732B900BE6766 /* SuperColumnViewController.h */,
+				D5ECBC1C191732B900BE6766 /* SuperColumnViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1475,6 +1480,7 @@
 				D50E55B617C6ED17002B60D7 /* main.m in Sources */,
 				D50E55BA17C6ED17002B60D7 /* AppDelegate.m in Sources */,
 				D50E55C317C6ED17002B60D7 /* ViewController.m in Sources */,
+				D5ECBC1D191732B900BE6766 /* SuperColumnViewController.m in Sources */,
 				D5ACCFE317CDF6CA000FF15F /* SplashController.m in Sources */,
 				D5E024D317CF350E006C7F74 /* HomeViewController.m in Sources */,
 				D5E024D617CF3728006C7F74 /* LandscapeViewController.m in Sources */,

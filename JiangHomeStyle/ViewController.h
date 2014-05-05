@@ -13,16 +13,13 @@
 @class AudioStreamer;
 @class HomeViewController;
 @class LandscapeTopViewController;
-@class LandscapeViewController;
-@class HumanityViewController;
-@class StoryViewController;
-@class CommunityViewController;
 @class HomeTopViewController;
 @class HumanityTopViewController;
 @class StoryTopViewController;
 @class CommunityTopViewController;
 @class MCProgressBarView;
 @class FooterViewController;
+@class SuperColumnViewController;
 
 @interface ViewController : GAITrackedViewController<UIScrollViewDelegate>
 {
@@ -53,13 +50,13 @@
     HomeTopViewController* homeTopViewController;
     HomeViewController* homeBottomViewController;
     LandscapeTopViewController* landscapeTopViewController;
-    LandscapeViewController* landscapeBottomViewController;
+    SuperColumnViewController* landscapeBottomViewController;
     HumanityTopViewController* humanityTopViewController;
-    HumanityViewController* humanityBottomViewController;
+    SuperColumnViewController* humanityBottomViewController;
     StoryTopViewController* storyTopViewController;
-    StoryViewController* storyBottomViewController;
+    SuperColumnViewController* storyBottomViewController;
     CommunityTopViewController* communityTopViewController;
-    CommunityViewController* communityBottomViewController;
+    SuperColumnViewController* communityBottomViewController;
     FooterViewController* footerViewController;
     
     UIScrollView *scrollView;

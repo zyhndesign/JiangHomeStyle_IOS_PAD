@@ -14,26 +14,19 @@
 #import "VarUtils.h"
 #import "FileUtils.h"
 #import "AFNetworking.h"
-#import "MJPopup/UIViewController+MJPopupViewController.h"
-#import "PopupDetailViewController.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
 #import "UILabel+VerticalAlign.h"
 
-@interface CommunityViewController ()<MJPopupDelegate>
+@interface CommunityViewController ()
 {
     
 }
-
 
 @end
 
 @implementation CommunityViewController
 
-@synthesize communityScrollView,communityPageControl;
-
 extern DBUtils *db;
-extern FileUtils *fileUtils;
-extern PopupDetailViewController* detailViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,6 +57,14 @@ extern PopupDetailViewController* detailViewController;
         countPage = countPage + 1;
     }
     
+    columnScrollView = (UIScrollView *)[self.view viewWithTag:630];
+    pageControl = (UIPageControl *)[self.view viewWithTag:631];
+    columnScrollView.contentSize = CGSizeMake(columnScrollView.frame.size.width * countPage, columnScrollView.frame.size.height);
+    columnScrollView.delegate = self;
+    
+    pageControl.currentPage = 0;
+    pageControl.numberOfPages = countPage;
+        
     muDistionary = [NSMutableDictionary dictionaryWithCapacity:3];
     currentPage = 0;
     
@@ -75,78 +76,7 @@ extern PopupDetailViewController* detailViewController;
         }
     }
     
-    self.communityScrollView.contentSize = CGSizeMake(self.communityScrollView.frame.size.width * countPage, self.communityScrollView.frame.size.height);
-    
-    self.communityScrollView.delegate = self;
-    
-    self.communityPageControl.currentPage = 0;
-    self.communityPageControl.numberOfPages = countPage;
 }
-
-
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (!pageControlBeingUsed)
-    {
-        CGFloat pageWidth = self.communityScrollView.frame.size.width;
-        currentPage = floor((self.communityScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        self.communityPageControl.currentPage = currentPage;
-    }
-}
-
-- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [self addNewModelInScrollView:currentPage];
-    pageControlBeingUsed = NO;
-}
-
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self removeOldModelInScrollView:currentPage];
-    pageControlBeingUsed = NO;
-}
-
--(void) addNewModelInScrollView:(int) pageNum
-{
-    //[self logTimeTakenToRunBlock:^{
-        if (nil != communityScrollView)
-        {
-            UIView* subview3 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum + 1)]];
-            if (nil == subview3 && (pageNum + 1 < countPage))
-            {
-                [self assemblePanel:(pageNum + 1)];
-            }
-            
-            UIView* subview4 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum - 1)]];
-            if (nil == subview4 && (pageNum - 1 >= 0))
-            {
-                [self assemblePanel:(pageNum - 1)];
-            }
-        }
-    //} withPrefix:@"add community panel"];
-}
-
--(void) removeOldModelInScrollView:(int)pageNum
-{
-   // [self logTimeTakenToRunBlock:^{
-        UIView* subview1 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum + 2)]];
-        if (nil != subview1 && (pageNum + 2) < countPage)
-        {
-            NSLog(@"remove view with ID: %i",(pageNum + 2));
-            [subview1 removeFromSuperview];
-            [muDistionary removeObjectForKey:[NSNumber numberWithInt:(pageNum + 2)]];
-        }
-        
-        UIView* subview2 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum - 2)]];
-        if (nil != subview2 && (pageNum - 2 >= 0))
-        {
-            NSLog(@"remove view with ID: %i",(pageNum - 2));
-            [subview2 removeFromSuperview];
-            [muDistionary removeObjectForKey:[NSNumber numberWithInt:(pageNum - 2)]];
-        }
-    //} withPrefix:@"remove community panel"];
-}
-
 
 -(void) assemblePanel:(int) pageNum
 {
@@ -157,9 +87,9 @@ extern PopupDetailViewController* detailViewController;
     
     UIView *subview = [[bundle loadNibNamed:@"CommunityViewModel_iPad" owner:self options:nil] lastObject];
         
-    frame.origin.x = self.communityScrollView.frame.size.width * (pageNum);
+    frame.origin.x = columnScrollView.frame.size.width * (pageNum);
     frame.origin.y = 0;
-    frame.size.width = self.communityScrollView.frame.size.width;
+    frame.size.width = columnScrollView.frame.size.width;
     frame.size.height = subview.frame.size.height;
     if (subview != nil && muArray != nil)
     {
@@ -286,73 +216,12 @@ extern PopupDetailViewController* detailViewController;
         }
         
         
-        [self.communityScrollView addSubview:subview];
+        [columnScrollView addSubview:subview];
                 
         [muDistionary setObject:subview forKey:[NSNumber  numberWithInt:(pageNum)]];
     }
 }
 
--(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
-{
-    NSString *path = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]] stringByAppendingString:@".jpg"];
-    
-    if ([fileUtils fileISExist:path])
-    {
-        //加载本地文件
-        [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
-    }
-    else //加载网络文件，并下载到本地
-    {
-        NSMutableString *muString = [muDict objectForKey:@"profile_path"];
-        
-        NSString *suffixString;
-        if ([muString hasSuffix:@".png"])
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.png"];
-        }
-        else
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.jpg"];
-        }
-        
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[suffixString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-        
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //NSLog(@"loading image is success");
-            [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"loading image is failure %@",[error description]);
-        }];
-        [operation start];
-    }
-    
-}
-
-- (void)panelClick:(id)sender
-{
-    if (detailViewController == nil)
-    {
-        detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:[sender accessibilityLabel]];
-        detailViewController.delegate = self;
-        [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
-    }
-}
-
-- (void) closeButtonClicked
-{
-    detailViewController = nil;
-    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
-    
-}
-/*
--(NSString*) addLineFeedForString:(NSString *) str
-{
-    NSString *muStr = [[NSMutableString alloc] initWithString:[str stringByAppendingString:@"\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"]];
-    return muStr;
-}
-*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -363,12 +232,4 @@ extern PopupDetailViewController* detailViewController;
     pageControlBeingUsed = YES;
 }
 
--(void) addVideoImage:(UIView *)view
-{
-    UIImage *videoImage = [UIImage imageNamed:@"hasvideo"];
-    UIImageView *videoImgView = [[UIImageView alloc] initWithImage:videoImage];
-    videoImgView.contentMode = UIViewContentModeScaleAspectFit;
-    videoImgView.frame = CGRectMake(0, 0, 80, 80);
-    [view addSubview:videoImgView];
-}
 @end

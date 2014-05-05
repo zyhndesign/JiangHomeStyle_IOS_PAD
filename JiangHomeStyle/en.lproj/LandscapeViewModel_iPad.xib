@@ -198,7 +198,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="306" contentMode="scaleAspectFill" image="thumb_default.png" translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                            <rect key="frame" x="6" y="2" width="150" height="150"/>
+                            <rect key="frame" x="6" y="-2" width="150" height="150"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="150" id="370"/>
@@ -221,13 +221,13 @@
                         <constraint firstItem="171" firstAttribute="leading" secondItem="1748" secondAttribute="leading" constant="6" id="1763"/>
                         <constraint firstItem="789" firstAttribute="trailing" secondItem="873" secondAttribute="trailing" id="1925"/>
                         <constraint firstItem="789" firstAttribute="leading" secondItem="873" secondAttribute="leading" id="1927"/>
-                        <constraint firstItem="171" firstAttribute="top" secondItem="1748" secondAttribute="top" constant="2" id="2291"/>
+                        <constraint firstItem="171" firstAttribute="top" secondItem="1748" secondAttribute="top" constant="-2" id="2291"/>
                         <constraint firstAttribute="bottom" secondItem="873" secondAttribute="bottom" constant="5" id="2307"/>
                         <constraint firstAttribute="bottom" secondItem="789" secondAttribute="bottom" constant="91" id="2342"/>
                         <constraint firstItem="789" firstAttribute="top" secondItem="730" secondAttribute="bottom" constant="11" id="AAK-ll-4r5"/>
                         <constraint firstItem="730" firstAttribute="trailing" secondItem="789" secondAttribute="trailing" id="AdN-Fu-LD8"/>
                         <constraint firstItem="730" firstAttribute="trailing" secondItem="171" secondAttribute="trailing" id="J3F-Gd-1ak"/>
-                        <constraint firstItem="730" firstAttribute="top" secondItem="171" secondAttribute="bottom" constant="4" id="KLX-EW-UHH"/>
+                        <constraint firstItem="730" firstAttribute="top" secondItem="171" secondAttribute="bottom" constant="8" id="KLX-EW-UHH"/>
                         <constraint firstItem="730" firstAttribute="leading" secondItem="789" secondAttribute="leading" id="bdq-uR-hiD"/>
                         <constraint firstItem="730" firstAttribute="leading" secondItem="171" secondAttribute="leading" id="gNz-ES-svh"/>
                     </constraints>

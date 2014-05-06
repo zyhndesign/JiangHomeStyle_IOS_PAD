@@ -112,7 +112,7 @@ extern DBUtils *db;
            
             firstImg.accessibilityLabel = [muDict objectForKey:@"serverID"];            
             firstImg.userInteractionEnabled = YES;
-            UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick1:)];
+            UITapGestureRecognizer *sigTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panelClick:)];
             [firstImg addGestureRecognizer:sigTab];
             
             

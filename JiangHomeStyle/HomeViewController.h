@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "googleAnalytics/GAI.h"
+#import "SuperColumnViewController.h"
 
-@interface HomeViewController : GAITrackedViewController
+@interface HomeViewController : SuperColumnViewController
 
 @property (weak, nonatomic) IBOutlet UIView *recommandBgView;
 @property (weak, nonatomic) IBOutlet UIControl *firstPanelView;
@@ -17,9 +17,4 @@
 
 @property (weak, nonatomic) IBOutlet UIControl *thirdPanelView;
 
-//加载视频标识
--(void) addVideoImage:(UIView *)view;
-
-//异步加载图片
--(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg;
 @end

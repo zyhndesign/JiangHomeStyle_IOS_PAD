@@ -140,17 +140,6 @@ PopupDetailViewController* detailViewController;
         detailViewController.delegate = self;
         [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
     }
-    //先判断本地存储目录是否有离线文件，否则通过网络下载后再进行加载
-    /*
-    if(detailViewController == nil)
-    {
-        detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:[self accessibilityLabel]];
-        detailViewController.serverID = [sender accessibilityLabel];
-        
-        detailViewController.delegate = self;
-        [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
-    }
-    */
 }
 
 - (void) closeButtonClicked

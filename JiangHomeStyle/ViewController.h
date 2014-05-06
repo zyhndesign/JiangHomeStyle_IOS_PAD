@@ -19,7 +19,7 @@
 @class CommunityTopViewController;
 @class MCProgressBarView;
 @class FooterViewController;
-@class SuperColumnViewController;
+@class ColumnViewController;
 
 @interface ViewController : GAITrackedViewController<UIScrollViewDelegate>
 {
@@ -50,13 +50,13 @@
     HomeTopViewController* homeTopViewController;
     HomeViewController* homeBottomViewController;
     LandscapeTopViewController* landscapeTopViewController;
-    SuperColumnViewController* landscapeBottomViewController;
+    ColumnViewController* landscapeBottomViewController;
     HumanityTopViewController* humanityTopViewController;
-    SuperColumnViewController* humanityBottomViewController;
+    ColumnViewController* humanityBottomViewController;
     StoryTopViewController* storyTopViewController;
-    SuperColumnViewController* storyBottomViewController;
+    ColumnViewController* storyBottomViewController;
     CommunityTopViewController* communityTopViewController;
-    SuperColumnViewController* communityBottomViewController;
+    ColumnViewController* communityBottomViewController;
     FooterViewController* footerViewController;
     
     UIScrollView *scrollView;

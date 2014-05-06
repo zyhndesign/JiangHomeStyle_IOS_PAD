@@ -35,29 +35,6 @@ extern PopupDetailViewController* detailViewController;
     [super viewDidLoad];
 }
 
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (!pageControlBeingUsed)
-    {
-        CGFloat pageWidth = columnScrollView.frame.size.width;
-        currentPage = floor((columnScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        pageControl.currentPage = currentPage;
-    }
-    
-}
-
-- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [self addNewModelInScrollView:currentPage];
-    pageControlBeingUsed = NO;
-}
-
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self removeOldModelInScrollView:currentPage];
-    pageControlBeingUsed = NO;
-}
-
 - (void)panelClick:(id)sender
 {
     if (detailViewController != nil)
@@ -85,41 +62,6 @@ extern PopupDetailViewController* detailViewController;
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
 }
 
-
--(void) addNewModelInScrollView:(int) pageNum
-{
-    if (nil != columnScrollView)
-    {
-        UIView* subview1 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum + 1)]];
-        if (nil == subview1 && (pageNum + 1 < countPage))
-        {
-            [self assemblePanel:(pageNum + 1)];
-        }
-        
-        UIView* subview2 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum - 1)]];
-        if (nil == subview2 && (pageNum - 1 >= 0))
-        {
-            [self assemblePanel:(pageNum - 1)];
-        }
-    }
-}
-
--(void) removeOldModelInScrollView:(int)pageNum
-{
-    UIView* subview1 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum + 2)]];
-    if (nil != subview1 && (pageNum + 2) < countPage)
-    {
-        [subview1 removeFromSuperview];
-        [muDistionary removeObjectForKey:[NSNumber numberWithInt:(pageNum + 2)]];
-    }
-    
-    UIView* subview2 = [muDistionary objectForKey:[NSNumber numberWithInt:(pageNum - 2)]];
-    if (nil != subview2 && (pageNum - 2 >= 0))
-    {
-        [subview2 removeFromSuperview];
-        [muDistionary removeObjectForKey:[NSNumber numberWithInt:(pageNum - 2)]];
-    }
-}
 
 -(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
 {
@@ -168,15 +110,6 @@ extern PopupDetailViewController* detailViewController;
     [view addSubview:videoImgView];
 }
 
-/**
- *  该方法交给继承类去实现
- *
- *  @param pageNum 页码编号
- */
--(void) assemblePanel:(int) pageNum
-{
-
-}
 
 - (void)didReceiveMemoryWarning
 {

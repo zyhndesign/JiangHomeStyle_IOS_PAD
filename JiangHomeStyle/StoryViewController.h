@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SuperColumnViewController.h"
+#import "ColumnViewController.h"
 
-@interface StoryViewController : SuperColumnViewController
+@interface StoryViewController : ColumnViewController
 {
 
 }

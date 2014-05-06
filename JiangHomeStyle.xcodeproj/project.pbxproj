@@ -269,6 +269,7 @@
 		D5F8AACD190F46420095D277 /* download_zh.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5F8AACC190F46420095D277 /* download_zh.plist */; };
 		D5FA158119187BDB0045F61C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA158019187BDA0045F61C /* MobileCoreServices.framework */; };
 		D5FA15A219189B230045F61C /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */; };
+		D5FA15A51918E7B40045F61C /* ColumnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FA15A41918E7B40045F61C /* ColumnViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -612,6 +613,8 @@
 		D5F8AACC190F46420095D277 /* download_zh.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = download_zh.plist; sourceTree = "<group>"; };
 		D5FA158019187BDA0045F61C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = "../../../MAC_DATA/第三方组件/GoogleAnalyticsServicesiOS_3.06/libGoogleAnalyticsServices.a"; sourceTree = "<group>"; };
+		D5FA15A31918E7B40045F61C /* ColumnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColumnViewController.h; sourceTree = "<group>"; };
+		D5FA15A41918E7B40045F61C /* ColumnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColumnViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -865,6 +868,8 @@
 				D5F8AAC8190F3E850095D277 /* DownloadTableViewCell.m */,
 				D5ECBC1B191732B900BE6766 /* SuperColumnViewController.h */,
 				D5ECBC1C191732B900BE6766 /* SuperColumnViewController.m */,
+				D5FA15A31918E7B40045F61C /* ColumnViewController.h */,
+				D5FA15A41918E7B40045F61C /* ColumnViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1486,6 +1491,7 @@
 				D5111BA017D4176700D95E3E /* FMDatabaseQueue.m in Sources */,
 				D5111BA117D4176700D95E3E /* FMResultSet.m in Sources */,
 				D5F79F87185EE47E00996F91 /* VideoViewController.m in Sources */,
+				D5FA15A51918E7B40045F61C /* ColumnViewController.m in Sources */,
 				D5F2AD0818555213007FBA0F /* DownloadViewController.m in Sources */,
 				D5111BA617D4177A00D95E3E /* JSONKit.m in Sources */,
 				D5E74CF817D59AE100919A19 /* NSObject+MKBlockTimer.m in Sources */,

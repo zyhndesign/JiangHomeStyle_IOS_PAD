@@ -29,8 +29,6 @@
 @synthesize firstPanelView, secondPanelView, thirdPanelView;
 
 extern DBUtils *db;
-extern FileUtils *fileUtils;
-extern PopupDetailViewController* detailViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -135,83 +133,6 @@ extern PopupDetailViewController* detailViewController;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)panelClick:(id)sender
-{
-    if (detailViewController != nil)
-    {
-        detailViewController = nil;
-    }
-    
-    if (detailViewController == nil)
-    {
-        NSString *articleId = [sender accessibilityLabel];
-        if ([sender isKindOfClass:[UITapGestureRecognizer class]] && (articleId == nil))
-        {
-            articleId = ((UITapGestureRecognizer *)sender).view.accessibilityLabel;
-        }
-        
-        detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:articleId];
-        detailViewController.delegate = self;
-        [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
-    }
-}
-
-- (void) closeButtonClicked
-{
-    detailViewController = nil;
-    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideLeftRight];
-    
-}
-
--(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
-{
-    NSString *path = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]] stringByAppendingString:@".jpg"];
-    if ([fileUtils fileISExist:path])
-    {
-        //加载本地文件
-        //[uiImg setImage:[UIImage imageWithContentsOfFile:path]];
-        [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
-    }
-    else //加载网络文件，并下载到本地
-    {
-        
-        NSMutableString *muString = [muDict objectForKey:@"profile_path"];
-        
-        NSString *suffixString;
-        if ([muString hasSuffix:@".png"])
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.png"];
-        }
-        else
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.jpg"];
-        }
-        
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[suffixString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-        
-
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //NSLog(@"loading image is success");
-            //[uiImg setImage:[UIImage imageWithContentsOfFile:path]];
-            [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"loading image is failure %@",[error description]);
-        }];
-        [operation start];
-    }
-}
-
--(void) addVideoImage:(UIView *)view
-{
-    UIImage *videoImage = [UIImage imageNamed:@"hasvideo"];
-    UIImageView *videoImgView = [[UIImageView alloc] initWithImage:videoImage];
-    videoImgView.contentMode = UIViewContentModeScaleAspectFit;
-    videoImgView.frame = CGRectMake(0, 0, 80, 80);
-    [view addSubview:videoImgView];
 }
 
 @end

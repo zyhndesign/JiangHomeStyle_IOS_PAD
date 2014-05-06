@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SuperColumnViewController.h"
+#import "ColumnViewController.h"
 
-@interface LandscapeViewController : SuperColumnViewController
+@interface LandscapeViewController : ColumnViewController
 {
     
 }

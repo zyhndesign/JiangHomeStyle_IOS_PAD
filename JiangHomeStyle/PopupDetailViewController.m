@@ -245,7 +245,7 @@ VideoViewController *videoViewController = nil;
 
 -(void)webViewDidFinishLoad:(UIWebView *)_webView
 {
-    NSURLRequest *req = _webView.request;
+    //NSURLRequest *req = _webView.request;
     if (aniLayer1 == nil)
     {
         aniLayer1 = (UIImageView *)[self.view viewWithTag:912];

@@ -123,17 +123,34 @@ PopupDetailViewController* detailViewController;
 
 - (IBAction)homeTopArticleClick:(id)sender
 {
+    if (detailViewController != nil)
+    {
+        detailViewController = nil;
+    }
+    
+    if (detailViewController == nil)
+    {
+        NSString *articleId = [sender accessibilityLabel];
+        if ([sender isKindOfClass:[UITapGestureRecognizer class]] && (articleId == nil))
+        {
+            articleId = ((UITapGestureRecognizer *)sender).view.accessibilityLabel;
+        }
+        
+        detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:articleId];
+        detailViewController.delegate = self;
+        [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
+    }
     //先判断本地存储目录是否有离线文件，否则通过网络下载后再进行加载
+    /*
     if(detailViewController == nil)
     {
         detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:[self accessibilityLabel]];
-        NSLog(@"%@",[sender accessibilityLabel]);
         detailViewController.serverID = [sender accessibilityLabel];
         
         detailViewController.delegate = self;
         [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
     }
-    
+    */
 }
 
 - (void) closeButtonClicked

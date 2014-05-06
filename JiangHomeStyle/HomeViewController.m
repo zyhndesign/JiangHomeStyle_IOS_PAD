@@ -139,12 +139,21 @@ extern PopupDetailViewController* detailViewController;
 
 - (void)panelClick:(id)sender
 {
-    NSLog(@"******************************************************::::::::%@",[sender accessibilityLabel]);
+    if (detailViewController != nil)
+    {
+        detailViewController = nil;
+    }
+    
     if (detailViewController == nil)
-    {   
-        detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:[sender accessibilityLabel]];
-        detailViewController.delegate = self;
+    {
+        NSString *articleId = [sender accessibilityLabel];
+        if ([sender isKindOfClass:[UITapGestureRecognizer class]] && (articleId == nil))
+        {
+            articleId = ((UITapGestureRecognizer *)sender).view.accessibilityLabel;
+        }
         
+        detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:articleId];
+        detailViewController.delegate = self;
         [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];
     }
 }

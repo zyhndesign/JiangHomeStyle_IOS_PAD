@@ -195,7 +195,7 @@
     popupView.frame = popupStartRect;
     popupView.alpha = 1.0f;
     //popupView.alpha = 0.5f;
-    [UIView animateWithDuration:kPopupModalAnimationDuration delay:0.0f options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:kPopupModalAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         backgroundView.alpha = 1.0f;
         popupView.frame = popupEndRect;
     } completion:^(BOOL finished) {
@@ -238,7 +238,7 @@
                                   popupSize.height);
     }
     
-    [UIView animateWithDuration:kPopupModalAnimationDuration delay:0.0f options:UIViewAnimationCurveEaseIn animations:^{
+    [UIView animateWithDuration:kPopupModalAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         popupView.frame = popupEndRect;
         backgroundView.alpha = 0.0f;
     } completion:^(BOOL finished) {

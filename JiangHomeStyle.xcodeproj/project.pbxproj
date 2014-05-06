@@ -133,7 +133,6 @@
 		D5ACCFDD17CDF202000FF15F /* Splash_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5ACCFDC17CDF202000FF15F /* Splash_iPad.xib */; };
 		D5ACCFDF17CDF4D1000FF15F /* Splash_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5ACCFDE17CDF4D1000FF15F /* Splash_iPhone.xib */; };
 		D5ACCFE317CDF6CA000FF15F /* SplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ACCFE217CDF6CA000FF15F /* SplashController.m */; };
-		D5C2CB1517E842E8000BD7F9 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C2CB1417E842E8000BD7F9 /* libGoogleAnalyticsServices.a */; };
 		D5C2CB1717E84313000BD7F9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C2CB1617E84310000BD7F9 /* CoreData.framework */; };
 		D5D03B1917C74A0300890227 /* HumanityBottomController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D03B1817C74A0300890227 /* HumanityBottomController_iPad.xib */; };
 		D5D03B1B17C74A4900890227 /* HumanityTopController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D03B1A17C74A4900890227 /* HumanityTopController_iPad.xib */; };
@@ -268,6 +267,8 @@
 		D5F8AACA190F3E850095D277 /* DownloadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F8AAC8190F3E850095D277 /* DownloadTableViewCell.m */; };
 		D5F8AACB190F3E850095D277 /* DownloadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5F8AAC9190F3E850095D277 /* DownloadTableViewCell.xib */; };
 		D5F8AACD190F46420095D277 /* download_zh.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5F8AACC190F46420095D277 /* download_zh.plist */; };
+		D5FA158119187BDB0045F61C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA158019187BDA0045F61C /* MobileCoreServices.framework */; };
+		D5FA15A219189B230045F61C /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -609,6 +610,8 @@
 		D5F8AAC8190F3E850095D277 /* DownloadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewCell.m; sourceTree = "<group>"; };
 		D5F8AAC9190F3E850095D277 /* DownloadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadTableViewCell.xib; sourceTree = "<group>"; };
 		D5F8AACC190F46420095D277 /* download_zh.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = download_zh.plist; sourceTree = "<group>"; };
+		D5FA158019187BDA0045F61C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = "../../../MAC_DATA/第三方组件/GoogleAnalyticsServicesiOS_3.06/libGoogleAnalyticsServices.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -616,6 +619,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5FA15A219189B230045F61C /* libGoogleAnalyticsServices.a in Frameworks */,
+				D5FA158119187BDB0045F61C /* MobileCoreServices.framework in Frameworks */,
 				D5F2AD0A18555C96007FBA0F /* libxml2.dylib in Frameworks */,
 				D5DECBCE18063DF100F1E337 /* QuartzCore.framework in Frameworks */,
 				D5C2CB1717E84313000BD7F9 /* CoreData.framework in Frameworks */,
@@ -630,7 +635,6 @@
 				D50E55AA17C6ED17002B60D7 /* UIKit.framework in Frameworks */,
 				D50E55AC17C6ED17002B60D7 /* Foundation.framework in Frameworks */,
 				D50E55AE17C6ED17002B60D7 /* CoreGraphics.framework in Frameworks */,
-				D5C2CB1517E842E8000BD7F9 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +682,8 @@
 		D50E55A817C6ED17002B60D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */,
+				D5FA158019187BDA0045F61C /* MobileCoreServices.framework */,
 				D5F2AD0918555C96007FBA0F /* libxml2.dylib */,
 				D5A64264184DE26E00E3783F /* libxml2.2.dylib */,
 				D5DECBCD18063DF100F1E337 /* QuartzCore.framework */,
@@ -748,7 +754,6 @@
 				D5E74CF517D59AE100919A19 /* MKBlockTimer */,
 				D5111BA317D4177900D95E3E /* JSONKit */,
 				D5111B9117D4176700D95E3E /* FMDB */,
-				D5F51EBD17CF262100E9DE39 /* protocols */,
 				D5F51DF217CEECF900E9DE39 /* images */,
 				D5ACCFE017CDF5F1000FF15F /* Controllers */,
 				D50E55E917C6EE2A002B60D7 /* xibs */,
@@ -1153,13 +1158,6 @@
 				D5F51E5617CEED0A00E9DE39 /* wuyu_item_blackout.png */,
 			);
 			name = images;
-			sourceTree = "<group>";
-		};
-		D5F51EBD17CF262100E9DE39 /* protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = protocols;
 			sourceTree = "<group>";
 		};
 		D5F5FDE417E03F1A008F45D0 /* files */ = {
@@ -1670,7 +1668,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",
-					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
+					"/Volumes/MAC_DATA/第三方组件/GoogleAnalyticsServicesiOS_3.06",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1697,7 +1695,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",
-					"\"$(SRCROOT)/JiangHomeStyle/testFlight\"",
+					"/Volumes/MAC_DATA/第三方组件/GoogleAnalyticsServicesiOS_3.06",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

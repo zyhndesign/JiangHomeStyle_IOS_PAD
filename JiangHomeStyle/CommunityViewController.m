@@ -123,7 +123,7 @@ extern DBUtils *db;
             [firstLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             [firstLabelDesc setText:[muDict objectForKey:@"description"]];
             [firstLabelDesc alignTop];
-            
+            firstLabelDesc.lineBreakMode = NSLineBreakByTruncatingTail;
             //[homeTopTitle setValue:[muDict objectForKey:@"serverID"] forUndefinedKey:@"serverID"];
             firstPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [firstPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -160,6 +160,7 @@ extern DBUtils *db;
             
             [secondLabelDesc setText:[muDict objectForKey:@"description"]];
             [secondLabelDesc alignTop];
+            secondLabelDesc.lineBreakMode = NSLineBreakByTruncatingTail;
             
             secondPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [secondPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -196,7 +197,8 @@ extern DBUtils *db;
             [thirdLabelTime setText:[TimeUtil convertTimeFormat:[muDict objectForKey:@"timestamp"]]];
             
             [thirdLabelDesc setText:[muDict objectForKey:@"description"]];
-            [thirdLabelDesc alignTop];
+            [thirdLabelDesc alignTop];            
+            thirdLabelDesc.lineBreakMode = NSLineBreakByTruncatingTail;
             
             thirdPanel.accessibilityLabel = [muDict objectForKey:@"serverID"];
             [thirdPanel addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];

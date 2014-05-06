@@ -13,8 +13,10 @@
 -(void)alignTop
 {
     int lineSpacing = 6;
-    CGSize fontSize =[self.text sizeWithFont:self.font];
-    double finalHeight = (fontSize.height + lineSpacing ) * self.numberOfLines;
+    
+    CGSize fontSize =[self.text sizeWithAttributes:@{NSFontAttributeName:self.font}];
+    
+    double finalHeight = fontSize.height * self.numberOfLines;
     double finalWidth =self.frame.size.width;//expected width of label
     CGSize theStringSize =[self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
     

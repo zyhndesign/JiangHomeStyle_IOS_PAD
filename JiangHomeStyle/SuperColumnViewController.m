@@ -60,6 +60,11 @@ extern PopupDetailViewController* detailViewController;
 
 - (void)panelClick:(id)sender
 {
+    if (detailViewController != nil)
+    {
+        detailViewController = nil;
+    }
+    
     if (detailViewController == nil)
     {
         NSString *articleId = [sender accessibilityLabel];
@@ -67,7 +72,7 @@ extern PopupDetailViewController* detailViewController;
         {
             articleId = ((UITapGestureRecognizer *)sender).view.accessibilityLabel;
         }
-                
+        
         detailViewController = [[PopupDetailViewController alloc] initWithNibName:@"PopupView_iPad" bundle:nil andParams:articleId];
         detailViewController.delegate = self;
         [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideRightLeft];

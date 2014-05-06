@@ -313,7 +313,7 @@ int musicLocalOrNet = 0;
 {
     //加载本地音乐
     NSMutableArray* musicData = [db queryMusicData];
-    NSLog(@"local music data count is : %d",[musicData count]);
+    
     if ([musicData count] > 0)
     {
         musicLocalOrNet = 1;
@@ -647,7 +647,7 @@ int musicLocalOrNet = 0;
                                                foregroundImage:foregroundImage];
     
     if (taperOff) {
-        progressBarView.offsetForZero = 10.0;
+        progressBarView.offsetForZero = 1.0;
     }
     progressBarView.progress = progress;
     

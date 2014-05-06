@@ -590,6 +590,7 @@ int communityDownSign = 0;
         [storyQueue cancelAllOperations];
         [communityQueue cancelAllOperations];
         [videoQueue cancelAllOperations];
+        
         [self.delegate closeButtonClicked];
     }
 }

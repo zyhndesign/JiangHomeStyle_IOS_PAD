@@ -69,6 +69,9 @@ extern DBUtils *db;
     muDistionary = [NSMutableDictionary dictionaryWithCapacity:3];
     currentPage = 0;
     
+    thumbDownQueue = [NSOperationQueue new];
+    [thumbDownQueue setMaxConcurrentOperationCount:2];
+    
     for (int i = 0; i < 2; i++)
     {
         if (i <= countPage)
@@ -76,7 +79,6 @@ extern DBUtils *db;
             [self assemblePanel:i];
         }
     }
-    
 }
 
 -(void) assemblePanel:(int) pageNum
@@ -92,6 +94,8 @@ extern DBUtils *db;
     frame.size.width = columnScrollView.frame.size.width;
     frame.size.height = subview.frame.size.height;
     
+    NSOperation *downOperation = nil;
+    
     if (subview != nil && muArray != nil)
     {
         subview.frame = frame;
@@ -106,7 +110,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:0];
             
             //异步加载图片
-            [self loadingImage:muDict andImageView:firstImg];
+            downOperation = [self loadingImageOperation:muDict andImageView:firstImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
                        
             [firstLabelTitle setText:[muDict objectForKey:@"title"]];
            
@@ -137,7 +145,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:1];
             
             //异步加载图片
-            [self loadingImage:muDict andImageView:secondImg];            
+            downOperation = [self loadingImageOperation:muDict andImageView:secondImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
             
             [secondLabelTitle setText:[muDict objectForKey:@"title"]];
                         
@@ -167,7 +179,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:2];
             
             //异步加载图片
-            [self loadingImage:muDict andImageView:thirdImg];
+            downOperation = [self loadingImageOperation:muDict andImageView:thirdImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
             
             
             [thirdLabelTitle setText:[muDict objectForKey:@"title"]];
@@ -197,7 +213,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:3];
             
             //异步加载图片
-            [self loadingImage:muDict andImageView:fourImg];
+            downOperation = [self loadingImageOperation:muDict andImageView:fourImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
             
             
             [fourLabelTitle setText:[muDict objectForKey:@"title"]];
@@ -228,7 +248,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:4];
             
             //异步加载图片
-            [self loadingImage:muDict andImageView:fiveImg];            
+            downOperation = [self loadingImageOperation:muDict andImageView:fiveImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
             
             [fiveLabelTitle setText:[muDict objectForKey:@"title"]];
             
@@ -257,7 +281,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:5];
             
             //异步加载图片
-            [self loadingImage:muDict andImageView:sixImg];
+            downOperation = [self loadingImageOperation:muDict andImageView:sixImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
                         
             [sixLabelTitle setText:[muDict objectForKey:@"title"]];
             

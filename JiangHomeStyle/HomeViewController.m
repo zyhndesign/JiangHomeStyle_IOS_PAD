@@ -57,6 +57,9 @@ extern DBUtils *db;
     [secondPanelView addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
     [thirdPanelView addTarget:self action:@selector(panelClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    thumbDownQueue = [NSOperationQueue new];
+    [thumbDownQueue setMaxConcurrentOperationCount:1];
+    
     db = [[DBUtils alloc] init];
     NSMutableArray *muArray = [db queryHeadline];
     
@@ -64,10 +67,16 @@ extern DBUtils *db;
     UILabel *firstPanelTitleLabel = (UILabel *)[self.view viewWithTag:204];
     UILabel *firstPanelTimeLabel = (UILabel *)[self.view viewWithTag:205];
     
+    NSOperation *downOperation = nil;
+    
     if ([muArray count] >= 2)
     {
         NSMutableDictionary *muDict = [muArray objectAtIndex:1];
-        [self loadingImage:muDict andImageView:firstPanelImg];
+        downOperation = [self loadingImageOperation:muDict andImageView:firstPanelImg];
+        if (downOperation != nil)
+        {
+            [thumbDownQueue addOperation:downOperation];
+        }
         [firstPanelTitleLabel setText:[muDict objectForKey:@"title"]];
         [firstPanelTitleLabel alignTop];
         firstPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -90,7 +99,11 @@ extern DBUtils *db;
     if ([muArray count] >= 3)
     {
         NSMutableDictionary *muDict = [muArray objectAtIndex:2];
-        [self loadingImage:muDict andImageView:secondPanelImg];
+        downOperation = [self loadingImageOperation:muDict andImageView:secondPanelImg];
+        if (downOperation != nil)
+        {
+            [thumbDownQueue addOperation:downOperation];
+        }
         [secondPanelTitleLabel setText:[muDict objectForKey:@"title"]];
         [secondPanelTitleLabel alignTop];
         secondPanelTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -112,7 +125,11 @@ extern DBUtils *db;
     if ([muArray count] >= 4)
     {
         NSMutableDictionary *muDict = [muArray objectAtIndex:3];
-        [self loadingImage:muDict andImageView:threePanelImg];
+        downOperation = [self loadingImageOperation:muDict andImageView:threePanelImg];
+        if (downOperation != nil)
+        {
+            [thumbDownQueue addOperation:downOperation];
+        }
         [thirdPanelTitleLabel setText:[muDict objectForKey:@"title"]];
         [thirdPanelTitleLabel alignTop];
         thirdPanelTitleLabel.textAlignment = NSTextAlignmentCenter;

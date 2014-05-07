@@ -70,6 +70,9 @@ extern DBUtils *db;
     pageControl.currentPage = 0;
     pageControl.numberOfPages = countPage;
     
+    thumbDownQueue = [NSOperationQueue new];
+    [thumbDownQueue setMaxConcurrentOperationCount:2];
+    
     for (int i = 0; i < 2; i++)
     {
         if(i <= countPage)
@@ -77,7 +80,6 @@ extern DBUtils *db;
             [self assemblePanel:i];
         }
     }
-
 }
 
 -(void) assemblePanel:(int) pageNum
@@ -91,6 +93,8 @@ extern DBUtils *db;
     frame.origin.y = 0;
     frame.size.width = columnScrollView.frame.size.width;
     frame.size.height = subview.frame.size.height;
+    
+    NSOperation *downOperation = nil;
     
     if (subview != nil && muArray != nil)
     {
@@ -114,7 +118,11 @@ extern DBUtils *db;
             
             UIImageView *firstImg = (UIImageView*)[subview viewWithTag:402];
             //异步加载图片
-            [self loadingImage:muDict andImageView:firstImg];
+            downOperation = [self loadingImageOperation:muDict andImageView:firstImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
             
             UILabel* firstLabelTitle = (UILabel*)[subview viewWithTag:403];
             [firstLabelTitle setText:[muDict objectForKey:@"title"]];
@@ -149,7 +157,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:1];
             UIImageView *secondImg = (UIImageView*)[subview viewWithTag:406];
             //异步加载图片
-            [self loadingImage:muDict andImageView:secondImg];
+            downOperation = [self loadingImageOperation:muDict andImageView:secondImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
             
             UILabel* secondLabelTitle = (UILabel*)[subview viewWithTag:407];
             [secondLabelTitle setText:[muDict objectForKey:@"title"]];
@@ -181,7 +193,11 @@ extern DBUtils *db;
             NSMutableDictionary *muDict = [muArray objectAtIndex:2];
             UIImageView *thirdImg = (UIImageView*)[subview viewWithTag:410];
             //异步加载图片
-            [self loadingImage:muDict andImageView:thirdImg];
+            downOperation = [self loadingImageOperation:muDict andImageView:thirdImg];
+            if (downOperation != nil)
+            {
+                [thumbDownQueue addOperation:downOperation];
+            }
             
             UILabel* thirdLabelTitle = (UILabel*)[subview viewWithTag:411];
             [thirdLabelTitle setText:[muDict objectForKey:@"title"]];

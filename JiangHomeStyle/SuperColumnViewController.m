@@ -63,7 +63,7 @@ extern PopupDetailViewController* detailViewController;
 }
 
 
--(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
+-(NSOperation *) loadingImageOperation:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
 {
     NSString *path = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]] stringByAppendingString:@".jpg"];
     
@@ -97,8 +97,9 @@ extern PopupDetailViewController* detailViewController;
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"loading image is failure %@",[error description]);
         }];
-        [operation start];
+        return operation;
     }
+    return nil;
 }
 
 -(void) addVideoImage:(UIView *)view

@@ -13,16 +13,21 @@
 
 @interface SuperColumnViewController : GAITrackedViewController<MJPopupDelegate>
 {
-
+    /**
+     *  应用启动后，缩略图 图片下载 队列，同一时刻有2个thread来执行任务
+     */
+    NSOperationQueue *thumbDownQueue;
 }
 
 /**
  *  异步加载ScrollView页面中的缩略图
  *
- *  @param muDict 文件路径（网络／本地）
+ *  @param muDict 文件路径（网络／本地
  *  @param uiImg  需要加载的UIImageView控件
+ *
+ *  @return NSOperation Queue
  */
--(void) loadingImage:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg;
+-(NSOperation *) loadingImageOperation:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg;
 
 /**
  *  给指定的UIView对象加载该篇文章是否有视频的标示

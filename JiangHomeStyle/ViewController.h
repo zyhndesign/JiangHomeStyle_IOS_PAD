@@ -11,7 +11,6 @@
 #import <AVFoundation/AVAudioPlayer.h>
 
 @class AudioStreamer;
-@class HomeViewController;
 @class LandscapeTopViewController;
 @class HomeTopViewController;
 @class HumanityTopViewController;
@@ -19,7 +18,7 @@
 @class CommunityTopViewController;
 @class MCProgressBarView;
 @class FooterViewController;
-@class ColumnViewController;
+@class SuperColumnViewController;
 
 @interface ViewController : GAITrackedViewController<UIScrollViewDelegate>
 {
@@ -48,15 +47,15 @@
     int communityYValue;
     
     HomeTopViewController* homeTopViewController;
-    HomeViewController* homeBottomViewController;
     LandscapeTopViewController* landscapeTopViewController;
-    ColumnViewController* landscapeBottomViewController;
     HumanityTopViewController* humanityTopViewController;
-    ColumnViewController* humanityBottomViewController;
     StoryTopViewController* storyTopViewController;
-    ColumnViewController* storyBottomViewController;
     CommunityTopViewController* communityTopViewController;
-    ColumnViewController* communityBottomViewController;
+    SuperColumnViewController* homeBottomViewController;
+    SuperColumnViewController* landscapeBottomViewController;
+    SuperColumnViewController* humanityBottomViewController;
+    SuperColumnViewController* storyBottomViewController;    
+    SuperColumnViewController* communityBottomViewController;
     FooterViewController* footerViewController;
     
     UIScrollView *scrollView;

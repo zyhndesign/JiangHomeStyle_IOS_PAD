@@ -10,7 +10,7 @@
 
 @implementation DownloadTableViewCell
 
-@synthesize downLoadName, downloadResult, downProgress, downSignImg;
+@synthesize downLoadName, downloadResult, downProgress;
 
 - (void)awakeFromNib
 {

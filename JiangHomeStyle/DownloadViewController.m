@@ -47,6 +47,9 @@ int communityDownSign = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    isCancelDownloadTask = false;
+    
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor clearColor];
     
@@ -223,18 +226,28 @@ int communityDownSign = 0;
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
             ++successNum;
+            //往数据库中写入下载完成纪录
             [obj setObject:savePath forKey:@"musicPath"];
             [db insertMusicData:obj];
+            //如果所有文件下载完毕
             if (alreadyDownSize == totalFileSize)
             {
-                [self downloadArticles];
+                //如果任务没有取消
+                if (!isCancelDownloadTask)
+                {
+                    [self downloadArticles];
+                }
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             alreadyDownSize = alreadyDownSize + [fileSizeStr longLongValue];
             ++failureNum;
+            
             if (alreadyDownSize == totalFileSize)
             {
-                [self downloadArticles];
+                if (!isCancelDownloadTask)
+                {
+                    [self downloadArticles];
+                }
             }
         }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
@@ -252,7 +265,7 @@ int communityDownSign = 0;
 {
     
     NSMutableArray* categoryDataArray = [db queryDownloadDataByCategory:category];
-    
+   
     __block long long totalFileSize = 0;
     __block long long alreadyDownSize = 0;
     __block int successNum = 0;
@@ -263,17 +276,14 @@ int communityDownSign = 0;
         for (NSMutableDictionary *nsDict in categoryDataArray)
         {
             NSString *filePath = [[[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]] stringByAppendingPathComponent:@"doc"] stringByAppendingPathComponent:@"main.html"];
-            
+       
             if (![fileUtils fileISExist:filePath])
             {
-                
                 NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[nsDict objectForKey:@"url"]]];
                 NSString* archivePath = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"temp"] stringByAppendingPathComponent:[nsDict objectForKey:@"serverID"]] stringByAppendingString:@".zip"];
                 NSString *articlesPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:@"articles"];
                 NSString* fileSizeStr = [nsDict objectForKey:@"size"];
                 totalFileSize = totalFileSize + [fileSizeStr longLongValue];
-                
-                NSLog(@"totalFileSize is : %lld",totalFileSize);
                 
                 AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
                 operation.outputStream = [NSOutputStream outputStreamToFileAtPath:archivePath append:NO];
@@ -325,6 +335,7 @@ int communityDownSign = 0;
                 }];
                 [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
                     float percent = ((float)totalBytesRead + alreadyDownSize)/(float)totalFileSize * 100;
+                    
                     if (category == LANDSCAPE_CATEGORY)
                     {
                         [self refreshTableViewByCategory:1 successNum:successNum failureNum:failureNum downloadPercent:percent];
@@ -387,6 +398,7 @@ int communityDownSign = 0;
         }
         
         [self updateDownLoadSing:category];
+        
         [self launchDownloadVideo];
     }
 }
@@ -569,7 +581,11 @@ int communityDownSign = 0;
 {
     if (landscapeDownSign == 1 && humanityDownSign == 1 && storyDownSign == 1 && communityDownSign == 1)
     {
-        [self downloadVideo];
+        //如果任务没有取消，则启动视频下载
+        if (!isCancelDownloadTask)
+        {
+             [self downloadVideo];
+        }
     }
 }
 
@@ -584,6 +600,8 @@ int communityDownSign = 0;
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(closeButtonClicked)])
     {
+        isCancelDownloadTask = true;
+        
         [musicQueue cancelAllOperations];
         [landscapeQueue cancelAllOperations];
         [humanityQueue cancelAllOperations];

@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIView *recommandBgView;
 @property (weak, nonatomic) IBOutlet UIControl *firstPanelView;
 @property (weak, nonatomic) IBOutlet UIControl *secondPanelView;
-
 @property (weak, nonatomic) IBOutlet UIControl *thirdPanelView;
 
 @end

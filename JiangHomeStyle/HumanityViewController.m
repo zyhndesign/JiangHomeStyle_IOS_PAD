@@ -7,13 +7,11 @@
 //
 
 #import "HumanityViewController.h"
-#import "MKBlockTimer/NSObject+MKBlockTimer.h"
 #import "DBUtils.h"
 #import "Constants.h"
 #import "TimeUtil.h"
 #import "VarUtils.h"
 #import "FileUtils.h"
-#import "AFNetworking.h"
 #import "googleAnalytics/GAIDictionaryBuilder.h"
 #import "UILabel+VerticalAlign.h"
 

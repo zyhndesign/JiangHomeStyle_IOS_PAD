@@ -65,30 +65,19 @@ extern PopupDetailViewController* detailViewController;
 
 -(NSOperation *) loadingImageOperation:(NSMutableDictionary*) muDict andImageView:(UIImageView*) uiImg
 {
-    NSString *path = [[[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]] stringByAppendingString:@".jpg"];
-    
+    NSString *path = [[PATH_OF_DOCUMENT stringByAppendingPathComponent:@"thumb"] stringByAppendingPathComponent:[muDict objectForKey:@"serverID"]];
     if ([fileUtils fileISExist:path])
     {
         //加载本地文件
         [uiImg setImageWithURL:[NSURL fileURLWithPath:path]];
-        
     }
     else //加载网络文件，并下载到本地
     {
         NSMutableString *muString = [muDict objectForKey:@"profile_path"];
         
-        NSString *suffixString;
-        if ([muString hasSuffix:@".png"])
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.png"];
-        }
-        else
-        {
-            suffixString = [[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300.jpg"];
-        }
+        NSString *suffixString = [[[muString substringToIndex:[muString length] - 4] stringByAppendingString:@"-300x300"] stringByAppendingString:[muString substringFromIndex:[muString length] - 4]];
         
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[suffixString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-        
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];

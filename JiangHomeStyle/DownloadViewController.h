@@ -34,6 +34,8 @@
     
     NSArray *downloadArray;
     NSMutableArray *refreshArray;
+    
+    BOOL isCancelDownloadTask;
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *downLoadTableView;

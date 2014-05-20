@@ -170,6 +170,7 @@
 		D5E024D917CF4966006C7F74 /* HumanityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024D817CF4966006C7F74 /* HumanityViewController.m */; };
 		D5E024DC17CF4980006C7F74 /* StoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024DB17CF4980006C7F74 /* StoryViewController.m */; };
 		D5E024DF17CF4993006C7F74 /* CommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E024DE17CF4993006C7F74 /* CommunityViewController.m */; };
+		D5E07849191F53FA0061F901 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */; };
 		D5E1C3351904B7B60019E05B /* LandscapeViewModel_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E1C3371904B7B60019E05B /* LandscapeViewModel_iPad.xib */; };
 		D5E4B9AC184EBDE50048FD79 /* DownloadWin.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E4B9AB184EBDE50048FD79 /* DownloadWin.xib */; };
 		D5E4BB7D17E2DFD700C66089 /* slider.png in Resources */ = {isa = PBXBuildFile; fileRef = D5E4BB7C17E2DFD600C66089 /* slider.png */; };
@@ -268,7 +269,6 @@
 		D5F8AACB190F3E850095D277 /* DownloadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5F8AAC9190F3E850095D277 /* DownloadTableViewCell.xib */; };
 		D5F8AACD190F46420095D277 /* download_zh.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5F8AACC190F46420095D277 /* download_zh.plist */; };
 		D5FA158119187BDB0045F61C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA158019187BDA0045F61C /* MobileCoreServices.framework */; };
-		D5FA15A219189B230045F61C /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */; };
 		D5FA15A51918E7B40045F61C /* ColumnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FA15A41918E7B40045F61C /* ColumnViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -423,6 +423,7 @@
 		D54334F517D9ECEA00D23D8B /* CommunityTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityTopViewController.m; sourceTree = "<group>"; };
 		D553F7241814BDF8002ABF85 /* hasvideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hasvideo.png; path = images/hasvideo.png; sourceTree = "<group>"; };
 		D5745DC4180413CF0096A19E /* bg5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bg5.jpg; path = images/bg5.jpg; sourceTree = "<group>"; };
+		D58DA42F191B264000D900DE /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = JiangHomeStyle/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		D5A6425B184DC9CE00E3783F /* FooterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterViewController.h; sourceTree = "<group>"; };
 		D5A6425C184DC9CE00E3783F /* FooterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterViewController.m; sourceTree = "<group>"; };
 		D5A64260184DE12A00E3783F /* GDataXMLNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
@@ -622,7 +623,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5FA15A219189B230045F61C /* libGoogleAnalyticsServices.a in Frameworks */,
+				D5E07849191F53FA0061F901 /* libGoogleAnalyticsServices.a in Frameworks */,
 				D5FA158119187BDB0045F61C /* MobileCoreServices.framework in Frameworks */,
 				D5F2AD0A18555C96007FBA0F /* libxml2.dylib in Frameworks */,
 				D5DECBCE18063DF100F1E337 /* QuartzCore.framework in Frameworks */,
@@ -685,6 +686,7 @@
 		D50E55A817C6ED17002B60D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D58DA42F191B264000D900DE /* libGoogleAnalyticsServices.a */,
 				D5FA15A119189B230045F61C /* libGoogleAnalyticsServices.a */,
 				D5FA158019187BDA0045F61C /* MobileCoreServices.framework */,
 				D5F2AD0918555C96007FBA0F /* libxml2.dylib */,
@@ -1673,12 +1675,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",
 					"/Volumes/MAC_DATA/第三方组件/GoogleAnalyticsServicesiOS_3.06",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "89D1F6E5-9CCC-4EB9-B762-0852EA043A41";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1700,7 +1701,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/JiangHomeStyle/googleAnalytics\"",
 					"/Volumes/MAC_DATA/第三方组件/GoogleAnalyticsServicesiOS_3.06",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

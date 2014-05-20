@@ -32,13 +32,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
-    backBtn = (UIButton *)[self.view viewWithTag:850];
-	// Do any additional setup after loading the view.
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"btn_back_pressed"] forState:UIControlStateNormal];
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"btn_back_normal"] forState:UIControlStateHighlighted];
-    [backBtn addTarget:self action:@selector(BtnCloseClick) forControlEvents:UIControlEventTouchUpInside];
-    backBtn.alpha = 1;
-
+    
 	// Do any additional setup after loading the view.
     
     NSURL* fileURl = [NSURL fileURLWithPath:url];
@@ -66,14 +60,6 @@
                                              selector:@selector(myMovieFinishedCallback:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:player];
-}
-
-- (void)BtnCloseClick
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(closeButtonClicked)])
-    {
-       [self.delegate closeButtonClicked];
-    }
 }
 
 -(void)myMovieFinishedCallback:(NSNotification*)notify

@@ -13,11 +13,9 @@
     IBOutlet UILabel *downLoadName;
     IBOutlet UILabel *downloadResult;
     IBOutlet UILabel *downProgress;
-    IBOutlet UIImageView *downSignImg;
 }
 @property (strong, nonatomic) IBOutlet UILabel *downLoadName;
 @property (strong, nonatomic) IBOutlet UILabel *downloadResult;
 @property (strong, nonatomic) IBOutlet UILabel *downProgress;
-@property (strong, nonatomic) IBOutlet UIImageView *downSignImg;
 
 @end

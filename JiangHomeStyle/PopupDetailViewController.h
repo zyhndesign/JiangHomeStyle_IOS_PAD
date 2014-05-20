@@ -27,6 +27,7 @@
 @property (weak, nonatomic) id<MJPopupDelegate> delegate;
 @property (strong, nonatomic) UIButton *backBtn;
 @property (strong,nonatomic) NSString *serverID;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andParams:(NSString *)serverID;
 @end
 
